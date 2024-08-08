@@ -28,15 +28,15 @@ const userSchema = new mongoose.Schema({
     },
     following: {
         type: [mongoose.SchemaTypes.ObjectId],
-        ref: User
+        ref: "User"
     },
     tbr: {
         type: [mongoose.SchemaTypes.ObjectId],
-        ref: Books
+        ref: "Books"
     },
     library: {
         type: [mongoose.SchemaTypes.ObjectId],
-        ref: Books
+        ref: "Books"
     }
 
 })
