@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Login from './routes/Login.tsx'
+import Homepage from './routes/Homepage.tsx'
 import Signup from './routes/Signup.tsx'
 import './index.css'
 import {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/homepage",
+    element: <Homepage />,
   },
 ]);
 

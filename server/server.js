@@ -4,10 +4,13 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const app = express()
+const cors = require('cors')
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-const db = mongoose.connect("mongodb://localhost/BookNest")
+mongoose.connect("mongodb://localhost/BookNest")
+
 app.use(session({
     secret: 'my-secret',
     resave: false,

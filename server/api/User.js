@@ -28,20 +28,31 @@ router.post('/signup', (req, res) => {
         })
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
+    const { username } = req.body
+    req.session.user = {
+        username,
+        isLoggedIn: true
+    }
     try {
-        const foundUser = await User.where("username").equals(req.body.username).where("password").equals(req.body.password).findOne()
-        if (foundUser === null) {
-            res.status(401).json({ error: 'Incorrect login credentials' })
-        }
-        req.session.user_id = foundUser.id
-        req.session.authorized = true
-        res.status(200).json({ success: 'Logged in' })
+        req.session.save()
+        console.log(req.session.user.username)
+    } catch (err) {
+        console.error('Error saving to session storage:', err)
+        return next(new Error('Error creating user'))
     }
-    catch (error) {
-        console.error(error)
-        res.status(500).json({ error: "Internal server error" })
+    res.status(200).send()
+})
+
+router.post('/logout', async (req, res, next) => {
+    try {
+        await req.session.destroy();
+    } catch (err) {
+        console.error('Error logging out:', err);
+        return next(new Error('Error logging out'));
     }
+
+    res.status(200).send();
 })
 
 
