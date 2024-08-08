@@ -1,9 +1,45 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import MobileHeader from "../components/MobileHeader"
 import Shelf from "../assets/Shelf.jpg"
 import Header from "../components/Header"
+import { useState } from "react"
 
 function App() {
+  const navigate = useNavigate()
+  const [username, setUsername] = useState<String>()
+  const [password, setPassword] = useState<String>()
+
+  function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setUsername(event.target.value)
+  }
+  function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value)
+  }
+
+  async function login() {
+    const data = {
+      username: username,
+      password: password
+    }
+    try {
+      const response = await fetch('http://localhost:3000/api/user/login', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        console.log('Success!')
+      } else {
+        console.log('Something went wrong!')
+      }
+    } catch (err) {
+      return console.error(err)
+    }
+    return navigate('/homepage')
+
+  }
 
   return (
     <div className="h-svh flex">
@@ -13,14 +49,14 @@ function App() {
         <div className="w-3/4 md:w-1/2 lg:w-3/4 flex flex-col items-center justify-center gap-4 ">
           <h1 className="text-3xl">Welcome Back!</h1>
           <div className="w-full">
-            <p className="text-lg">Email</p>
-            <input type="text" placeholder="you@email.com" className="border-book-green border rounded p-1 w-full" />
+            <p className="text-lg">Username</p>
+            <input type="text" placeholder="username" onChange={handleUsernameChange} className="border-book-green border rounded p-1 w-full" />
           </div>
           <div className="w-full">
             <p className="text-lg">Password</p>
-            <input type="password" placeholder="******" className="border-book-green border rounded p-1 w-full" />
+            <input type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded p-1 w-full" />
           </div>
-          <button className="bg-book-sage w-full py-2 rounded text-xl">Login</button>
+          <button className="bg-book-sage w-full py-2 rounded text-xl" onClick={login}>Login</button>
           <div className="flex gap-1">
             <p>Don't have an account?</p>
             <Link to={'/signup'} className="text-blue-500 hover:underline">Signup</Link>
