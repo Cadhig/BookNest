@@ -2,6 +2,16 @@ const express = require('express')
 const User = require('../models/User.js')
 const router = express.Router()
 
+router.get('/:username', (req, res) => {
+    User.find({ username: req.params.username })
+        .then((result) => {
+            return res.json(result)
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+})
+
 router.post('/signup', (req, res) => {
     const { username, password } = req.body
     User.create({
@@ -34,25 +44,6 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/findUser/:id', (req, res) => {
-    User.findById(req.params.id)
-        .then((result) => {
-            return res.json(result)
-        })
-        .catch((err) => {
-            console.error(err)
-        })
-})
-
-router.get('/tbr/:username', (req, res) => {
-    User.find({ username: req.params.username })
-        .then((result) => {
-            return res.json(result)
-        })
-        .catch((err) => {
-            console.error(err)
-        })
-})
 
 router.put('/changePass', async (req, res) => {
     const { password } = req.body

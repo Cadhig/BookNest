@@ -21,3 +21,5 @@ router.post('/tbr', (req, res) => {
             })
         })
 })
+
+module.exports = router
