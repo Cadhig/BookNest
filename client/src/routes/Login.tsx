@@ -4,7 +4,7 @@ import Shelf from "../assets/Shelf.jpg"
 import Header from "../components/Header"
 import { useState } from "react"
 
-function App() {
+function Login() {
   const navigate = useNavigate()
   const [username, setUsername] = useState<String>()
   const [password, setPassword] = useState<String>()
@@ -56,7 +56,7 @@ function App() {
             <p className="text-lg">Password</p>
             <input type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded p-1 w-full" />
           </div>
-          <button className="bg-book-sage w-full py-2 rounded text-xl" onClick={login}>Login</button>
+          <button className="bg-book-sage w-full py-2 rounded text-xl hover:bg-book-sage/90 active:bg-book-sage/80" onClick={login}>Login</button>
           <div className="flex gap-1">
             <p>Don't have an account?</p>
             <Link to={'/signup'} className="text-blue-500 hover:underline">Signup</Link>
@@ -69,4 +69,4 @@ function App() {
 
 }
 
-export default App
+export default Login
