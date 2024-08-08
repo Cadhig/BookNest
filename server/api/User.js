@@ -44,6 +44,16 @@ router.get('/findUser/:id', (req, res) => {
         })
 })
 
+router.get('/tbr/:username', (req, res) => {
+    User.find({ username: req.params.username })
+        .then((result) => {
+            return res.json(result)
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+})
+
 router.put('/changePass', async (req, res) => {
     const { password } = req.body
     await User.where(user_id).equals(req.session.user_id).updateOne({

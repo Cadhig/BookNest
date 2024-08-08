@@ -33,12 +33,7 @@ const userSchema = new mongoose.Schema({
     tbr: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Books"
-    },
-    library: {
-        type: [mongoose.SchemaTypes.ObjectId],
-        ref: "Books"
     }
-
 })
 
 module.exports = mongoose.model("User", userSchema)
