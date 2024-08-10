@@ -11,7 +11,7 @@ export default function BestSellers() {
     console.log(apiData)
 
     return (
-        <div className="flex flex-col justify-center md:w-1/4 w-full gap-3 h-1/2 overflow-auto m-2">
+        <div className="flex flex-col justify-center md:w-1/4 w-full gap-3 h-full overflow-auto">
             <p className="text-center text-xl text-book-dark">NYT Best Sellers This Week </p>
             <div className="flex flex-col overflow-auto gap-2">
                 {apiData && apiData.results.books.map((content, index) => {
