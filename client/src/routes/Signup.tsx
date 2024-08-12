@@ -9,25 +9,31 @@ export default function Signup() {
     const [username, setUsername] = useState<String>()
     const [password, setPassword] = useState<String>()
     const [verifyPassword, setVerifyPassword] = useState<String>()
+    const [alertClass, setAlertClass] = useState<String>('hidden')
+    const [alertType, setAlertType] = useState<String>()
 
     function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
     }
     function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
         setPassword(event.target.value)
+        setAlertClass('hidden')
     }
     function handleVerifyPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
         setVerifyPassword(event.target.value)
+        setAlertClass('hidden')
     }
 
-    let alert = 'hidden'
+    function Alerts(aClass: String, aType: String) {
+        setAlertClass(aClass)
+        setAlertType(aType)
+    }
+
 
     async function signup() {
         if (password !== verifyPassword) {
-            alert = 'block text-red-400'
-            return
+            return Alerts('inline text-red-500', "Passwords do not match!")
         }
-        alert = 'hidden'
         const data = {
             username: username,
             password: password
@@ -72,7 +78,7 @@ export default function Signup() {
                         <p className="text-lg">Password</p>
                         <input type="password" placeholder="******" onChange={handleVerifyPasswordChange} className="border-book-green border rounded p-1 w-full" />
                     </div>
-                    <p className={alert}>Passwords do not match!</p>
+                    <p className={alertClass}>{alertType}</p>
                     <button className="bg-book-sage w-full py-2 rounded text-xl hover:bg-book-sage/90 active:bg-book-sage/80" onClick={signup}>Signup</button>
                     <div className="flex gap-1">
                         <p>Already have an acccount?</p>
