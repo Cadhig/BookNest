@@ -1,5 +1,5 @@
 
-export interface ApiResponse {
+export interface NytBooks {
     status: string;
     copyright: string;
     num_results: number;
