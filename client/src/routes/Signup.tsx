@@ -6,11 +6,11 @@ import { useState } from "react"
 
 export default function Signup() {
     const navigate = useNavigate()
-    const [username, setUsername] = useState<String>()
-    const [password, setPassword] = useState<String>()
-    const [verifyPassword, setVerifyPassword] = useState<String>()
-    const [alertClass, setAlertClass] = useState<String>('hidden')
-    const [alertType, setAlertType] = useState<String>()
+    const [username, setUsername] = useState<string>()
+    const [password, setPassword] = useState<string>()
+    const [verifyPassword, setVerifyPassword] = useState<string>()
+    const [alertClass, setAlertClass] = useState<string>('hidden')
+    const [alertType, setAlertType] = useState<string>()
 
     function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
@@ -24,7 +24,7 @@ export default function Signup() {
         setAlertClass('hidden')
     }
 
-    function Alerts(aClass: String, aType: String) {
+    function Alerts(aClass: string, aType: string) {
         setAlertClass(aClass)
         setAlertType(aType)
     }

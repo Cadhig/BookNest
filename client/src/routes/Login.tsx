@@ -6,8 +6,8 @@ import { useState } from "react"
 
 function Login() {
   const navigate = useNavigate()
-  const [username, setUsername] = useState<String>()
-  const [password, setPassword] = useState<String>()
+  const [username, setUsername] = useState<string>()
+  const [password, setPassword] = useState<string>()
 
   function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setUsername(event.target.value)
