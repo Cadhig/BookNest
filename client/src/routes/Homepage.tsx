@@ -1,4 +1,5 @@
 import BestSellers from "../components/BestSellers"
+import Header from "../components/Header"
 import SearchBar from "../components/SearchBar"
 export default function Homepage() {
 
@@ -7,7 +8,10 @@ export default function Homepage() {
             <div className="md:w-1/4">
                 <BestSellers />
             </div>
-            <SearchBar />
+            <div className="flex flex-col w-full">
+                <Header />
+                <SearchBar />
+            </div>
         </div>
     )
 }

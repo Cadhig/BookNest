@@ -53,11 +53,9 @@ function Login() {
 
   return (
     <div className="h-svh flex">
-      <MobileHeader />
       <div className="h-full w-full flex flex-col items-center justify-center text-book-dark default-font flex-shrink-0 lg:w-1/2">
-        <Header />
         <div className="w-3/4 md:w-1/2 lg:w-3/4 flex flex-col items-center justify-center gap-4 ">
-          <h1 className="text-3xl">Welcome Back!</h1>
+          <h1 className="text-3xl">Welcome Back to Book Nest!</h1>
           <div className="w-full">
             <p className="text-lg">Username</p>
             <input type="text" placeholder="username" onChange={handleUsernameChange} className="border-book-green border rounded p-1 w-full" />
