@@ -8,12 +8,21 @@ function Login() {
   const navigate = useNavigate()
   const [username, setUsername] = useState<string>()
   const [password, setPassword] = useState<string>()
+  const [alertClass, setAlertClass] = useState<string>('hidden')
+  const [alert, setAlert] = useState<string>()
+
+  function displayAlert() {
+    setAlert("Incorrect credentials")
+    setAlertClass('inline text-red-500')
+  }
 
   function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setUsername(event.target.value)
+    setAlertClass('hidden')
   }
   function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value)
+    setAlertClass('hidden')
   }
 
   async function login() {
@@ -35,6 +44,7 @@ function Login() {
           return navigate('/homepage')
         } else {
           console.log(res)
+          displayAlert()
           return console.log('Something went wrong!')
         }
       })
@@ -57,6 +67,7 @@ function Login() {
             <input type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded p-1 w-full" />
           </div>
           <button className="bg-book-sage w-full py-2 rounded text-xl hover:bg-book-sage/90 active:bg-book-sage/80" onClick={login}>Login</button>
+          <div className={alertClass}>{alert}</div>
           <div className="flex gap-1">
             <p>Don't have an account?</p>
             <Link to={'/signup'} className="text-blue-500 hover:underline">Signup</Link>
