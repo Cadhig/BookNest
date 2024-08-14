@@ -1,6 +1,7 @@
 const express = require('express')
 const User = require('../models/User.js')
 const router = express.Router()
+const bcrypt = require('bcrypt')
 
 router.get('/:username', (req, res) => {
     User.find({ username: req.params.username })
@@ -12,11 +13,12 @@ router.get('/:username', (req, res) => {
         })
 })
 
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
     const { username, password } = req.body
+    const hash = await bcrypt.hash(password, 13)
     User.create({
         username: username,
-        password: password
+        password: hash
     })
         .then((response) => {
             return res.json(response)
@@ -29,19 +31,31 @@ router.post('/signup', (req, res) => {
 })
 
 router.post('/login', async (req, res, next) => {
-    const { username } = req.body
-    req.session.user = {
-        username,
-        isLoggedIn: true
-    }
-    try {
-        req.session.save()
-        console.log(req.session.user.username)
-    } catch (err) {
-        console.error('Error saving to session storage:', err)
-        return next(new Error('Error creating user'))
-    }
-    res.status(200).send()
+    const { username, password } = req.body
+    const user = User.findOne({ username: username })
+        .then(async (response) => {
+            if (!user) {
+                return res.send('User not found')
+            }
+            bcrypt.compare(password, response.password, function (err, result) {
+                if (result !== true) {
+                    return res.status(500).json(err)
+                }
+                req.session.user = {
+                    username,
+                    password,
+                    isLoggedIn: true
+                }
+                req.session.save()
+                console.log(req.session.user.username)
+                res.status(200).send()
+            })
+        })
+        .catch((err) => {
+            console.error(err)
+            res.status(400).json({ error: 'Internal Error' })
+            return
+        })
 })
 
 router.post('/logout', async (req, res, next) => {

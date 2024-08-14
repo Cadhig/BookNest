@@ -21,24 +21,24 @@ function Login() {
       username: username,
       password: password
     }
-    try {
-      const response = await fetch('http://localhost:3000/api/user/login', {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    await fetch('http://localhost:3000/api/user/login', {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log(res)
+          console.log('Success!')
+          return navigate('/homepage')
+        } else {
+          console.log(res)
+          return console.log('Something went wrong!')
+        }
       })
-      if (response.ok) {
-        console.log('Success!')
-      } else {
-        console.log('Something went wrong!')
-      }
-    } catch (err) {
-      return console.error(err)
-    }
-    return navigate('/homepage')
-
+      .catch((err) => console.error(err))
   }
 
   return (
