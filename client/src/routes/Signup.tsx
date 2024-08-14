@@ -14,6 +14,7 @@ export default function Signup() {
 
     function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
+        setAlertClass('hidden')
     }
     function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
         setPassword(event.target.value)
@@ -49,13 +50,14 @@ export default function Signup() {
             if (response.ok) {
                 window.alert('Account creation successful')
                 console.log('Success!')
+                return navigate('/')
             } else {
+                Alerts('inline text-red-500', 'Username taken!')
                 console.log('Something went wrong!')
             }
         } catch (err) {
             return console.error(err)
         }
-        return navigate('/')
 
     }
 
