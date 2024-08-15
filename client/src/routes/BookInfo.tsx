@@ -1,20 +1,33 @@
 import { useLocation } from "react-router-dom"
 import Header from "../components/Header"
+import { useState } from "react"
 import { ImAmazon, ImAppleinc } from "react-icons/im"
 import MobileHeader from "../components/MobileHeader"
 import BestSellers from "../components/BestSellers"
 import Reviews from "../components/Reviews"
 import Clubs from "../components/Clubs"
+import Sidebar from "../components/Sidebar"
 
 export default function BookInfo() {
     const location = useLocation()
     const { from } = location.state
-    console.log(from)
+    const [sidebar, setSidebar] = useState('hidden')
+
+    function toggleSidebar(val: boolean) {
+        if (val) {
+            setSidebar("absolute w-1/2 h-svh bg-book-sage w3-animate-left")
+        } else {
+            setSidebar('hidden')
+        }
+    }
+
+
 
     return (
         <div>
+            <Sidebar sidebar={sidebar} />
             <Header />
-            <MobileHeader />
+            <MobileHeader toggleSidebar={toggleSidebar} />
             <div className="flex">
                 <div className="hidden h-svh md:w-1/4 md:flex">
                     <BestSellers />

@@ -9,10 +9,9 @@ export default function Homepage() {
     const [sidebar, setSidebar] = useState('hidden')
 
     function toggleSidebar(val: boolean) {
-        if (val === true) {
-            setSidebar("absolute w-1/2 h-svh bg-book-green w3-animate-left ")
-        }
-        if (val === false) {
+        if (val) {
+            setSidebar("absolute w-1/2 h-svh bg-book-sage w3-animate-left")
+        } else {
             setSidebar('hidden')
         }
     }
