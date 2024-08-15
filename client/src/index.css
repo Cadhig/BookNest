@@ -14,3 +14,10 @@
   font-weight: 400;
   font-style: normal;
 }
+
+.sidebarStyles {
+  position: absolute;
+  width: 50%;
+  height: 100svh;
+  background-color: #B1C0A1;
+}

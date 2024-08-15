@@ -10,7 +10,7 @@ export default function Homepage() {
 
     function toggleSidebar(val: boolean) {
         if (val) {
-            setSidebar("absolute w-1/2 h-svh bg-book-sage w3-animate-left")
+            setSidebar("sidebarStyles w3-animate-left")
         } else {
             setSidebar('hidden')
         }
@@ -21,7 +21,7 @@ export default function Homepage() {
         <div>
             <Sidebar sidebar={sidebar} />
             <MobileHeader toggleSidebar={toggleSidebar} />
-            <div onClick={() => toggleSidebar(false)} className=" flex flex-col  md:flex-row m-2 h-svh">
+            <div onClick={() => toggleSidebar(false)} className="flex flex-col md:flex-row m-2 h-svh">
                 <div className="md:w-1/4 hidden md:flex">
                     <BestSellers />
                 </div>

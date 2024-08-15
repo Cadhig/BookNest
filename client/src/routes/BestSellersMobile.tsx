@@ -9,7 +9,7 @@ export default function BestSellersMobile() {
 
     function toggleSidebar(val: boolean) {
         if (val) {
-            setSidebar("absolute w-1/2 h-svh bg-book-sage w3-animate-left")
+            setSidebar("sidebarStyles w3-animate-left")
         } else {
             setSidebar('hidden')
         }
@@ -21,7 +21,9 @@ export default function BestSellersMobile() {
             <Sidebar sidebar={sidebar} />
             <Header />
             <MobileHeader toggleSidebar={toggleSidebar} />
-            <BestSellers />
+            <div onClick={() => toggleSidebar(false)}>
+                <BestSellers />
+            </div>
         </div>
     )
 }
