@@ -36,11 +36,11 @@ export default function SearchResults() {
             <Sidebar sidebar={sidebar} />
             <Header />
             <MobileHeader toggleSidebar={toggleSidebar} />
-            <div className="default-font m-2 flex flex-col items-center md:w-1/2" onClick={() => toggleSidebar(false)}>
+            <div className="default-font m-2 flex flex-col items-center " onClick={() => toggleSidebar(false)}>
                 <div className="text-center text-2xl">
                     <p>Results for '{from.book}'</p>
                 </div>
-                <div className="flex flex-col ">
+                <div className="flex flex-col w-full md:w-1/2">
                     {apiData && apiData.items.map((content, index) => {
                         return <div key={index} className="flex flex-col justify-center">
                             <div className="flex items-center gap-2 py-4 pl-2">

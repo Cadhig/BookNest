@@ -17,12 +17,10 @@ export default function Homepage() {
 
 
     return (
-        <div>
+        <div className="h-svh">
             <Sidebar sidebar={sidebar} />
             <MobileHeader toggleSidebar={toggleSidebar} />
-            <div onClick={() => toggleSidebar(false)} className="flex flex-col md:flex-row m-2 h-svh">
-                <div className="md:w-1/4 hidden md:flex">
-                </div>
+            <div onClick={() => toggleSidebar(false)} className="flex flex-col md:flex-row m-2 h-full">
                 <div className="flex flex-col w-full">
                     <Header />
                     <SearchBar />

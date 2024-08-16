@@ -4,9 +4,9 @@ import { useEffect, useState } from "react"
 import { ImAmazon } from "react-icons/im"
 import MobileHeader from "../components/MobileHeader"
 import Reviews from "../components/Reviews"
-import Clubs from "../components/Clubs"
 import Sidebar from "../components/Sidebar"
 import { GoogleBooks } from "../types"
+import SearchBar from "../components/SearchBar"
 
 export default function BookInfo() {
     const location = useLocation()
@@ -43,9 +43,10 @@ export default function BookInfo() {
             <Sidebar sidebar={sidebar} />
             <Header />
             <MobileHeader toggleSidebar={toggleSidebar} />
-            <div className="flex" onClick={() => toggleSidebar(false)}>
+            <SearchBar />
+            <div className="flex justify-center" onClick={() => toggleSidebar(false)}>
                 <div className="default-font md:w-1/2 m-2 flex flex-col items-center">
-                    <div className="flex flex-col gap-2 md:gap-4 md:w-full  items-center md:border md:border-book-green md:p-5">
+                    <div className="flex flex-col gap-2 md:gap-4 md:w-full items-center md:border md:border-book-green md:p-5">
                         <div className="flex gap-2">
                             <img src={apiData && apiData.items[0].volumeInfo.imageLinks?.thumbnail} alt={apiData && apiData.items[0].volumeInfo.title} className="w-32 h-64 md:w-64" />
                             <div className="flex flex-col gap-2 text-center items-center justify-between">
@@ -72,9 +73,6 @@ export default function BookInfo() {
                         </div>
                         <Reviews />
                     </div>
-                </div>
-                <div className="hidden md:w-1/4 md:flex">
-                    <Clubs />
                 </div>
             </div >
         </div>
