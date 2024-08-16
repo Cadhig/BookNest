@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import Login from './routes/Login.tsx'
 import Homepage from './routes/Homepage.tsx'
 import Signup from './routes/Signup.tsx'
-import BestSellersMobile from './routes/BestSellersMobile.tsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -28,10 +27,6 @@ const router = createBrowserRouter([
   {
     path: "/bookInfo",
     element: <BookInfo />,
-  },
-  {
-    path: "/bestSellers",
-    element: <BestSellersMobile />,
   },
   {
     path: "/results",

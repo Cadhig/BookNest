@@ -3,7 +3,6 @@ import Header from "../components/Header"
 import { useEffect, useState } from "react"
 import { ImAmazon } from "react-icons/im"
 import MobileHeader from "../components/MobileHeader"
-import BestSellers from "../components/BestSellers"
 import Reviews from "../components/Reviews"
 import Clubs from "../components/Clubs"
 import Sidebar from "../components/Sidebar"
@@ -12,11 +11,13 @@ import { GoogleBooks } from "../types"
 export default function BookInfo() {
     const location = useLocation()
     const { data } = location.state
-    console.log(data)
     const [sidebar, setSidebar] = useState('hidden')
     const [apiData, setApiData] = useState<GoogleBooks>()
     const squishedTitle = data.content.title.replace(/ /g, '').toLowerCase()
     const [bookTitle, setBookTitle] = useState(squishedTitle)
+    const isbnData = data.content.industryIdentifiers[0].identifier
+    console.log(isbnData)
+    const [isbn, setIsbn] = useState(isbnData)
 
 
     function toggleSidebar(val: boolean) {
@@ -29,11 +30,12 @@ export default function BookInfo() {
 
     useEffect(() => {
         setBookTitle(squishedTitle)
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
+        setIsbn(isbnData)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}+isbn:${isbn}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
             .then(res => res.json())
             .then(response => setApiData(response))
             .catch((err) => console.error(err))
-    }, [bookTitle])
+    }, [bookTitle, data])
 
     const amazonLink = `https://www.amazon.com/s?k=${apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
     return (
@@ -42,9 +44,6 @@ export default function BookInfo() {
             <Header />
             <MobileHeader toggleSidebar={toggleSidebar} />
             <div className="flex" onClick={() => toggleSidebar(false)}>
-                <div className="hidden h-svh md:w-1/4 md:flex">
-                    <BestSellers />
-                </div>
                 <div className="default-font md:w-1/2 m-2 flex flex-col items-center">
                     <div className="flex flex-col gap-2 md:gap-4 md:w-full  items-center md:border md:border-book-green md:p-5">
                         <div className="flex gap-2">
