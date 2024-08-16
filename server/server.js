@@ -3,7 +3,10 @@ const apiRoutes = require('./api')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const request = require('request')
+require('dotenv').config()
 const app = express()
+
 const cors = require('cors')
 
 app.use(cors())
@@ -19,6 +22,26 @@ app.use(session({
         mongoUrl: "mongodb://localhost/BookNest"
     })
 }));
+
+app.get('/nytApi', async (req, res) => {
+    request({
+        method: "GET",
+        uri: `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${process.env.NYT_API_KEY}`,
+    }, function (error, response, body) {
+        if (error) {
+            console.log(error)
+            return
+        }
+        const data = response.body
+        const apiData = JSON.parse(data)
+        if (response.statusCode === 200) {
+            return res.json({ apiData })
+        } else {
+            return console.log('error')
+        }
+    }
+    )
+})
 
 app.use(apiRoutes)
 

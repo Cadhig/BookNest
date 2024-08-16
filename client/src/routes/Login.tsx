@@ -1,7 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import MobileHeader from "../components/MobileHeader"
 import Shelf from "../assets/Shelf.jpg"
-import Header from "../components/Header"
 import { useState } from "react"
 
 function Login() {

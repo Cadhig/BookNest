@@ -4,7 +4,7 @@ import { GoogleBooks } from "../types"
 import Header from "../components/Header"
 import MobileHeader from "../components/MobileHeader"
 import Sidebar from "../components/Sidebar"
-import BestSellers from "../components/BestSellers"
+import { Link } from "react-router-dom"
 export default function SearchResults() {
     const location = useLocation()
     const { from } = location.state
@@ -13,7 +13,7 @@ export default function SearchResults() {
 
     const book = from.book.replace(/ /g, '').toLowerCase()
 
-    console.log(book)
+
     useEffect(() => {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${book}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
             .then(res => res.json())
@@ -21,6 +21,7 @@ export default function SearchResults() {
             .catch((err) => console.error(err))
     }, [])
 
+    console.log(apiData)
 
     function toggleSidebar(val: boolean) {
         if (val) {
@@ -31,26 +32,28 @@ export default function SearchResults() {
     }
 
     return (
-        <div className="default-font m-2 flex flex-col items-center">
+        <div>
             <Sidebar sidebar={sidebar} />
             <Header />
             <MobileHeader toggleSidebar={toggleSidebar} />
-            <div className="text-center text-2xl">
-                <p>Results for '{from.book}'</p>
-            </div>
-            <div className="flex flex-col md:w-1/2">
-                {apiData && apiData.items.map((content, index) => {
-                    return <div key={index} className="flex flex-col justify-center">
-                        <div className="flex items-center gap-2 py-4 pl-2">
-                            <img src={content.volumeInfo.imageLinks?.thumbnail} alt={content.volumeInfo.title} className="h-28 md:h-full" />
-                            <div>
-                                <p>{content.volumeInfo.title}</p>
-                                <p>{content.volumeInfo.authors}</p>
+            <div className="default-font m-2 flex flex-col items-center md:w-1/2" onClick={() => toggleSidebar(false)}>
+                <div className="text-center text-2xl">
+                    <p>Results for '{from.book}'</p>
+                </div>
+                <div className="flex flex-col ">
+                    {apiData && apiData.items.map((content, index) => {
+                        return <div key={index} className="flex flex-col justify-center">
+                            <div className="flex items-center gap-2 py-4 pl-2">
+                                <Link to={'/bookInfo'} state={{ from: 'search', data: { content: content.volumeInfo } }}> <img src={content.volumeInfo.imageLinks?.thumbnail} alt={content.volumeInfo.title} className="h-28 md:h-full" /></Link>
+                                <div>
+                                    <Link to={'/bookInfo'} state={{ from: 'search', data: { content: content.volumeInfo } }}><p>{content.volumeInfo.title}</p></Link>
+                                    <p>{content.volumeInfo.authors}</p>
+                                </div>
                             </div>
+                            <div className="w-full h-1 bg-book-sage"></div>
                         </div>
-                        <div className="w-full h-1 bg-book-sage"></div>
-                    </div>
-                })}
+                    })}
+                </div>
             </div>
         </div>
     )

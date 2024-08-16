@@ -1,5 +1,9 @@
 
 export interface NytBooks {
+    apiData: ApiData
+}
+
+interface ApiData {
     status: string;
     copyright: string;
     num_results: number;
