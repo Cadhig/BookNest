@@ -44,12 +44,14 @@ export default function BookInfo() {
                     <BestSellers />
                 </div>
                 <div className="default-font md:w-1/2 m-2 flex flex-col items-center">
-                    <div className="flex flex-col gap-2 md:gap-4 md:w-1/2  items-center md:border md:border-book-green md:p-5">
+                    <div className="flex flex-col gap-2 md:gap-4 md:w-full  items-center md:border md:border-book-green md:p-5">
                         <div className="flex gap-2">
                             <img src={apiData && apiData.items[0].volumeInfo.imageLinks.thumbnail} alt={apiData && apiData.items[0].volumeInfo.title} className="w-32 h-64 md:w-64" />
                             <div className="flex flex-col gap-2 text-center items-center justify-between">
                                 <p className="text-2xl">{apiData && apiData.items[0].volumeInfo.title}</p>
-                                <p>{apiData && apiData.items[0].volumeInfo.description}</p>
+                                <div className="h-60 overflow-auto">
+                                    <p>{apiData && apiData.items[0].volumeInfo.description}</p>
+                                </div>
                                 <div className="flex gap-4 justify-center">
                                     <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
                                     {/* <a href={from.content.buy_links[1].url} target="_blank" className="text-3xl"><ImAppleinc /></a> */}

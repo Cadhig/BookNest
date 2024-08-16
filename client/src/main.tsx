@@ -10,6 +10,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import BookInfo from './routes/BookInfo.tsx'
+import SearchResults from './routes/SearchResults.tsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/bestSellers",
     element: <BestSellersMobile />,
+  },
+  {
+    path: "/results",
+    element: <SearchResults />
   },
 ]);
 

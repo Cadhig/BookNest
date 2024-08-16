@@ -60,6 +60,12 @@ interface BuyLink {
     url: string;
 }
 
+export interface GoogleBooksResults {
+    kind: string;
+    totalItems: number;
+    items: GoogleBooks[];
+}
+
 export interface GoogleBooks {
     kind: string;
     totalItems: number;
