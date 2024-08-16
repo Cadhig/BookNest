@@ -2,29 +2,35 @@ import { useState } from "react"
 import Header from "../components/Header"
 import MobileHeader from "../components/MobileHeader"
 import SearchBar from "../components/SearchBar"
+import MobileMenu from "../components/MobileMenu"
+import CreatePost from "../components/CreatePost"
 import Sidebar from "../components/Sidebar"
 
 export default function Homepage() {
-    const [sidebar, setSidebar] = useState('hidden')
+    const [mobileMenu, setMobileMenu] = useState('hidden')
 
-    function toggleSidebar(val: boolean) {
+    function toggleMobileMenu(val: boolean) {
         if (val) {
-            setSidebar("sidebarStyles w3-animate-left")
+            setMobileMenu("mobileMenuStyles w3-animate-left")
         } else {
-            setSidebar('hidden')
+            setMobileMenu('hidden')
         }
     }
 
 
     return (
         <div className="h-svh">
-            <Sidebar sidebar={sidebar} />
-            <MobileHeader toggleSidebar={toggleSidebar} />
-            <div onClick={() => toggleSidebar(false)} className="flex flex-col md:flex-row m-2 h-full">
-                <div className="flex flex-col w-full">
-                    <Header />
-                    <SearchBar />
+            <MobileMenu mobileMenu={mobileMenu} />
+            <MobileHeader toggleMobileMenu={toggleMobileMenu} />
+            <Header />
+            <div onClick={() => toggleMobileMenu(false)} className="flex flex-col md:flex-row-reverse m-2 h-full">
+                <SearchBar />
+                <div className="flex flex-col w-1/2">
+                    <div className="md:border-x md:border-x-book-green h-svh md:w-full">
+                        <CreatePost />
+                    </div>
                 </div>
+                <Sidebar />
             </div>
         </div>
     )

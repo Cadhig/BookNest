@@ -4,14 +4,15 @@ import { useEffect, useState } from "react"
 import { ImAmazon } from "react-icons/im"
 import MobileHeader from "../components/MobileHeader"
 import Reviews from "../components/Reviews"
-import Sidebar from "../components/Sidebar"
+import MobileMenu from "../components/MobileMenu"
 import { GoogleBooks } from "../types"
 import SearchBar from "../components/SearchBar"
+import Sidebar from "../components/Sidebar"
 
 export default function BookInfo() {
     const location = useLocation()
     const { data } = location.state
-    const [sidebar, setSidebar] = useState('hidden')
+    const [mobileMenu, setMobileMenu] = useState('hidden')
     const [apiData, setApiData] = useState<GoogleBooks>()
     const squishedTitle = data.content.title.replace(/ /g, '').toLowerCase()
     const [bookTitle, setBookTitle] = useState(squishedTitle)
@@ -20,11 +21,11 @@ export default function BookInfo() {
     const [isbn, setIsbn] = useState(isbnData)
 
 
-    function toggleSidebar(val: boolean) {
+    function toggleMobileMenu(val: boolean) {
         if (val) {
-            setSidebar("sidebarStyles w3-animate-left")
+            setMobileMenu("mobileMenuStyles w3-animate-left")
         } else {
-            setSidebar('hidden')
+            setMobileMenu('hidden')
         }
     }
 
@@ -40,11 +41,11 @@ export default function BookInfo() {
     const amazonLink = `https://www.amazon.com/s?k=${apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
     return (
         <div>
-            <Sidebar sidebar={sidebar} />
+            <MobileMenu mobileMenu={mobileMenu} />
             <Header />
-            <MobileHeader toggleSidebar={toggleSidebar} />
-            <SearchBar />
-            <div className="flex justify-center" onClick={() => toggleSidebar(false)}>
+            <MobileHeader toggleMobileMenu={toggleMobileMenu} />
+            <div className="flex justify-center" onClick={() => toggleMobileMenu(false)}>
+                <Sidebar />
                 <div className="default-font md:w-1/2 m-2 flex flex-col items-center">
                     <div className="flex flex-col gap-2 md:gap-4 md:w-full items-center md:border md:border-book-green md:p-5">
                         <div className="flex gap-2">
@@ -74,6 +75,7 @@ export default function BookInfo() {
                         <Reviews />
                     </div>
                 </div>
+                <SearchBar />
             </div >
         </div>
     )

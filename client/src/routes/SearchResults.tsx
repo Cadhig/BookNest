@@ -3,13 +3,13 @@ import { useEffect, useState } from "react"
 import { GoogleBooks } from "../types"
 import Header from "../components/Header"
 import MobileHeader from "../components/MobileHeader"
-import Sidebar from "../components/Sidebar"
+import MobileMenu from "../components/MobileMenu"
 import { Link } from "react-router-dom"
 export default function SearchResults() {
     const location = useLocation()
     const { from } = location.state
     const [apiData, setApiData] = useState<GoogleBooks>()
-    const [sidebar, setSidebar] = useState('hidden')
+    const [mobileMenu, setMobileMenu] = useState('hidden')
 
     const book = from.book.replace(/ /g, '').toLowerCase()
 
@@ -23,20 +23,20 @@ export default function SearchResults() {
 
     console.log(apiData)
 
-    function toggleSidebar(val: boolean) {
+    function toggleMobileMenu(val: boolean) {
         if (val) {
-            setSidebar("sidebarStyles w3-animate-left")
+            setMobileMenu("mobileMenuStyles w3-animate-left")
         } else {
-            setSidebar('hidden')
+            setMobileMenu('hidden')
         }
     }
 
     return (
         <div>
-            <Sidebar sidebar={sidebar} />
+            <MobileMenu mobileMenu={mobileMenu} />
             <Header />
-            <MobileHeader toggleSidebar={toggleSidebar} />
-            <div className="default-font m-2 flex flex-col items-center " onClick={() => toggleSidebar(false)}>
+            <MobileHeader toggleMobileMenu={toggleMobileMenu} />
+            <div className="default-font m-2 flex flex-col items-center " onClick={() => toggleMobileMenu(false)}>
                 <div className="text-center text-2xl">
                     <p>Results for '{from.book}'</p>
                 </div>

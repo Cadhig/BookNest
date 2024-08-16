@@ -1,17 +1,9 @@
-import { Link } from "react-router-dom"
-interface SidebarProps {
-    sidebar: string
-}
-export default function Sidebar(props: SidebarProps) {
 
+export default function Sidebar() {
 
     return (
-        <div className={props.sidebar}>
-            <Link to={'/bestSellers'}>
-                <div className=" m-2 p-2 text-center bg-book-green text-book-light ">
-                    <p>NYT Bestsellers</p>
-                </div>
-            </Link>
+        <div className="hidden md:flex md:w-1/4">
+            sidebar
         </div>
     )
 }
