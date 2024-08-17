@@ -8,6 +8,11 @@ import MobileMenu from "../components/MobileMenu"
 import { GoogleBooks } from "../types"
 import SearchBar from "../components/SearchBar"
 import Sidebar from "../components/Sidebar"
+import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
+
+
+
+
 
 export default function BookInfo() {
     const location = useLocation()
@@ -19,7 +24,17 @@ export default function BookInfo() {
     const isbnData = data.content.industryIdentifiers[0].identifier
     console.log(isbnData)
     const [isbn, setIsbn] = useState(isbnData)
+    const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
+    const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
 
+    function switchBookmark() {
+        setBookmarkStatus(!bookmarkStatus)
+        if (bookmarkStatus === true) {
+            setBookmark(<IoBookmark />)
+        } else {
+            setBookmark(<IoBookmarkOutline />)
+        }
+    }
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -51,7 +66,10 @@ export default function BookInfo() {
                         <div className="flex gap-2">
                             <img src={apiData && apiData.items[0].volumeInfo.imageLinks?.thumbnail} alt={apiData && apiData.items[0].volumeInfo.title} className="w-32 h-64 md:w-64" />
                             <div className="flex flex-col gap-2 text-center items-center justify-between">
-                                <p className="text-2xl">{apiData && apiData.items[0].volumeInfo.title}</p>
+                                <div className="flex w-full justify-center gap-2">
+                                    <p className=" text-end text-2xl">{apiData && apiData.items[0].volumeInfo.title}</p>
+                                    <p className="text-3xl text-end" onClick={() => switchBookmark()}>{bookmark}</p>
+                                </div>
                                 <div className="h-60 overflow-auto">
                                     <p>{apiData && apiData.items[0].volumeInfo.description}</p>
                                 </div>
