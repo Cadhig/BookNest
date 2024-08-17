@@ -18,8 +18,8 @@ const postSchema = new mongoose.Schema({
         get: formatDate
     },
     username: {
-        type: [mongoose.SchemaTypes.String],
-        userId: [mongoose.SchemaType.ObjectId],
+        type: mongoose.SchemaTypes.String,
+        userId: mongoose.SchemaType.ObjectId,
         ref: "User"
     },
     // comments: [commentSchema]

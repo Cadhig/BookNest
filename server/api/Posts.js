@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Posts = require('../models/Posts.js');
+const User = require('../models/User.js');
 
 router.get('/', (req, res) => {
-    if (!req.session.user_id) {
+    if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
     Posts.find()
@@ -21,12 +22,15 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const { postText } = req.body
-    if (!req.session.user_id) {
+    console.log(postText)
+    console.log(req.session.user.username)
+    if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    Posts.where("user_id").equals(req.session.user_id).create({
+    Posts.create({
         postText: postText,
-        user_id: req.session.user_id
+        username: req.session.user.username,
+        userId: req.session.user_id
     })
         .then((result) => {
             return res.status(200).json(result)

@@ -34,6 +34,7 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include"
     })
       .then((res) => {
         if (res.ok) {

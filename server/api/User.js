@@ -3,6 +3,11 @@ const User = require('../models/User.js')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
+router.get('/logtest', async (req, res) => {
+    req.session.views ? req.session.views++ : req.session.views = 1;
+    return res.json(`works! ${req.session.views} views`);
+})
+
 router.get('/:username', (req, res) => {
     User.find({ username: req.params.username })
         .then((result) => {
@@ -30,31 +35,32 @@ router.post('/signup', async (req, res) => {
         })
 })
 
+
 router.post('/login', async (req, res, next) => {
     const { username, password } = req.body
-    const user = User.findOne({ username: username })
-        .then(async (response) => {
-            if (!user) {
-                return res.send('User not found')
-            }
-            bcrypt.compare(password, response.password, function (err, result) {
-                if (result !== true) {
-                    return res.status(500).json(err)
-                }
-                req.session.user = {
-                    username,
-                    password,
-                    isLoggedIn: true
-                }
-                req.session.save()
-                res.status(200).send()
-            })
-        })
-        .catch((err) => {
-            console.error(err)
-            res.status(400).json({ error: 'Internal Error' })
-            return
-        })
+    try {
+        const user = await User.findOne({ username: username })
+        if (!user) {
+            return res.send('User not found')
+        }
+        const passwordMatch = await bcrypt.compare(password, user.password)
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'invalid credentials' })
+        }
+        req.session.user_id = user._id
+        req.session.user = {
+            uuid: req.sessionID,
+            username,
+            password,
+            isLoggedIn: true
+        }
+        console.log(req.session)
+        console.log(req.session.user_id)
+        req.session.save()
+        res.status(200).send()
+    } catch (err) {
+        return res.status(500).json(err)
+    }
 })
 
 router.post('/logout', async (req, res, next) => {
