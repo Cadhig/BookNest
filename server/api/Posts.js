@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    Posts.find()
+    Posts.find().sort({ createdAt: -1 })
         .then((result) => {
             return res.status(200).json(result)
         })
