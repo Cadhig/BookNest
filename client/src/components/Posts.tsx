@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
 import { PostsType } from "../types"
 import placeholder from '../assets/profile.jpg'
-export default function Posts() {
+
+interface postType {
+    postCreated: boolean
+}
+export default function Posts(props: postType) {
     const [postData, setPostData] = useState<PostsType>()
 
     useEffect(() => {
@@ -9,7 +13,7 @@ export default function Posts() {
             .then(res => res.json())
             .then(response => setPostData(response))
             .catch(err => console.error(err))
-    }, [])
+    }, [props.postCreated])
 
     console.log(postData)
 

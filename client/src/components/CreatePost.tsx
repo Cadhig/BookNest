@@ -1,7 +1,12 @@
 import { BiImage } from 'react-icons/bi'
 import profile from '../assets/profile.jpg'
 import { useState } from 'react'
-export default function CreatePost() {
+
+interface postType {
+    postCreated: boolean,
+    setPostCreated: (value: boolean) => void
+}
+export default function CreatePost(props: postType) {
     const [postText, setPostText] = useState<string>()
     async function sendPost() {
         const data = {
@@ -16,6 +21,7 @@ export default function CreatePost() {
             credentials: "include"
         })
             .then((response) => {
+                props.setPostCreated(!props.postCreated)
                 console.log(response)
             })
             .catch((err) => {
