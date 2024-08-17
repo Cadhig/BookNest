@@ -159,3 +159,13 @@ interface Epub {
 interface Pdf {
     isAvailable: boolean;
 }
+
+export type PostsType = Post[];
+
+interface Post {
+    createdAt: string;
+    postText: string;
+    username: string;
+    _id: string;
+    __v: number;
+}

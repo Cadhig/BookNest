@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar"
 import MobileMenu from "../components/MobileMenu"
 import CreatePost from "../components/CreatePost"
 import Sidebar from "../components/Sidebar"
+import Posts from "../components/Posts"
 
 export default function Homepage() {
     const [mobileMenu, setMobileMenu] = useState('hidden')
@@ -28,6 +29,7 @@ export default function Homepage() {
                 <div className="flex flex-col md:w-1/2 w-full">
                     <div className="md:border-x md:border-x-book-green h-svh w-full">
                         <CreatePost />
+                        <Posts />
                     </div>
                 </div>
                 <Sidebar />
