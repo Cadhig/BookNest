@@ -27,13 +27,45 @@ export default function BookInfo() {
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
 
+    useEffect(() => {
+        setBookTitle(squishedTitle)
+        setIsbn(isbnData)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}+isbn:${isbn}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
+            .then(res => res.json())
+            .then(response => setApiData(response))
+            .catch((err) => console.error(err))
+    }, [bookTitle, data])
+
     function switchBookmark() {
         setBookmarkStatus(!bookmarkStatus)
         if (bookmarkStatus === true) {
             setBookmark(<IoBookmark />)
+            addBook()
+
         } else {
             setBookmark(<IoBookmarkOutline />)
         }
+    }
+
+    async function addBook() {
+        const data = {
+            bookName: apiData && apiData.items[0].volumeInfo.title,
+            bookIsbn: apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier
+        }
+        await fetch('http://localhost:3000/api/books/saved', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
     }
 
     function toggleMobileMenu(val: boolean) {
@@ -43,15 +75,6 @@ export default function BookInfo() {
             setMobileMenu('hidden')
         }
     }
-
-    useEffect(() => {
-        setBookTitle(squishedTitle)
-        setIsbn(isbnData)
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}+isbn:${isbn}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
-            .then(res => res.json())
-            .then(response => setApiData(response))
-            .catch((err) => console.error(err))
-    }, [bookTitle, data])
 
     const amazonLink = `https://www.amazon.com/s?k=${apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
     return (
@@ -75,7 +98,6 @@ export default function BookInfo() {
                                 </div>
                                 <div className="flex gap-4 justify-center">
                                     <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
-                                    {/* <a href={from.content.buy_links[1].url} target="_blank" className="text-3xl"><ImAppleinc /></a> */}
                                 </div>
                             </div>
                         </div>

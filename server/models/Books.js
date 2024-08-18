@@ -5,14 +5,19 @@ function formatDate(createdAt) {
 }
 
 const bookSchema = new mongoose.Schema({
-    bookUrl: {
+    bookName: {
         type: String,
         required: true
     },
-    bookId: {
+    bookIsbn: {
         type: String,
         required: true
-    }
+    },
+    username: {
+        type: mongoose.SchemaTypes.String,
+        userId: mongoose.SchemaType.ObjectId,
+        ref: "User"
+    },
 
 })
 

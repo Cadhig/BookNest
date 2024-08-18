@@ -2,14 +2,16 @@ const express = require('express');
 const router = express.Router();
 const Books = require('../models/Books.js')
 
-router.post('/tbr', (req, res) => {
-    const { bookUrl, bookId } = req.body
-    if (!req.session.user_id) {
+router.post('/saved', (req, res) => {
+    const { bookName, bookIsbn } = req.body
+
+    if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    Books.where("user_id").equals(req.session.user_id).create({
-        bookUrl: bookUrl,
-        bookId: bookId
+    Books.create({
+        bookName: bookName,
+        bookIsbn: bookIsbn,
+        username: req.session.user.username
     })
         .then((result) => {
             return res.status(200).json(result)
@@ -17,7 +19,7 @@ router.post('/tbr', (req, res) => {
         .catch((err) => {
             console.error(err)
             return res.status(400).json({
-                message: 'Could add book'
+                message: 'Could not add book'
             })
         })
 })

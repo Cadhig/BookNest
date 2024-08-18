@@ -22,8 +22,6 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const { postText } = req.body
-    console.log(postText)
-    console.log(req.session.user.username)
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }

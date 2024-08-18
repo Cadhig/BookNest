@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "User"
     },
-    tbr: {
+    saved: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Books"
     }
