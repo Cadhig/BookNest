@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import BookInfo from './routes/BookInfo.tsx'
 import SearchResults from './routes/SearchResults.tsx'
+import Settings from './routes/Settings.tsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/results",
     element: <SearchResults />
+  },
+  {
+    path: "/settings",
+    element: <Settings />
   },
 ]);
 

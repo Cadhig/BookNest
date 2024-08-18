@@ -1,16 +1,19 @@
 import { BsPersonCircle, BsFillHouseFill, BsFillBellFill, BsEnvelopeFill } from "react-icons/bs";
 import { IoBookmarks, IoSettingsSharp } from "react-icons/io5";
 import { GiBookCover } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
 
     return (
         <div className="hidden md:flex md:w-1/4 ml-2 h-full">
             <div className="flex flex-col gap-10">
-                <div className="flex items-center gap-2">
-                    <BsFillHouseFill className="text-4xl" />
-                    <p className="text-xl">Home</p>
-                </div>
+                <Link to={'/homepage'}>
+                    <div className="flex items-center gap-2">
+                        <BsFillHouseFill className="text-4xl" />
+                        <p className="text-xl">Home</p>
+                    </div>
+                </Link>
                 <div className="flex items-center gap-2">
                     <BsFillBellFill className="text-4xl" />
                     <p className="text-xl">Notifications</p>
@@ -31,9 +34,12 @@ export default function Sidebar() {
                     <BsPersonCircle className="text-4xl" />
                     <p className="text-xl">Profile</p>
                 </div>
-                <div className="flex items-center gap-2">
-                    <IoSettingsSharp className="text-4xl" />
-                </div>
+                <Link to={'/settings'}>
+                    <div className="flex items-center gap-2">
+                        <IoSettingsSharp className="text-4xl" />
+                        <p className="text-xl">Settings</p>
+                    </div>
+                </Link>
             </div>
         </div>
     )
