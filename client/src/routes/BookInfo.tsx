@@ -44,6 +44,7 @@ export default function BookInfo() {
 
         } else {
             setBookmark(<IoBookmarkOutline />)
+            removeBook()
         }
     }
 
@@ -54,6 +55,26 @@ export default function BookInfo() {
         }
         await fetch('http://localhost:3000/api/books/saved', {
             method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+    }
+
+    async function removeBook() {
+        const data = {
+            bookIsbn: apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier
+        }
+        await fetch('http://localhost:3000/api/books/unsave', {
+            method: 'DELETE',
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",

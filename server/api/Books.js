@@ -19,7 +19,24 @@ router.post('/saved', (req, res) => {
         .catch((err) => {
             console.error(err)
             return res.status(400).json({
-                message: 'Could not add book'
+                message: 'Failure saving book'
+            })
+        })
+})
+
+router.delete('/unsave', (req, res) => {
+    const { bookIsbn } = req.body
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    Books.findOneAndDelete({ bookIsbn: bookIsbn, username: req.session.user.username })
+        .then((result) => {
+            return res.status(200).json(result)
+        })
+        .catch((err) => {
+            console.error(err)
+            return res.status(400).json({
+                message: 'Failure removing book'
             })
         })
 })
