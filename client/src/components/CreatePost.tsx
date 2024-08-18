@@ -3,8 +3,8 @@ import profile from '../assets/profile.jpg'
 import { useState } from 'react'
 
 interface postType {
-    postCreated: boolean,
-    setPostCreated: (value: boolean) => void
+    refreshFeed: boolean,
+    setRefreshFeed: (value: boolean) => void
 }
 export default function CreatePost(props: postType) {
     const [postText, setPostText] = useState<string>()
@@ -21,7 +21,7 @@ export default function CreatePost(props: postType) {
             credentials: "include"
         })
             .then((response) => {
-                props.setPostCreated(!props.postCreated)
+                props.setRefreshFeed(!props.refreshFeed)
                 console.log(response)
             })
             .catch((err) => {

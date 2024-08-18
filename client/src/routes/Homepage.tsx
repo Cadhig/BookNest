@@ -9,7 +9,7 @@ import Posts from "../components/Posts"
 
 export default function Homepage() {
     const [mobileMenu, setMobileMenu] = useState('hidden')
-    const [postCreated, setPostCreated] = useState(false)
+    const [refreshFeed, setRefreshFeed] = useState(false)
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -29,8 +29,8 @@ export default function Homepage() {
                 <SearchBar />
                 <div className="flex flex-col md:w-1/2 w-full">
                     <div className="md:border-x md:border-x-book-green h-svh w-full">
-                        <CreatePost setPostCreated={setPostCreated} postCreated={postCreated} />
-                        <Posts postCreated={postCreated} />
+                        <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
+                        <Posts refreshFeed={refreshFeed} />
                     </div>
                 </div>
                 <Sidebar />

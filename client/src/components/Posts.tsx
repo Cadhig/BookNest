@@ -3,7 +3,7 @@ import { PostsType } from "../types"
 import placeholder from '../assets/profile.jpg'
 
 interface postType {
-    postCreated: boolean
+    refreshFeed: boolean
 }
 export default function Posts(props: postType) {
     const [postData, setPostData] = useState<PostsType>()
@@ -13,7 +13,7 @@ export default function Posts(props: postType) {
             .then(res => res.json())
             .then(response => setPostData(response))
             .catch(err => console.error(err))
-    }, [props.postCreated])
+    }, [props.refreshFeed])
 
     console.log(postData)
 
