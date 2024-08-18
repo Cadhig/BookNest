@@ -27,8 +27,8 @@ export default function Homepage() {
             <Header />
             <div onClick={() => toggleMobileMenu(false)} className="flex flex-col md:flex-row-reverse m-2 h-full">
                 <SearchBar />
-                <div className="flex flex-col md:w-1/2 w-full">
-                    <div className="md:border-x md:border-x-book-green h-svh w-full">
+                <div className="flex flex-col md:w-1/2 w-full h-full">
+                    <div className="md:border-x md:border-x-book-green h-full w-full">
                         <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
                         <Posts refreshFeed={refreshFeed} />
                     </div>

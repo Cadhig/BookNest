@@ -99,11 +99,11 @@ export default function BookInfo() {
 
     const amazonLink = `https://www.amazon.com/s?k=${apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
     return (
-        <div>
+        <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
             <Header />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <div className="flex justify-center" onClick={() => toggleMobileMenu(false)}>
+            <div className="flex flex-col-reverse md:flex-row justify-center  md:gap-0 gap-3" onClick={() => toggleMobileMenu(false)}>
                 <Sidebar />
                 <div className="default-font md:w-1/2 m-2 flex flex-col items-center">
                     <div className="flex flex-col gap-2 md:gap-4 md:w-full items-center md:border md:border-book-green md:p-5">
