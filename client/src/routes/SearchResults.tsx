@@ -38,9 +38,9 @@ export default function SearchResults() {
             <MobileMenu mobileMenu={mobileMenu} />
             <Header />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <div className="flex">
+            <div className="flex flex-col-reverse md:flex-row">
                 <Sidebar />
-                <div className="default-font m-2 w-1/2 flex flex-col items-center h-1/4" onClick={() => toggleMobileMenu(false)}>
+                <div className="default-font w-full md:w-1/2 flex flex-col items-center h-1/4" onClick={() => toggleMobileMenu(false)}>
                     <div className="text-center text-2xl">
                         <p>Results for '{from.book}'</p>
                     </div>

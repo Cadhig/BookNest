@@ -18,7 +18,7 @@ export default function Posts(props: postType) {
     console.log(postData)
 
     return (
-        <div className="flex flex-col mx-2 gap-4 h-full overflow-auto">
+        <div className="flex flex-col mx-2 gap-4 max-h-full overflow-auto">
             {postData && postData.map((content, index) => {
                 return <div className="flex flex-col justify-center gap-4" key={index}>
                     <div className="flex flex-col gap-2">
