@@ -4,8 +4,10 @@ import MobileMenu from "../components/MobileMenu";
 import Sidebar from "../components/Sidebar";
 import placeholder from '../assets/profile.jpg'
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
+    const navigate = useNavigate()
     const [mobileMenu, setMobileMenu] = useState<string>('hidden')
     const [showPassword, setShowPassword] = useState<string>('hidden')
     const [oldPassword, setOldPassword] = useState<string>()
@@ -86,6 +88,7 @@ export default function Settings() {
             .catch((err) => console.error(err))
     }
 
+
     async function changeLocation() {
         const data = {
             location: location
@@ -132,6 +135,26 @@ export default function Settings() {
                     console.log(res)
                     setAlertClass('inline text-red-500 text-lg')
                     setAlertText('Something went wrong!')
+                    return
+                }
+            })
+            .catch((err) => console.error(err))
+    }
+
+    async function Logout() {
+        await fetch('http://localhost:3000/api/user/logout', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then((res) => {
+                if (res.ok) {
+                    console.log('success')
+                    return navigate('/')
+                } else {
+                    console.log(res)
                     return
                 }
             })
@@ -205,7 +228,7 @@ export default function Settings() {
                             </div>
                         </div>
                         <button className="text-xl">Display</button>
-                        <button className="bg-red-600 text-book-light rounded-full py-2 px-4">Logout</button>
+                        <button className="bg-red-600 text-book-light rounded-full py-2 px-4" onClick={() => Logout()}>Logout</button>
                     </div>
                 </div>
             </div>
