@@ -11,6 +11,11 @@ export default function Settings() {
     const [showBio, setShowBio] = useState<string>('hidden')
     const [showLocation, setShowLocation] = useState<string>('hidden')
     const [showBirthday, setShowBirthday] = useState<string>('hidden')
+    const [alertClass, setAlertClass] = useState<string>('hidden')
+    const [alertText, setAlertText] = useState<string>()
+    const [oldPassword, setOldPassword] = useState<string>()
+    const [newPassword, setNewPassword] = useState<string>()
+    const [confirmNewPassword, setConfirmNewPassword] = useState<string>()
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -20,6 +25,38 @@ export default function Settings() {
         }
     }
 
+    async function changePassword() {
+        if (newPassword !== confirmNewPassword) {
+            setAlertClass('inline text-red-500 text-lg')
+            setAlertText('Passwords do not match!')
+            return
+        }
+        const data = {
+            oldPassword: oldPassword,
+            password: newPassword
+        }
+        await fetch('http://localhost:3000/api/user/changePass', {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then((res) => {
+                if (res.ok) {
+                    setAlertClass('inline text-book-green text-lg')
+                    setAlertText('Password update successful!')
+                } else {
+                    console.log(res)
+                    setAlertClass('inline text-red-500 text-lg')
+                    setAlertText('Old password invalid')
+                    return console.log('Something went wrong!')
+                }
+            })
+            .catch((err) => console.error(err))
+
+    }
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
@@ -35,10 +72,11 @@ export default function Settings() {
                         <div className="flex flex-col gap-4">
                             <button className="text-xl hover:underline" onClick={() => setShowPassword('flex flex-col gap-4')}>Edit Password</button>
                             <div className={showPassword}>
-                                <input type="password" placeholder="Old password" className="border border-book-green rounded-full p-2" />
-                                <input type="password" placeholder="New password" className="border border-book-green rounded-full p-2" />
-                                <input type="password" placeholder="Confirm new password" className="border border-book-green rounded-full p-2" />
-                                <button className="bg-book-green text-book-light p-2 rounded-full">Submit</button>
+                                <input type="password" placeholder="Old password" className="border border-book-green rounded-full p-2" onChange={(e) => setOldPassword(e.target.value)} />
+                                <input type="password" placeholder="New password" className="border border-book-green rounded-full p-2" onChange={(e) => setNewPassword(e.target.value)} />
+                                <input type="password" placeholder="Confirm new password" className="border border-book-green rounded-full p-2" onChange={(e) => setConfirmNewPassword(e.target.value)} />
+                                <p className={alertClass}>{alertText}</p>
+                                <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changePassword()}>Submit</button>
                                 <button className="text-sm text-red-500" onClick={() => setShowPassword('hidden')}>close</button>
                             </div>
                         </div>

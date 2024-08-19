@@ -3,11 +3,6 @@ const User = require('../models/User.js')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
-router.get('/logtest', async (req, res) => {
-    req.session.views ? req.session.views++ : req.session.views = 1;
-    return res.json(`works! ${req.session.views} views`);
-})
-
 router.get('/:username', (req, res) => {
     User.find({ username: req.params.username })
         .then((result) => {
@@ -64,6 +59,9 @@ router.post('/login', async (req, res, next) => {
 })
 
 router.post('/logout', async (req, res, next) => {
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
     try {
         await req.session.destroy();
     } catch (err) {
@@ -76,10 +74,19 @@ router.post('/logout', async (req, res, next) => {
 
 
 router.put('/changePass', async (req, res) => {
-    const { password } = req.body
-    await User.where(user_id).equals(req.session.user_id).updateOne({
-        password: password,
-    })
+    const { password, oldPassword } = req.body
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    const user = await User.findOne({ username: req.session.user.username })
+    console.log(user)
+    console.log(req.session.user.password)
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password)
+    if (!passwordMatch) {
+        return res.status(401).json({ error: 'previous password invalid' })
+    }
+    const hash = await bcrypt.hash(password, 13)
+    await User.findOneAndUpdate({ username: user.username }, { password: hash })
         .then(() => {
             return res.status(200).json({ message: "Password Updated!" })
         })
