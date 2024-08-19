@@ -98,16 +98,16 @@ router.put('/changePass', async (req, res) => {
 
 router.put('/location', async (req, res) => {
     const { location } = req.body
-    await User.where(user_id).equals(req.session.user_id).updateOne({
-        location: location,
-    })
+    const user = await User.findOne({ username: req.session.user.username })
+
+    await User.findOneAndUpdate({ username: user.username }, { location: location })
         .then(() => {
-            return res.status(200).json({ message: "Location Updated!" })
+            return res.status(200).json({ message: "Location updated!" })
         })
         .catch((err) => {
             console.error(err);
             return res.status(400).json({
-                message: 'Cannot Update location!'
+                message: 'Cannot Update Location!'
             })
         })
 })

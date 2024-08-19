@@ -14,6 +14,7 @@ export default function Settings() {
     const [showBio, setShowBio] = useState<string>('hidden')
     const [bio, setBio] = useState<string>()
     const [showLocation, setShowLocation] = useState<string>('hidden')
+    const [location, setLocation] = useState<string>()
     const [showBirthday, setShowBirthday] = useState<string>('hidden')
     const [alertClass, setAlertClass] = useState<string>('hidden')
     const [alertText, setAlertText] = useState<string>()
@@ -83,6 +84,33 @@ export default function Settings() {
             })
             .catch((err) => console.error(err))
     }
+
+    async function changeLocation() {
+        const data = {
+            location: location
+        }
+        await fetch('http://localhost:3000/api/user/location', {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then((res) => {
+                if (res.ok) {
+                    setAlertClass('inline text-book-green text-lg')
+                    setAlertText('Location update successful!')
+                } else {
+                    console.log(res)
+                    setAlertClass('inline text-red-500 text-lg')
+                    setAlertText('Something went wrong!')
+                    return
+                }
+            })
+            .catch((err) => console.error(err))
+    }
+
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
@@ -126,9 +154,13 @@ export default function Settings() {
                         <div className="flex flex-col gap-4">
                             <button className="text-xl" onClick={() => setShowLocation('flex flex-col gap-4')}>Edit Location</button>
                             <div className={showLocation}>
-                                <input type="text" placeholder="Location" className="border border-book-green rounded-full p-2" />
-                                <button className="bg-book-green text-book-light p-2 rounded-full">Submit</button>
-                                <button className="text-sm text-red-500" onClick={() => setShowLocation('hidden')}>close</button>
+                                <input type="text" placeholder="Location" className="border border-book-green rounded-full p-2" onChange={(e) => setLocation(e.target.value)} />
+                                <p className={alertClass}>{alertText}</p>
+                                <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changeLocation()}>Submit</button>
+                                <button className="text-sm text-red-500" onClick={() => {
+                                    setShowLocation('hidden')
+                                    setAlertClass('hidden')
+                                }}>close</button>
                             </div>
                         </div>
                         {/* Birthday */}
