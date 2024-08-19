@@ -34,10 +34,12 @@ export default function MobileMenu(props: MobileMenuProps) {
                         <GiBookCover className="text-4xl" />
                         <p className="text-xl">Clubs</p>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <BsPersonCircle className="text-4xl" />
-                        <p className="text-xl">Profile</p>
-                    </div>
+                    <Link to={'/profile'} state={{ from: 'user' }}>
+                        <div className="flex items-center gap-2">
+                            <BsPersonCircle className="text-4xl" />
+                            <p className="text-xl">Profile</p>
+                        </div>
+                    </Link>
                     <Link to={'/settings'}>
                         <div className="flex items-center gap-2">
                             <IoSettingsSharp className="text-4xl" />

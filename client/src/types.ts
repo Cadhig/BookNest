@@ -169,3 +169,15 @@ interface Post {
     _id: string;
     __v: number;
 }
+
+export interface User {
+    bio: string;
+    birthday: string;
+    createdAt: string;
+    following: User[];
+    posts: Post[];
+    saved: string[];
+    username: string;
+    _id: string;
+    __v: number;
+}

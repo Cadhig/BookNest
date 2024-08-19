@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { PostsType } from "../types"
 import placeholder from '../assets/profile.jpg'
+import { Link } from "react-router-dom"
 
 interface postType {
     refreshFeed: boolean
@@ -23,9 +24,13 @@ export default function Posts(props: postType) {
                 return <div className="flex flex-col justify-center gap-4" key={index}>
                     <div className="flex flex-col gap-2">
                         <div className="flex gap-2 ">
-                            <img src={placeholder} alt="" className="h-10 rounded-full" />
+                            <Link to={'/profile'} state={{ from: content.username }}>
+                                <img src={placeholder} alt="" className="h-10 rounded-full" />
+                            </Link>
                             <div className="flex flex-col">
-                                <p className="hover:underline cursor-pointer">@{content.username}</p>
+                                <Link to={'/profile'} state={{ from: content.username }}>
+                                    <p className="hover:underline cursor-pointer">@{content.username}</p>
+                                </Link>
                                 <p>{content.postText}</p>
                             </div>
                         </div>
