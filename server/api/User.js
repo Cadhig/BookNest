@@ -79,8 +79,6 @@ router.put('/changePass', async (req, res) => {
         return res.status(401).json({ error: "Unauthorized" })
     }
     const user = await User.findOne({ username: req.session.user.username })
-    console.log(user)
-    console.log(req.session.user.password)
     const passwordMatch = await bcrypt.compare(oldPassword, user.password)
     if (!passwordMatch) {
         return res.status(401).json({ error: 'previous password invalid' })
@@ -116,16 +114,16 @@ router.put('/location', async (req, res) => {
 
 router.put('/bio', async (req, res) => {
     const { bio } = req.body
-    await User.where(user_id).equals(req.session.user_id).updateOne({
-        bio: bio,
-    })
+    const user = await User.findOne({ username: req.session.user.username })
+
+    await User.findOneAndUpdate({ username: user.username }, { bio: bio })
         .then(() => {
-            return res.status(200).json({ message: "Bio Updated!" })
+            return res.status(200).json({ message: "Bio updated!" })
         })
         .catch((err) => {
             console.error(err);
             return res.status(400).json({
-                message: 'Cannot Update bio!'
+                message: 'Cannot Update Bio!'
             })
         })
 })

@@ -8,14 +8,15 @@ import { useState } from "react";
 export default function Settings() {
     const [mobileMenu, setMobileMenu] = useState<string>('hidden')
     const [showPassword, setShowPassword] = useState<string>('hidden')
+    const [oldPassword, setOldPassword] = useState<string>()
+    const [newPassword, setNewPassword] = useState<string>()
+    const [confirmNewPassword, setConfirmNewPassword] = useState<string>()
     const [showBio, setShowBio] = useState<string>('hidden')
+    const [bio, setBio] = useState<string>()
     const [showLocation, setShowLocation] = useState<string>('hidden')
     const [showBirthday, setShowBirthday] = useState<string>('hidden')
     const [alertClass, setAlertClass] = useState<string>('hidden')
     const [alertText, setAlertText] = useState<string>()
-    const [oldPassword, setOldPassword] = useState<string>()
-    const [newPassword, setNewPassword] = useState<string>()
-    const [confirmNewPassword, setConfirmNewPassword] = useState<string>()
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -55,7 +56,32 @@ export default function Settings() {
                 }
             })
             .catch((err) => console.error(err))
+    }
 
+    async function changeBio() {
+        const data = {
+            bio: bio
+        }
+        await fetch('http://localhost:3000/api/user/bio', {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then((res) => {
+                if (res.ok) {
+                    setAlertClass('inline text-book-green text-lg')
+                    setAlertText('Bio update successful!')
+                } else {
+                    console.log(res)
+                    setAlertClass('inline text-red-500 text-lg')
+                    setAlertText('Something went wrong!')
+                    return
+                }
+            })
+            .catch((err) => console.error(err))
     }
     return (
         <div className="h-svh">
@@ -77,16 +103,23 @@ export default function Settings() {
                                 <input type="password" placeholder="Confirm new password" className="border border-book-green rounded-full p-2" onChange={(e) => setConfirmNewPassword(e.target.value)} />
                                 <p className={alertClass}>{alertText}</p>
                                 <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changePassword()}>Submit</button>
-                                <button className="text-sm text-red-500" onClick={() => setShowPassword('hidden')}>close</button>
+                                <button className="text-sm text-red-500" onClick={() => {
+                                    setAlertClass('hidden')
+                                    setShowPassword('hidden')
+                                }}>close</button>
                             </div>
                         </div>
                         {/* bio */}
                         <div className="flex flex-col gap-4">
                             <button className="text-xl" onClick={() => setShowBio('flex flex-col gap-4')}>Edit Bio</button>
                             <div className={showBio}>
-                                <input type="text" placeholder="About you...." className="border border-book-green rounded-full p-2" />
-                                <button className="bg-book-green text-book-light p-2 rounded-full">Submit</button>
-                                <button className="text-sm text-red-500" onClick={() => setShowBio('hidden')}>close</button>
+                                <input type="text" placeholder="About you...." className="border border-book-green rounded-full p-2" onChange={(e) => setBio(e.target.value)} />
+                                <p className={alertClass}>{alertText}</p>
+                                <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changeBio()}>Submit</button>
+                                <button className="text-sm text-red-500" onClick={() => {
+                                    setShowBio('hidden')
+                                    setAlertClass('hidden')
+                                }}>close</button>
                             </div>
                         </div>
                         {/* location */}
