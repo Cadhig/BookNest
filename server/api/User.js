@@ -128,4 +128,20 @@ router.put('/bio', async (req, res) => {
         })
 })
 
+router.put('/birthday', async (req, res) => {
+    const { birthday } = req.body
+    const user = await User.findOne({ username: req.session.user.username })
+
+    await User.findOneAndUpdate({ username: user.username }, { birthday: birthday })
+        .then(() => {
+            return res.status(200).json({ message: "Birthday updated!" })
+        })
+        .catch((err) => {
+            console.error(err);
+            return res.status(400).json({
+                message: 'Cannot Update Birthday!'
+            })
+        })
+})
+
 module.exports = router

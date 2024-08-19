@@ -16,6 +16,7 @@ export default function Settings() {
     const [showLocation, setShowLocation] = useState<string>('hidden')
     const [location, setLocation] = useState<string>()
     const [showBirthday, setShowBirthday] = useState<string>('hidden')
+    const [birthday, setBirthday] = useState<string>()
     const [alertClass, setAlertClass] = useState<string>('hidden')
     const [alertText, setAlertText] = useState<string>()
 
@@ -111,6 +112,33 @@ export default function Settings() {
             .catch((err) => console.error(err))
     }
 
+    async function changeBirthday() {
+        const data = {
+            birthday: birthday
+        }
+        await fetch('http://localhost:3000/api/user/birthday', {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then((res) => {
+                if (res.ok) {
+                    setAlertClass('inline text-book-green text-lg')
+                    setAlertText('Birthday update successful!')
+                } else {
+                    console.log(res)
+                    setAlertClass('inline text-red-500 text-lg')
+                    setAlertText('Something went wrong!')
+                    return
+                }
+            })
+            .catch((err) => console.error(err))
+    }
+
+
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
@@ -167,9 +195,13 @@ export default function Settings() {
                         <div className="flex flex-col gap-4">
                             <button className="text-xl" onClick={() => setShowBirthday('flex flex-col gap-4')}>Edit Birthday</button>
                             <div className={showBirthday}>
-                                <input type="text" placeholder="Birthday" className="border border-book-green rounded-full p-2" />
-                                <button className="bg-book-green text-book-light p-2 rounded-full">Submit</button>
-                                <button className="text-sm text-red-500" onClick={() => setShowBirthday('hidden')}>close</button>
+                                <input type="text" placeholder="Birthday" className="border border-book-green rounded-full p-2" onChange={(e) => setBirthday(e.target.value)} />
+                                <p className={alertClass}>{alertText}</p>
+                                <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changeBirthday()}>Submit</button>
+                                <button className="text-sm text-red-500" onClick={() => {
+                                    setShowBirthday('hidden')
+                                    setAlertClass('hidden')
+                                }}>close</button>
                             </div>
                         </div>
                         <button className="text-xl">Display</button>

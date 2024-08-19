@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
     location: {
         type: String
     },
+    birthday: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: () => Date.now(),
