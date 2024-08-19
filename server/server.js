@@ -29,7 +29,6 @@ app.use(session({
     saveUninitialized: true,
     store: MongoStore.create({
         mongoUrl: "mongodb://localhost/BookNest",
-        client: mongoose.connection.getClient()
     })
 }));
 

@@ -11,6 +11,7 @@ import {
 import BookInfo from './routes/BookInfo.tsx'
 import SearchResults from './routes/SearchResults.tsx'
 import Settings from './routes/Settings.tsx'
+import Profile from './routes/Profile.tsx'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/settings",
     element: <Settings />
+  },
+  {
+    path: "/profile",
+    element: <Profile />
   },
 ]);
 

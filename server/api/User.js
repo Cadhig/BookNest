@@ -3,8 +3,22 @@ const User = require('../models/User.js')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
-router.get('/:username', (req, res) => {
-    User.find({ username: req.params.username })
+router.post('/profile', (req, res) => {
+    const { username } = req.body
+    console.log(username)
+    if (username === 'user') {
+        console.log('here1')
+        User.find({ username: req.session.user.username }).select("-password")
+            .then((result) => {
+                console.log(result)
+                return res.status(200).send(result)
+            })
+            .catch((err) => {
+                return console.error(err)
+            })
+        return
+    }
+    User.find({ username: username })
         .then((result) => {
             return res.json(result)
         })
@@ -42,16 +56,12 @@ router.post('/login', async (req, res, next) => {
         if (!passwordMatch) {
             return res.status(401).json({ error: 'invalid credentials' })
         }
-        req.session.user_id = user._id
         req.session.user = {
             uuid: req.sessionID,
             username,
             password,
             isLoggedIn: true
         }
-        console.log(req.session)
-        console.log(req.session.user_id)
-        req.session.save()
         res.status(200).send()
     } catch (err) {
         return res.status(500).json(err)
