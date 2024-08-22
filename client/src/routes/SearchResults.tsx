@@ -23,8 +23,6 @@ export default function SearchResults() {
             .catch((err) => console.error(err))
     }, [])
 
-    console.log(apiData)
-
     function toggleMobileMenu(val: boolean) {
         if (val) {
             setMobileMenu("mobileMenuStyles w3-animate-left")

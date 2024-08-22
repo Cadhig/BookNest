@@ -19,22 +19,22 @@ export default function BookInfo() {
     const { data } = location.state
     const [mobileMenu, setMobileMenu] = useState('hidden')
     const [apiData, setApiData] = useState<GoogleBooks>()
-    const squishedTitle = data.content.title.replace(/ /g, '').toLowerCase()
-    const [bookTitle, setBookTitle] = useState(squishedTitle)
+
     const isbnData = data.content.industryIdentifiers[0].identifier
-    console.log(isbnData)
     const [isbn, setIsbn] = useState(isbnData)
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
 
+    console.log(isbnData)
+
     useEffect(() => {
-        setBookTitle(squishedTitle)
         setIsbn(isbnData)
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}+isbn:${isbn}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
             .then(res => res.json())
             .then(response => setApiData(response))
             .catch((err) => console.error(err))
-    }, [bookTitle, data])
+    }, [data])
+    console.log(apiData && apiData)
 
     function switchBookmark() {
         setBookmarkStatus(!bookmarkStatus)
