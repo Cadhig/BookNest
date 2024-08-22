@@ -20,25 +20,26 @@ router.get('/', (req, res) => {
 
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const { postText } = req.body
+    console.log(req.session)
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    Posts.create({
-        postText: postText,
-        username: req.session.user.username,
-        userId: req.session.user_id
-    })
-        .then((result) => {
-            return res.status(200).json(result)
+    try {
+        const newPost = await Posts.create({
+            postText: postText,
+            username: req.session.user.username,
+            userId: req.session.user.uuid
         })
-        .catch((err) => {
-            console.error(err)
-            return res.status(400).json({
-                message: 'Could not create post!'
-            })
+        await User.findOneAndUpdate({ username: newPost.username }, {
+            $push: { posts: newPost._id }
         })
+        return res.status(200).json(newPost);
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not create post!' });
+    }
 })
 
 module.exports = router
