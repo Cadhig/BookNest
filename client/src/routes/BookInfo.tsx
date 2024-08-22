@@ -51,7 +51,8 @@ export default function BookInfo() {
     async function addBook() {
         const data = {
             bookName: apiData && apiData.items[0].volumeInfo.title,
-            bookIsbn: apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier
+            bookIsbn: apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier,
+            bookImage: apiData && apiData.items[0].volumeInfo.imageLinks?.thumbnail
         }
         await fetch('http://localhost:3000/api/books/saved', {
             method: 'POST',

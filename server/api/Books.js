@@ -1,44 +1,48 @@
 const express = require('express');
 const router = express.Router();
 const Books = require('../models/Books.js')
+const User = require('../models/User.js');
 
-router.post('/saved', (req, res) => {
-    const { bookName, bookIsbn } = req.body
+router.post('/saved', async (req, res) => {
+    const { bookName, bookIsbn, bookImage } = req.body
 
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    Books.create({
-        bookName: bookName,
-        bookIsbn: bookIsbn,
-        username: req.session.user.username
-    })
-        .then((result) => {
-            return res.status(200).json(result)
+    try {
+        const newBook = await Books.create({
+            bookName: bookName,
+            bookIsbn: bookIsbn,
+            bookImage: bookImage,
+            username: req.session.user.username
         })
-        .catch((err) => {
-            console.error(err)
-            return res.status(400).json({
-                message: 'Failure saving book'
-            })
+        await User.findOneAndUpdate({ username: newBook.username }, {
+            $push: { saved: newBook._id }
         })
+        return res.status(200).json(newBook);
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not save book!' });
+    }
+
 })
 
-router.delete('/unsave', (req, res) => {
+router.delete('/unsave', async (req, res) => {
     const { bookIsbn } = req.body
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    Books.findOneAndDelete({ bookIsbn: bookIsbn, username: req.session.user.username })
-        .then((result) => {
-            return res.status(200).json(result)
+    try {
+        const removeBook = await Books.findOneAndDelete({ bookIsbn: bookIsbn, username: req.session.user.username })
+        await User.findOneAndUpdate({ username: removeBook.username }, {
+            $pull: { saved: removeBook._id }
         })
-        .catch((err) => {
-            console.error(err)
-            return res.status(400).json({
-                message: 'Failure removing book'
-            })
-        })
+        return res.status(200).json(removeBook);
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not remove book!' });
+    }
 })
 
 module.exports = router

@@ -13,6 +13,10 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    bookImage: {
+        type: String,
+        required: true
+    },
     username: {
         type: mongoose.SchemaTypes.String,
         userId: mongoose.SchemaType.ObjectId,
