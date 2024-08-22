@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Posts = require('./Posts.js')
+const Books = require('./Books.js')
 
 function formatDate(createdAt) {
     return createdAt.toString()
@@ -31,15 +32,11 @@ const userSchema = new mongoose.Schema({
         get: formatDate
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
-
     following: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "User"
     },
-    saved: {
-        type: [mongoose.SchemaTypes.ObjectId],
-        ref: "Books"
-    }
+    books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Books' }],
 })
 
 module.exports = mongoose.model("User", userSchema)

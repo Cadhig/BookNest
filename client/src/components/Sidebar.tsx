@@ -22,10 +22,12 @@ export default function Sidebar() {
                     <BsEnvelopeFill className="text-4xl" />
                     <p className="text-xl">Messages</p>
                 </div>
-                <div className="flex items-center gap-2">
-                    <IoBookmarks className="text-4xl" />
-                    <p className="text-xl">Bookmarks</p>
-                </div>
+                <Link to={'/bookmarks'} state={{ from: 'user' }}>
+                    <div className="flex items-center gap-2">
+                        <IoBookmarks className="text-4xl" />
+                        <p className="text-xl">Bookmarks</p>
+                    </div>
+                </Link>
                 <div className="flex items-center gap-2">
                     <GiBookCover className="text-4xl" />
                     <p className="text-xl">Clubs</p>

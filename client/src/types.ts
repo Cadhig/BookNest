@@ -176,7 +176,7 @@ export interface User {
     createdAt: string;
     following: User[];
     posts: Post[];
-    saved: string[];
+    books: string[];
     username: string;
     _id: string;
     __v: number;

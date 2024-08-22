@@ -12,6 +12,7 @@ import BookInfo from './routes/BookInfo.tsx'
 import SearchResults from './routes/SearchResults.tsx'
 import Settings from './routes/Settings.tsx'
 import Profile from './routes/Profile.tsx'
+import Bookmarks from './routes/Bookmarks.tsx'
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />
+  },
+  {
+    path: "/bookmarks",
+    element: <Bookmarks />
   },
 ]);
 

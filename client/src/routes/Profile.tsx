@@ -60,6 +60,7 @@ export default function Profile() {
             })
             .catch((err) => console.error(err))
     }
+
     useEffect(() => {
         fetchData()
     }, [])
@@ -121,7 +122,7 @@ export default function Profile() {
 
 
 import { BsEnvelopeFill } from 'react-icons/bs'
-import { json } from "stream/consumers"
+import { IoBookmarks } from 'react-icons/io5'
 
 interface ProfileUser {
     from: string
@@ -149,6 +150,9 @@ function CoverAndProfilePicture(props: ProfileUser) {
                 <img src={profile} alt="profile" className='rounded-full size-24' />
             </div>
             <div className={showInteractionButtons}>
+                <div className="bg-book-green flex items-center rounded-full p-2">
+                    <IoBookmarks className="text-2xl text-book-light" />
+                </div>
                 <div className="bg-book-green flex items-center rounded-full p-2">
                     <BsEnvelopeFill className="text-2xl text-book-light" />
                 </div>

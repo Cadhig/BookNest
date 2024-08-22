@@ -17,7 +17,7 @@ router.post('/saved', async (req, res) => {
             username: req.session.user.username
         })
         await User.findOneAndUpdate({ username: newBook.username }, {
-            $push: { saved: newBook._id }
+            $push: { books: newBook._id }
         })
         return res.status(200).json(newBook);
     } catch (err) {
@@ -35,7 +35,7 @@ router.delete('/unsave', async (req, res) => {
     try {
         const removeBook = await Books.findOneAndDelete({ bookIsbn: bookIsbn, username: req.session.user.username })
         await User.findOneAndUpdate({ username: removeBook.username }, {
-            $pull: { saved: removeBook._id }
+            $pull: { books: removeBook._id }
         })
         return res.status(200).json(removeBook);
     }
