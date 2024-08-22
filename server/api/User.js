@@ -1,30 +1,39 @@
 const express = require('express')
 const User = require('../models/User.js')
+const Posts = require('../models/Posts.js')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
-router.post('/profile', (req, res) => {
+router.post('/profile', async (req, res) => {
     const { username } = req.body
     console.log(username)
     if (username === 'user') {
-        console.log('here1')
-        User.find({ username: req.session.user.username }).select("-password")
-            .then((result) => {
-                console.log(result)
-                return res.status(200).send(result)
-            })
-            .catch((err) => {
-                return console.error(err)
-            })
-        return
+        try {
+            const user = await User.find({ username: req.session.user.username }).select("-password")
+                .populate({ path: 'posts', strictPopulate: false })
+                .exec()
+            console.log(user)
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            return res.status(200).json(user);
+        } catch (err) {
+            console.error(err);
+            return res.status(400).json({ message: 'Could not retrieve posts' });
+        }
     }
-    User.find({ username: username })
-        .then((result) => {
-            return res.json(result)
-        })
-        .catch((err) => {
-            console.error(err)
-        })
+    try {
+        const user = await User.find({ username: username }).select("-password").populate({ path: 'posts', strictPopulate: false }).exec()
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        return res.status(200).json(user);
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not retrieve posts' });
+    }
+
 })
 
 router.post('/signup', async (req, res) => {

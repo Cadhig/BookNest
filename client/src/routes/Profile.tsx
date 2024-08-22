@@ -93,6 +93,7 @@ export default function Profile() {
 
 
 import { BsEnvelopeFill } from 'react-icons/bs'
+import { json } from "stream/consumers"
 
 interface ProfileUser {
     from: string

@@ -16,8 +16,6 @@ export default function Posts(props: postType) {
             .catch(err => console.error(err))
     }, [props.refreshFeed])
 
-    console.log(postData)
-
     return (
         <div className="flex flex-col mx-2 gap-4 max-h-full overflow-auto">
             {postData && postData.map((content, index) => {

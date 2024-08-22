@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const commentSchema = require('./Comments.js')
+const User = require('./User.js')
 
 function formatDate(createdAt) {
     return createdAt.toString()
@@ -25,4 +26,4 @@ const postSchema = new mongoose.Schema({
     // comments: [commentSchema]
 })
 
-module.exports = mongoose.model("Post", postSchema)
+module.exports = mongoose.model("Posts", postSchema)

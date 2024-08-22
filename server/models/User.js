@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Posts = require('./Posts.js')
 
 function formatDate(createdAt) {
     return createdAt.toString()
@@ -29,10 +30,8 @@ const userSchema = new mongoose.Schema({
         default: () => Date.now(),
         get: formatDate
     },
-    posts: {
-        type: [mongoose.SchemaTypes.ObjectId],
-        ref: "Posts"
-    },
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
+
     following: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "User"
