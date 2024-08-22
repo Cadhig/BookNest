@@ -162,7 +162,7 @@ interface Pdf {
 
 export type PostsType = Post[];
 
-interface Post {
+export interface Post {
     createdAt: string;
     postText: string;
     username: string;

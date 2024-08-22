@@ -8,14 +8,17 @@ import MobileHeader from "../components/MobileHeader"
 import Sidebar from "../components/Sidebar"
 import SearchBar from "../components/SearchBar"
 import { FaCakeCandles, FaLocationDot } from "react-icons/fa6";
+import { Post } from "../types"
+
 
 export default function Profile() {
     const location = useLocation()
     const { from } = location.state
     const [apiData, setApiData] = useState<any>()
-    const [mobileMenu, setMobileMenu] = useState('hidden')
-    const [hideLocation, setHideLocation] = useState('flex gap-2 items-center')
-    const [hideBirthday, setHideBirthday] = useState('flex gap-2 items-center')
+    const [mobileMenu, setMobileMenu] = useState<string>('hidden')
+    const [hideLocation, setHideLocation] = useState<string>('flex gap-2 items-center')
+    const [hideBirthday, setHideBirthday] = useState<string>('flex gap-2 items-center')
+    const [postAlert, setPostAlert] = useState<string>('hidden')
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -47,6 +50,9 @@ export default function Profile() {
                     }
                     if (jsonData[0].birthday === undefined) {
                         setHideBirthday('hidden')
+                    }
+                    if (jsonData[0].posts[0] === undefined) {
+                        setPostAlert('inline text-lg text-black/50 text-center')
                     }
                 } else {
                     console.log(res)
@@ -83,6 +89,28 @@ export default function Profile() {
                                 <p>{apiData && apiData[0].birthday}</p>
                             </div>
                         </div>
+                    </div>
+                    <div className="flex flex-col mx-2 gap-4 max-h-full overflow-auto">
+                        <p className={postAlert}>No posts yet!</p>
+                        {apiData && apiData[0].posts.map((content: Post, index: number) => {
+                            return <div className="flex flex-col justify-center gap-4" key={index}>
+                                <div className="flex flex-col gap-2">
+                                    <div className="flex gap-2 ">
+                                        <Link to={'/profile'} state={{ from: content.username }}>
+                                            <img src={profile} alt="" className="h-10 rounded-full" />
+                                        </Link>
+                                        <div className="flex flex-col">
+                                            <Link to={'/profile'} state={{ from: content.username }}>
+                                                <p className="hover:underline cursor-pointer">@{content.username}</p>
+                                            </Link>
+                                            <p>{content.postText}</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-right text-xs">{content.createdAt}</p>
+                                </div>
+                                <div className="h-[1px] bg-book-green"></div>
+                            </div>
+                        })}
                     </div>
                 </div>
                 <SearchBar />
