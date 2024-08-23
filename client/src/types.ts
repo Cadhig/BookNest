@@ -181,3 +181,12 @@ export interface User {
     _id: string;
     __v: number;
 }
+
+export interface Bookmarked {
+    bookImage: string;
+    bookIsbn: string;
+    bookName: string;
+    username: string;
+    _id: string;
+    __v: number;
+}

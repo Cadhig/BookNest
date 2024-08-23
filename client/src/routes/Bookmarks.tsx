@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, Link } from "react-router-dom"
+import { Bookmarked } from "../types"
 
 export default function BookList() {
     const location = useLocation()
@@ -36,7 +37,16 @@ export default function BookList() {
     console.log(apiData)
     return (
         <div>
-            book list
+            <div>
+                {apiData && apiData[0].books.map((content: Bookmarked, index: number) => {
+                    return <div key={index}>
+                        <Link to={'/bookinfo'} state={{ data: content.bookIsbn, from: 'bookmarks' }}>
+                            <img src={content.bookImage} alt="" />
+                            <p>{content.bookName}</p>
+                        </Link>
+                    </div>
+                })}
+            </div>
         </div>
     )
 }

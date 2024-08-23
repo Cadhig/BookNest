@@ -19,7 +19,6 @@ export default function BookInfo() {
     const { data } = location.state
     const [mobileMenu, setMobileMenu] = useState('hidden')
     const [apiData, setApiData] = useState<GoogleBooks>()
-
     const isbnData = data.content.industryIdentifiers[0].identifier
     const [isbn, setIsbn] = useState(isbnData)
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
