@@ -46,9 +46,9 @@ export default function SearchResults() {
                         {apiData && apiData.items.map((content, index) => {
                             return <div key={index} className="flex flex-col justify-center">
                                 <div className="flex items-center gap-2 py-4 pl-2">
-                                    <Link to={'/bookInfo'} state={{ from: 'search', data: { content: content.volumeInfo } }}> <img src={content.volumeInfo.imageLinks?.thumbnail} alt={content.volumeInfo.title} className="h-28 md:h-full" /></Link>
+                                    <Link to={'/bookInfo'} state={{ from: 'search', data: content.volumeInfo }}> <img src={content.volumeInfo.imageLinks?.thumbnail} alt={content.volumeInfo.title} className="h-28 md:h-full" /></Link>
                                     <div>
-                                        <Link to={'/bookInfo'} state={{ from: 'search', data: { content: content.volumeInfo } }}><p>{content.volumeInfo.title}</p></Link>
+                                        <Link to={'/bookInfo'} state={{ from: 'search', data: content.volumeInfo }}><p>{content.volumeInfo.title}</p></Link>
                                         <p>{content.volumeInfo.authors}</p>
                                     </div>
                                 </div>

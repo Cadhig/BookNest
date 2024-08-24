@@ -17,9 +17,10 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 export default function BookInfo() {
     const location = useLocation()
     const { data } = location.state
+    console.log(data)
     const [mobileMenu, setMobileMenu] = useState('hidden')
     const [apiData, setApiData] = useState<GoogleBooks>()
-    const isbnData = data.content.industryIdentifiers[0].identifier
+    const isbnData = data.industryIdentifiers[0].identifier
     const [isbn, setIsbn] = useState(isbnData)
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
