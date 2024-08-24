@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function Sidebar() {
 
     return (
-        <div className="hidden md:flex md:w-1/4 ml-2 h-full">
+        <div className="hidden md:flex md:w-1/4 ml-2 h-full default-font">
             <div className="flex flex-col gap-10">
                 <Link to={'/homepage'}>
                     <div className="flex items-center gap-2">

@@ -1,12 +1,27 @@
 import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Bookmarked } from "../types"
+import MobileHeader from "../components/MobileHeader"
+import Header from "../components/Header"
+import Sidebar from "../components/Sidebar"
+import MobileMenu from "../components/MobileMenu"
+import SearchBar from "../components/SearchBar"
 
 export default function BookList() {
     const navigate = useNavigate()
     const location = useLocation()
-    const { from, data } = location.state
+    const { from } = location.state
     const [apiData, setApiData] = useState<any>()
+    const [mobileMenu, setMobileMenu] = useState<string>('hidden')
+    const [noBookmarks, setNoBookmarks] = useState<string>('hidden')
+
+    function toggleMobileMenu(val: boolean) {
+        if (val) {
+            setMobileMenu("mobileMenuStyles w3-animate-left")
+        } else {
+            setMobileMenu('hidden')
+        }
+    }
 
     async function fetchData() {
         const data = {
@@ -52,18 +67,34 @@ export default function BookList() {
 
     useEffect(() => {
         fetchData()
+        if (apiData && apiData[0].books.length < 1) {
+            setNoBookmarks('w-full text-center mt-2')
+        }
     }, [])
 
     console.log(apiData)
     return (
-        <div>
-            <div>
-                {apiData && apiData[0].books.map((content: Bookmarked, index: number) => {
-                    return <div key={index} onClick={() => viewBookInfo(content.bookIsbn)}>
-                        <img src={content.bookImage} alt="" />
-                        <p>{content.bookName}</p>
+        <div className="h-svh default-font text-book-dark">
+            <MobileMenu mobileMenu={mobileMenu} />
+            <MobileHeader toggleMobileMenu={toggleMobileMenu} />
+            <Header />
+            <div className="flex flex-col-reverse gap-2 md:flex-row">
+                <Sidebar />
+                <div className="w-full md:w-1/2">
+                    <p className="text-center text-xl">{apiData && apiData[0].username}'s Saved Books</p>
+                    <div className={noBookmarks}>
+                        <p className="inline text-black/50 text-xl">No saved books yet!</p>
                     </div>
-                })}
+                    <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 m-2" onClick={() => toggleMobileMenu(false)}>
+                        {apiData && apiData[0].books.map((content: Bookmarked, index: number) => {
+                            return <div key={index} onClick={() => viewBookInfo(content.bookIsbn)}>
+                                <img src={content.bookImage} alt="" />
+                                <p>{content.bookName}</p>
+                            </div>
+                        })}
+                    </div>
+                </div>
+                <SearchBar />
             </div>
         </div>
     )

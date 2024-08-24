@@ -10,10 +10,6 @@ import SearchBar from "../components/SearchBar"
 import Sidebar from "../components/Sidebar"
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 
-
-
-
-
 export default function BookInfo() {
     const location = useLocation()
     const { data } = location.state
