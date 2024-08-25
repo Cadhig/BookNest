@@ -63,7 +63,7 @@ export default function Profile() {
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [from])
     console.log(apiData)
 
     return (
@@ -137,7 +137,7 @@ function CoverAndProfilePicture(props: ProfileUser) {
         } else {
             setShowInteractionButtons('w-full flex justify-end p-4 gap-4')
         }
-    }, [])
+    }, [props.from])
 
     // setTimeout(() => {
     //     setShowMessage(false);
