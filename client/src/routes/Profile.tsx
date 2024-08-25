@@ -22,7 +22,7 @@ export default function Profile() {
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
-            setMobileMenu("mobileMenuStyles w3-animate-left")
+            setMobileMenu("absolute z-30 mobileMenuStyles w3-animate-left")
         } else {
             setMobileMenu('hidden')
         }
@@ -145,8 +145,8 @@ function CoverAndProfilePicture(props: ProfileUser) {
 
     return (
         <div className='relative h-80 defaultFont'>
-            <img src={backdrop} alt="cover" className='relative h-64 w-full object-cover mx-auto' />
-            <div className='rounded-full size-28 flex items-center justify-center absolute left-6 lg:left-[6%] top-48 border-2 border-book-green'>
+            <img src={backdrop} alt="cover" className=' h-64 w-full object-cover mx-auto z-10' />
+            <div className='rounded-full size-28 z-20 flex absolute items-center justify-center  left-6 lg:left-[6%] top-48 border-2 border-book-green'>
                 <img src={profile} alt="profile" className='rounded-full size-24' />
             </div>
             <div className={showInteractionButtons}>
