@@ -52,7 +52,7 @@ export default function BookInfo() {
                     .catch((err) => console.error(err))
             })
             .catch((err) => console.error(err))
-    }, [data,])
+    }, [data])
 
     function switchBookmark() {
         if (bookmarkStatus === true) {
@@ -121,21 +121,21 @@ export default function BookInfo() {
             <MobileMenu mobileMenu={mobileMenu} />
             <Header />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <div className="flex flex-col-reverse md:flex-row justify-center  md:gap-0 gap-3" onClick={() => toggleMobileMenu(false)}>
+            <div className="flex flex-col-reverse md:flex-row justify-center gap-4" onClick={() => toggleMobileMenu(false)}>
                 <Sidebar />
                 <div className="default-font md:w-1/2 m-2 flex flex-col items-center">
-                    <div className="flex flex-col gap-2 md:gap-4 md:w-full items-center md:border md:border-book-green md:p-5">
-                        <div className="flex gap-2">
-                            <img src={bookData && bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={bookData && bookData.items[0].volumeInfo.title} className="w-32 h-64 md:w-64" />
+                    <div className="flex flex-col gap-4 md:w-full items-center md:border md:border-book-green md:p-5">
+                        <div className="flex flex-col  items-center  gap-4">
+                            <div className="flex w-full justify-center gap-1 ">
+                                <p className="text-center text-2xl font-bold ">{bookData && bookData.items[0].volumeInfo.title}</p>
+                                <p className="text-3xl text-end" onClick={() => switchBookmark()}>{bookmark}</p>
+                            </div>
+                            <img src={bookData && bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={bookData && bookData.items[0].volumeInfo.title} className="size-1/2 md:h-96 md:w-60" />
                             <div className="flex flex-col gap-2 text-center items-center justify-between">
-                                <div className="flex w-full justify-center gap-2">
-                                    <p className=" text-end text-2xl">{bookData && bookData.items[0].volumeInfo.title}</p>
-                                    <p className="text-3xl text-end" onClick={() => switchBookmark()}>{bookmark}</p>
-                                </div>
                                 <div className="h-60 overflow-auto">
                                     <p>{bookData && bookData.items[0].volumeInfo.description}</p>
                                 </div>
-                                <div className="flex gap-4 justify-center">
+                                <div className="flex justify-center">
                                     <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
                                 </div>
                             </div>
