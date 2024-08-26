@@ -5,7 +5,24 @@ const Books = require('../models/Books.js')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
+router.get('/loggedInUser', async (req, res) => {
+    console.log(req.session)
+    try {
+        const user = await User.find({ username: req.session.user.username }).select("-password")
+            .populate({ path: 'books', strictPopulate: false })
+            .exec()
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.status(200).json(user);
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not retrieve posts' });
+    }
+})
+
 router.post('/profile', async (req, res) => {
+    console.log(req.session)
     const { username } = req.body
     if (username === 'user') {
         try {

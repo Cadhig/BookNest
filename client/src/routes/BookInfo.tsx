@@ -13,27 +13,48 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 export default function BookInfo() {
     const location = useLocation()
     const { data } = location.state
-    console.log(data)
     const [mobileMenu, setMobileMenu] = useState('hidden')
-    const [apiData, setApiData] = useState<GoogleBooks>()
+    const [bookData, setBookData] = useState<GoogleBooks>()
     const isbnData = data.industryIdentifiers[0].identifier
     const [isbn, setIsbn] = useState(isbnData)
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
 
-    console.log(isbnData)
-
     useEffect(() => {
         setIsbn(isbnData)
         fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
             .then(res => res.json())
-            .then(response => setApiData(response))
+            .then(bookResponse => {
+                setBookData(bookResponse)
+                fetch('http://localhost:3000/api/user/loggedInUser', {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include"
+                })
+                    .then(res => res.json())
+                    .then(userResponse => {
+                        if (userResponse) {
+                            const AllBooks = userResponse[0].books
+                            for (let currentBook = 0; currentBook < AllBooks.length; currentBook++) {
+                                const CurrentBookmarkedIsbn = AllBooks[currentBook].bookIsbn
+                                const DisplayedBookIsbn = bookResponse.items[0].volumeInfo.industryIdentifiers[0].identifier
+                                if (CurrentBookmarkedIsbn === DisplayedBookIsbn) {
+                                    setBookmarkStatus(false)
+                                    setBookmark(<IoBookmark />)
+                                    return
+                                }
+
+                            }
+                        }
+                    })
+                    .catch((err) => console.error(err))
+            })
             .catch((err) => console.error(err))
-    }, [data])
-    console.log(apiData && apiData)
+    }, [data,])
 
     function switchBookmark() {
-        setBookmarkStatus(!bookmarkStatus)
         if (bookmarkStatus === true) {
             setBookmark(<IoBookmark />)
             addBook()
@@ -46,9 +67,9 @@ export default function BookInfo() {
 
     async function addBook() {
         const data = {
-            bookName: apiData && apiData.items[0].volumeInfo.title,
-            bookIsbn: apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier,
-            bookImage: apiData && apiData.items[0].volumeInfo.imageLinks?.thumbnail
+            bookName: bookData && bookData.items[0].volumeInfo.title,
+            bookIsbn: bookData && bookData.items[0].volumeInfo.industryIdentifiers[0].identifier,
+            bookImage: bookData && bookData.items[0].volumeInfo.imageLinks?.thumbnail
         }
         await fetch('http://localhost:3000/api/books/saved', {
             method: 'POST',
@@ -68,7 +89,7 @@ export default function BookInfo() {
 
     async function removeBook() {
         const data = {
-            bookIsbn: apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier
+            bookIsbn: bookData && bookData.items[0].volumeInfo.industryIdentifiers[0].identifier
         }
         await fetch('http://localhost:3000/api/books/unsave', {
             method: 'DELETE',
@@ -94,7 +115,7 @@ export default function BookInfo() {
         }
     }
 
-    const amazonLink = `https://www.amazon.com/s?k=${apiData && apiData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
+    const amazonLink = `https://www.amazon.com/s?k=${bookData && bookData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
@@ -105,14 +126,14 @@ export default function BookInfo() {
                 <div className="default-font md:w-1/2 m-2 flex flex-col items-center">
                     <div className="flex flex-col gap-2 md:gap-4 md:w-full items-center md:border md:border-book-green md:p-5">
                         <div className="flex gap-2">
-                            <img src={apiData && apiData.items[0].volumeInfo.imageLinks?.thumbnail} alt={apiData && apiData.items[0].volumeInfo.title} className="w-32 h-64 md:w-64" />
+                            <img src={bookData && bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={bookData && bookData.items[0].volumeInfo.title} className="w-32 h-64 md:w-64" />
                             <div className="flex flex-col gap-2 text-center items-center justify-between">
                                 <div className="flex w-full justify-center gap-2">
-                                    <p className=" text-end text-2xl">{apiData && apiData.items[0].volumeInfo.title}</p>
+                                    <p className=" text-end text-2xl">{bookData && bookData.items[0].volumeInfo.title}</p>
                                     <p className="text-3xl text-end" onClick={() => switchBookmark()}>{bookmark}</p>
                                 </div>
                                 <div className="h-60 overflow-auto">
-                                    <p>{apiData && apiData.items[0].volumeInfo.description}</p>
+                                    <p>{bookData && bookData.items[0].volumeInfo.description}</p>
                                 </div>
                                 <div className="flex gap-4 justify-center">
                                     <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
@@ -122,12 +143,12 @@ export default function BookInfo() {
                         <div className="flex items-center justify-center gap-4 text-center">
                             <div>
                                 <p>Publisher</p>
-                                <p>{apiData && apiData.items[0].volumeInfo.publisher}</p>
+                                <p>{bookData && bookData.items[0].volumeInfo.publisher}</p>
                             </div>
                             <div className="h-14 bg-black w-[1px]"></div>
                             <div>
                                 <p>Author</p>
-                                <p>{apiData && apiData.items[0].volumeInfo.authors[0]}</p>
+                                <p>{bookData && bookData.items[0].volumeInfo.authors[0]}</p>
                             </div>
                         </div>
                         <Reviews />
