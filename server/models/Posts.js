@@ -13,6 +13,10 @@ const postSchema = new mongoose.Schema({
         minLength: 1,
         maxLength: 300
     },
+    likes: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User"
+    }],
     createdAt: {
         type: Date,
         default: () => Date.now(),

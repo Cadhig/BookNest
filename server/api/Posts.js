@@ -42,4 +42,36 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.post('/likePost', async (req, res) => {
+    const { postId } = req.body
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    try {
+        await User.findOneAndUpdate({ username: req.session.user.username }, {
+            $push: { likes: postId }
+        })
+        return res.status(200)
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not like post!' });
+    }
+})
+
+router.post('/unlikePost', async (req, res) => {
+    const { postId } = req.body
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    try {
+        await User.findOneAndUpdate({ username: req.session.user.username }, {
+            $pull: { likes: postId }
+        })
+        return res.status(200)
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not unlike post!' });
+    }
+})
+
 module.exports = router

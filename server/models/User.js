@@ -31,12 +31,13 @@ const userSchema = new mongoose.Schema({
         default: () => Date.now(),
         get: formatDate
     },
-    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
     following: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "User"
     },
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
     books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Books' }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }]
 })
 
 module.exports = mongoose.model("User", userSchema)
