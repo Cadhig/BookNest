@@ -10,27 +10,42 @@ interface postType {
 }
 export default function Posts(props: postType) {
     const [postData, setPostData] = useState<PostsType>()
+    const [userData, setUserData] = useState()
     const [apiData, setApiData] = useState<any>()
     const [likeStatus, setLikeStatus] = useState<boolean>(false)
     const [likeDisplay, setLikeDisplay] = useState(<IoMdHeartEmpty />)
+    const [refreshPost, setRefreshPost] = useState<boolean>(false)
 
     useEffect(() => {
+        fetch('http://localhost:3000/api/user/loggedInUser', {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(response => setUserData(response))
+            .catch(err => console.error(err))
         fetch('http://localhost:3000/api/posts')
             .then(res => res.json())
             .then(response => setPostData(response))
             .catch(err => console.error(err))
-    }, [props.refreshFeed])
+    }, [props.refreshFeed, refreshPost])
+    console.log(postData)
 
     function likeOrUnlikePost(id: string) {
         if (likeStatus === false) {
             setLikeDisplay(<IoMdHeartEmpty />)
             unlikePost(id)
             setLikeStatus(true)
+            setRefreshPost(!refreshPost)
             return
         } else {
             setLikeDisplay(<IoHeart />)
             likePost(id)
             setLikeStatus(false)
+            setRefreshPost(!refreshPost)
             return
         }
     }
@@ -41,7 +56,7 @@ export default function Posts(props: postType) {
             postId: id
         }
         await fetch(`http://localhost:3000/api/posts/unlikePost`, {
-            method: "DELETE",
+            method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",

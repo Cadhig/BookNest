@@ -61,7 +61,7 @@ router.post('/likePost', async (req, res) => {
     }
 })
 
-router.delete('/unlikePost', async (req, res) => {
+router.put('/unlikePost', async (req, res) => {
     const { postId } = req.body
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
