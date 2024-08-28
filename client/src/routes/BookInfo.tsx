@@ -54,7 +54,8 @@ export default function BookInfo() {
             .catch((err) => console.error(err))
     }, [data])
 
-    function switchBookmark() {
+    function switchBookmarkStatus() {
+        console.log(bookmarkStatus)
         if (bookmarkStatus === true) {
             setBookmark(<IoBookmark />)
             addBook()
@@ -128,7 +129,7 @@ export default function BookInfo() {
                         <div className="flex flex-col  items-center  gap-4">
                             <div className="flex w-full justify-center gap-1 ">
                                 <p className="text-center text-2xl font-bold ">{bookData && bookData.items[0].volumeInfo.title}</p>
-                                <p className="text-3xl text-end" onClick={() => switchBookmark()}>{bookmark}</p>
+                                <p className="text-3xl text-end" onClick={() => switchBookmarkStatus()}>{bookmark}</p>
                             </div>
                             <img src={bookData && bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={bookData && bookData.items[0].volumeInfo.title} className="size-1/2 md:h-96 md:w-60" />
                             <div className="flex flex-col gap-2 text-center items-center justify-between">

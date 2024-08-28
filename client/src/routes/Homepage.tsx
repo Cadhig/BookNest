@@ -25,7 +25,7 @@ export default function Homepage() {
             <MobileMenu mobileMenu={mobileMenu} />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
             <Header />
-            <div onClick={() => toggleMobileMenu(false)} className="flex flex-col md:flex-row-reverse m-2">
+            <div onClick={() => toggleMobileMenu(false)} className="flex flex-col md:flex-row-reverse">
                 <SearchBar />
                 <div className="flex flex-col md:w-1/2 w-full max-h-full">
                     <div className="md:border-x md:border-x-book-green max-h-full w-full">

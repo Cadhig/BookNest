@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import placeholder from '../assets/profile.jpg'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
 
 export default function Settings() {
     const navigate = useNavigate()
@@ -169,7 +170,7 @@ export default function Settings() {
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
             <div className="flex">
                 <Sidebar />
-                <div className="md:border md:border-book-green w-full mx-2 flex flex-col gap-4 p-4">
+                <div className="md:border md:border-book-green w-1/2 mx-2 flex flex-col gap-4 p-4">
                     <p className="text-center text-2xl">Account Settings</p>
                     <div className="flex flex-col gap-4 items-center text-xl">
                         <img src={placeholder} alt="" className="rounded-full w-40" />
@@ -231,6 +232,7 @@ export default function Settings() {
                         <button className="bg-red-600 text-book-light rounded-full py-2 px-4" onClick={() => Logout()}>Logout</button>
                     </div>
                 </div>
+                <SearchBar />
             </div>
         </div>
     )
