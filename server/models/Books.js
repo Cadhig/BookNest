@@ -23,6 +23,11 @@ const bookSchema = new mongoose.Schema({
         userId: mongoose.SchemaType.ObjectId,
         ref: "User"
     },
+    createdAt: {
+        type: Date,
+        default: () => Date.now(),
+        get: formatDate
+    },
 
 })
 

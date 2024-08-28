@@ -91,21 +91,22 @@ export default function Profile() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col mx-2 gap-4 max-h-full overflow-auto">
+                    <div className="flex flex-col mx-2 gap-4 max-h-full overflow-auto default-font">
+                        <h1 className="text-xl text-center font-bold">Posts from {apiData && apiData[0].username}</h1>
                         <p className={postAlert}>No posts yet!</p>
                         {apiData && apiData[0].posts.map((content: Post, index: number) => {
-                            return <div className="flex flex-col justify-center gap-4" key={index}>
+                            return <div className="flex flex-col justify-center gap-4 text-lg" key={index}>
                                 <div className="flex flex-col gap-2">
-                                    <div className="flex gap-2 ">
-                                        <Link to={'/profile'} state={{ from: content.username }}>
-                                            <img src={profile} alt="" className="h-10 rounded-full" />
-                                        </Link>
-                                        <div className="flex flex-col">
+                                    <div className="flex flex-col gap-2 ">
+                                        <div className="flex items-center gap-2">
                                             <Link to={'/profile'} state={{ from: content.username }}>
-                                                <p className="hover:underline cursor-pointer">@{content.username}</p>
+                                                <img src={profile} alt="" className="h-10 rounded-full" />
                                             </Link>
-                                            <p>{content.postText}</p>
+                                            <Link to={'/profile'} state={{ from: content.username }}>
+                                                <p className="hover:underline cursor-pointer font-bold">@{content.username}</p>
+                                            </Link>
                                         </div>
+                                        <p>{content.postText}</p>
                                     </div>
                                     <p className="text-right text-xs">{content.createdAt}</p>
                                 </div>
