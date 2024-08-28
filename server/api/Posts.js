@@ -48,6 +48,9 @@ router.post('/likePost', async (req, res) => {
         return res.status(401).json({ error: "Unauthorized" })
     }
     try {
+        await Posts.findOneAndUpdate({ _id: postId }, {
+            $push: { likes: req.session.user.id }
+        })
         await User.findOneAndUpdate({ username: req.session.user.username }, {
             $push: { likes: postId }
         })
@@ -58,12 +61,15 @@ router.post('/likePost', async (req, res) => {
     }
 })
 
-router.post('/unlikePost', async (req, res) => {
+router.delete('/unlikePost', async (req, res) => {
     const { postId } = req.body
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
     try {
+        await Posts.findOneAndUpdate({ _id: postId }, {
+            $pull: { likes: req.session.user.id }
+        })
         await User.findOneAndUpdate({ username: req.session.user.username }, {
             $pull: { likes: postId }
         })

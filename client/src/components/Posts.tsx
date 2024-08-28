@@ -5,13 +5,14 @@ import { Link } from "react-router-dom"
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
 
-
 interface postType {
     refreshFeed: boolean
 }
 export default function Posts(props: postType) {
     const [postData, setPostData] = useState<PostsType>()
     const [apiData, setApiData] = useState<any>()
+    const [likeStatus, setLikeStatus] = useState<boolean>(false)
+    const [likeDisplay, setLikeDisplay] = useState(<IoMdHeartEmpty />)
 
     useEffect(() => {
         fetch('http://localhost:3000/api/posts')
@@ -20,8 +21,46 @@ export default function Posts(props: postType) {
             .catch(err => console.error(err))
     }, [props.refreshFeed])
 
+    function likeOrUnlikePost(id: string) {
+        if (likeStatus === false) {
+            setLikeDisplay(<IoMdHeartEmpty />)
+            unlikePost(id)
+            setLikeStatus(true)
+            return
+        } else {
+            setLikeDisplay(<IoHeart />)
+            likePost(id)
+            setLikeStatus(false)
+            return
+        }
+    }
+
+    async function unlikePost(id: string) {
+        console.log('clicked unlike')
+        const data = {
+            postId: id
+        }
+        await fetch(`http://localhost:3000/api/posts/unlikePost`, {
+            method: "DELETE",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then(async (res) => {
+                if (res.ok) {
+                    const jsonData = await res.json()
+                    setApiData(jsonData)
+                } else {
+                    console.log(res)
+                }
+            })
+            .catch((err) => console.error(err))
+    }
+
     async function likePost(id: string) {
-        console.log('clicked')
+        console.log('clicked like')
         const data = {
             postId: id
         }
@@ -63,7 +102,7 @@ export default function Posts(props: postType) {
                             <p className="text-ellipsis">{content.postText}</p>
                         </div>
                         <div className="flex">
-                            <IoMdHeartEmpty onClick={() => likePost(content._id)} />
+                            <p onClick={() => likeOrUnlikePost(content._id)}>{likeDisplay}</p>
                             <p className="text-right text-xs">{content.createdAt}</p>
                         </div>
                     </div>

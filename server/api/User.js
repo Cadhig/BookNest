@@ -110,7 +110,7 @@ router.post('/login', async (req, res, next) => {
             return res.status(401).json({ error: 'invalid credentials' })
         }
         req.session.user = {
-            uuid: req.sessionID,
+            id: user._id,
             username,
             password,
             isLoggedIn: true
