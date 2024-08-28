@@ -5,6 +5,6 @@ BookNest is a platform where book lovers can connect! Users will be able to sear
 **Languages**: TypeScript, JavaScript <br>
 **Frameworks**: React <br>
 **Database**: MongoDB <br>
-**Tools**: Express, Express-Session, Mongoose <br>
+**Tools**: Express, Express-Session, Mongoose, TailwindCss <br>
 
 **This app is not yet completed and is still a work in progress**
