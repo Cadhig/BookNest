@@ -4,16 +4,15 @@ import placeholder from '../assets/profile.jpg'
 import { Link } from "react-router-dom"
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
+import { User } from "../types";
 
 interface postType {
     refreshFeed: boolean
 }
 export default function Posts(props: postType) {
     const [postData, setPostData] = useState<PostsType>()
-    const [userData, setUserData] = useState()
+    const [userData, setUserData] = useState<User | any>()
     const [apiData, setApiData] = useState<any>()
-    const [likeStatus, setLikeStatus] = useState<boolean>(false)
-    const [likeDisplay, setLikeDisplay] = useState(<IoMdHeartEmpty />)
     const [refreshPost, setRefreshPost] = useState<boolean>(false)
 
     useEffect(() => {
@@ -32,26 +31,18 @@ export default function Posts(props: postType) {
             .then(response => setPostData(response))
             .catch(err => console.error(err))
     }, [props.refreshFeed, refreshPost])
-    console.log(postData)
 
-    function likeOrUnlikePost(id: string) {
-        if (likeStatus === false) {
-            setLikeDisplay(<IoMdHeartEmpty />)
+    function likeOrUnlikePost(id: string, hasUserLiked: any) {
+        console.log('user has liked: ', hasUserLiked)
+        if (hasUserLiked) {
             unlikePost(id)
-            setLikeStatus(true)
-            setRefreshPost(!refreshPost)
-            return
         } else {
-            setLikeDisplay(<IoHeart />)
             likePost(id)
-            setLikeStatus(false)
-            setRefreshPost(!refreshPost)
-            return
         }
+        setRefreshPost(!refreshPost)
     }
 
     async function unlikePost(id: string) {
-        console.log('clicked unlike')
         const data = {
             postId: id
         }
@@ -75,7 +66,6 @@ export default function Posts(props: postType) {
     }
 
     async function likePost(id: string) {
-        console.log('clicked like')
         const data = {
             postId: id
         }
@@ -97,10 +87,12 @@ export default function Posts(props: postType) {
             })
             .catch((err) => console.error(err))
     }
-    console.log(apiData)
+
     return (
         <div className="flex flex-col mx-2 gap-4 max-h-full overflow-auto">
             {postData && postData.map((content, index) => {
+                const userId = userData && userData[0]._id
+                const hasUserLiked = content.likes.some((like: string) => like === userId);
                 return <div className="flex flex-col justify-center gap-4 text-lg" key={index}>
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-col gap-2 ">
@@ -117,7 +109,7 @@ export default function Posts(props: postType) {
                             <p className="text-ellipsis">{content.postText}</p>
                         </div>
                         <div className="flex">
-                            <p onClick={() => likeOrUnlikePost(content._id)}>{likeDisplay}</p>
+                            <p onClick={() => likeOrUnlikePost(content._id, hasUserLiked)}>{hasUserLiked ? <IoHeart /> : <IoMdHeartEmpty />}</p>
                             <p className="text-right text-xs">{content.createdAt}</p>
                         </div>
                     </div>

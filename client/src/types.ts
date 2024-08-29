@@ -166,6 +166,7 @@ export interface Post {
     createdAt: string;
     postText: string;
     username: string;
+    likes: string[]
     _id: string;
     __v: number;
 }
@@ -176,6 +177,7 @@ export interface User {
     createdAt: string;
     following: User[];
     posts: Post[];
+    likes: string[]
     books: Bookmarked[];
     username: string;
     _id: string;
