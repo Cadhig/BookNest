@@ -54,7 +54,7 @@ router.post('/likePost', async (req, res) => {
         await User.findOneAndUpdate({ username: req.session.user.username }, {
             $push: { likes: postId }
         })
-        return res.status(200)
+        return res.status(200).json({ success: 'able to like post' })
     } catch (err) {
         console.error(err);
         return res.status(400).json({ message: 'Could not like post!' });
@@ -73,7 +73,7 @@ router.put('/unlikePost', async (req, res) => {
         await User.findOneAndUpdate({ username: req.session.user.username }, {
             $pull: { likes: postId }
         })
-        return res.status(200)
+        return res.status(200).json({ success: 'able to unlike post' })
     } catch (err) {
         console.error(err);
         return res.status(400).json({ message: 'Could not unlike post!' });

@@ -30,10 +30,9 @@ export default function Posts(props: postType) {
             .then(res => res.json())
             .then(response => setPostData(response))
             .catch(err => console.error(err))
-    }, [props.refreshFeed, refreshPost])
+    }, [props.refreshFeed, refreshPost, apiData])
 
     function likeOrUnlikePost(id: string, hasUserLiked: any) {
-        console.log('user has liked: ', hasUserLiked)
         if (hasUserLiked) {
             unlikePost(id)
         } else {
