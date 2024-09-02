@@ -175,14 +175,14 @@ export default function Settings() {
                     <div className="flex flex-col gap-4 items-center text-xl">
                         <img src={placeholder} alt="" className="rounded-full w-40" />
                         {/* password */}
-                        <div className="flex flex-col gap-4">
-                            <button className="text-xl hover:underline" onClick={() => setShowPassword('flex flex-col gap-4')}>Edit Password</button>
+                        <div className="flex flex-col gap-4 w-1/4">
+                            <button className="text-xl bg-book-green text-book-light hover:border-book-green-hover cursor-pointer rounded-full p-2" onClick={() => setShowPassword('flex flex-col gap-4')}>Edit Password</button>
                             <div className={showPassword}>
                                 <input type="password" placeholder="Old password" className="border border-book-green rounded-full p-2" onChange={(e) => setOldPassword(e.target.value)} />
                                 <input type="password" placeholder="New password" className="border border-book-green rounded-full p-2" onChange={(e) => setNewPassword(e.target.value)} />
                                 <input type="password" placeholder="Confirm new password" className="border border-book-green rounded-full p-2" onChange={(e) => setConfirmNewPassword(e.target.value)} />
                                 <p className={alertClass}>{alertText}</p>
-                                <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changePassword()}>Submit</button>
+                                <button className="bg-book-green text-book-light p-2 rounded-full hover:bg-book-green-hover" onClick={() => changePassword()}>Submit</button>
                                 <button className="text-sm text-red-500" onClick={() => {
                                     setAlertClass('hidden')
                                     setShowPassword('hidden')
@@ -190,12 +190,12 @@ export default function Settings() {
                             </div>
                         </div>
                         {/* bio */}
-                        <div className="flex flex-col gap-4">
-                            <button className="text-xl" onClick={() => setShowBio('flex flex-col gap-4')}>Edit Bio</button>
+                        <div className="flex flex-col gap-4 w-1/4">
+                            <button className="text-xl bg-book-green text-book-light hover:border-book-green-hover cursor-pointer rounded-full p-2" onClick={() => setShowBio('flex flex-col gap-4')}>Edit Bio</button>
                             <div className={showBio}>
                                 <input type="text" placeholder="About you...." className="border border-book-green rounded-full p-2" onChange={(e) => setBio(e.target.value)} />
                                 <p className={alertClass}>{alertText}</p>
-                                <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changeBio()}>Submit</button>
+                                <button className="bg-book-green hover:bg-book-green-hover text-book-light p-2 rounded-full" onClick={() => changeBio()}>Submit</button>
                                 <button className="text-sm text-red-500" onClick={() => {
                                     setShowBio('hidden')
                                     setAlertClass('hidden')
@@ -203,12 +203,12 @@ export default function Settings() {
                             </div>
                         </div>
                         {/* location */}
-                        <div className="flex flex-col gap-4">
-                            <button className="text-xl" onClick={() => setShowLocation('flex flex-col gap-4')}>Edit Location</button>
+                        <div className="flex flex-col gap-4 w-1/4">
+                            <button className="text-xl bg-book-green text-book-light hover:border-book-green-hover cursor-pointer rounded-full p-2" onClick={() => setShowLocation('flex flex-col gap-4')}>Edit Location</button>
                             <div className={showLocation}>
                                 <input type="text" placeholder="Location" className="border border-book-green rounded-full p-2" onChange={(e) => setLocation(e.target.value)} />
                                 <p className={alertClass}>{alertText}</p>
-                                <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changeLocation()}>Submit</button>
+                                <button className="bg-book-green hover:bg-book-green-hover text-book-light p-2 rounded-full" onClick={() => changeLocation()}>Submit</button>
                                 <button className="text-sm text-red-500" onClick={() => {
                                     setShowLocation('hidden')
                                     setAlertClass('hidden')
@@ -216,12 +216,12 @@ export default function Settings() {
                             </div>
                         </div>
                         {/* Birthday */}
-                        <div className="flex flex-col gap-4">
-                            <button className="text-xl" onClick={() => setShowBirthday('flex flex-col gap-4')}>Edit Birthday</button>
+                        <div className="flex flex-col gap-4 w-1/4">
+                            <button className="text-xl bg-book-green text-book-light hover:border-book-green-hover cursor-pointer rounded-full p-2" onClick={() => setShowBirthday('flex flex-col gap-4')}>Edit Birthday</button>
                             <div className={showBirthday}>
                                 <input type="text" placeholder="Birthday" className="border border-book-green rounded-full p-2" onChange={(e) => setBirthday(e.target.value)} />
                                 <p className={alertClass}>{alertText}</p>
-                                <button className="bg-book-green text-book-light p-2 rounded-full" onClick={() => changeBirthday()}>Submit</button>
+                                <button className="bg-book-green hover:bg-book-green-hover text-book-light p-2 rounded-full" onClick={() => changeBirthday()}>Submit</button>
                                 <button className="text-sm text-red-500" onClick={() => {
                                     setShowBirthday('hidden')
                                     setAlertClass('hidden')

@@ -151,13 +151,13 @@ function CoverAndProfilePicture(props: ProfileUser) {
                 <img src={profile} alt="profile" className='rounded-full size-24' />
             </div>
             <div className={showInteractionButtons}>
-                <div className="bg-book-green flex items-center rounded-full p-2">
+                <div className="bg-book-green flex cursor-pointer hover:bg-book-green-hover items-center rounded-full p-2">
                     <IoBookmarks className="text-2xl text-book-light" />
                 </div>
-                <div className="bg-book-green flex items-center rounded-full p-2">
+                <div className="bg-book-green cursor-pointer hover:bg-book-green-hover flex items-center rounded-full p-2">
                     <BsEnvelopeFill className="text-2xl text-book-light" />
                 </div>
-                <button className='bg-book-green text-book-light py-2 px-5 rounded-full'>Follow</button>
+                <button className='bg-book-green text-book-light py-2 px-5 rounded-full hover:bg-book-green-hover'>Follow</button>
             </div>
         </div>
     );

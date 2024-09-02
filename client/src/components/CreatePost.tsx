@@ -37,7 +37,7 @@ export default function CreatePost(props: postType) {
             </div>
             <div className='flex justify-between items-center'>
                 <BiImage className='text-3xl text-book-dark ml-4' />
-                <button className='bg-book-green text-book-light px-4 py-2 rounded-full' onClick={sendPost}>Post</button>
+                <button className='bg-book-green text-book-light px-4 py-2 rounded-full hover:bg-book-green-hover' onClick={sendPost}>Post</button>
             </div>
         </div>
     )
