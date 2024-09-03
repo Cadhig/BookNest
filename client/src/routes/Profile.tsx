@@ -19,6 +19,11 @@ export default function Profile() {
     const [hideBirthday, setHideBirthday] = useState<string>('flex gap-2 items-center')
     const [postAlert, setPostAlert] = useState<string>('hidden')
 
+    useEffect(() => {
+        fetchData()
+    }, [from])
+    console.log(apiData)
+
     function toggleMobileMenu(val: boolean) {
         if (val) {
             setMobileMenu("absolute z-30 mobileMenuStyles w3-animate-left")
@@ -58,11 +63,6 @@ export default function Profile() {
             })
             .catch((err) => console.error(err))
     }
-
-    useEffect(() => {
-        fetchData()
-    }, [from])
-    console.log(apiData)
 
     return (
         <div className="h-svh w-full">

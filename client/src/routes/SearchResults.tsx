@@ -9,11 +9,11 @@ import Sidebar from "../components/Sidebar"
 import SearchBar from "../components/SearchBar"
 export default function SearchResults() {
     const location = useLocation()
-    const { from } = location.state
+    const { search } = location.state
     const [apiData, setApiData] = useState<GoogleBooks>()
     const [mobileMenu, setMobileMenu] = useState('hidden')
 
-    const book = from.book.replace(/ /g, '').toLowerCase()
+    const book = search.book.replace(/ /g, '').toLowerCase()
 
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function SearchResults() {
             .then(res => res.json())
             .then(data => setApiData(data))
             .catch((err) => console.error(err))
-    }, [])
+    }, [search])
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -40,7 +40,7 @@ export default function SearchResults() {
                 <Sidebar />
                 <div className="default-font w-full md:w-1/2 flex flex-col items-center h-1/4" onClick={() => toggleMobileMenu(false)}>
                     <div className="text-center text-2xl">
-                        <p>Results for '{from.book}'</p>
+                        <p>Results for '{search.book}'</p>
                     </div>
                     <div className="flex flex-col w-full md:w-full">
                         {apiData && apiData.items.map((content, index) => {
