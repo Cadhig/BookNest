@@ -1,7 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import MobileHeader from "../components/MobileHeader"
 import Shelf from "../assets/Shelf.jpg"
-import Header from "../components/Header"
 import { useState } from "react"
 
 export default function Signup() {
@@ -63,9 +61,7 @@ export default function Signup() {
 
     return (
         <div className="h-svh flex">
-
             <div className="h-full w-full flex flex-col items-center justify-center text-book-dark default-font flex-shrink-0 lg:w-1/2">
-
                 <div className="w-3/4 md:w-1/2 lg:w-3/4 flex flex-col items-center justify-center gap-4 ">
                     <h1 className="text-3xl">Welcome to BookNest!</h1>
                     <div className="w-full">

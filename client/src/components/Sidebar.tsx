@@ -8,38 +8,43 @@ export default function Sidebar() {
     return (
         <div className="hidden md:flex md:w-1/4 ml-2 h-full default-font">
             <div className="flex flex-col gap-8">
+                <div className="flex items-center p-2">
+                    <Link to={'/homepage'}>
+                        <div className="header-font text-4xl text-book-dark hidden lg:flex">BookNest</div>
+                    </Link>
+                </div>
                 <Link to={'/homepage'}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/80">
+                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <BsFillHouseFill className="text-4xl" />
                         <p className="text-xl">Home</p>
                     </div>
                 </Link>
-                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/80">
+                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                     <BsFillBellFill className="text-4xl" />
                     <p className="text-xl">Notifications (coming soon)</p>
                 </div>
-                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/80">
+                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                     <BsEnvelopeFill className="text-4xl" />
                     <p className="text-xl">Messages (coming soon)</p>
                 </div>
                 <Link to={'/bookmarks'} state={{ from: 'user' }}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/80">
+                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <IoBookmarks className="text-4xl" />
                         <p className="text-xl">Bookmarks</p>
                     </div>
                 </Link>
-                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/80">
+                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                     <GiBookCover className="text-4xl" />
                     <p className="text-xl">Clubs (coming soon)</p>
                 </div>
                 <Link to={'/profile'} state={{ from: 'user' }}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/80">
+                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <BsPersonCircle className="text-4xl" />
                         <p className="text-xl">Profile</p>
                     </div>
                 </Link>
                 <Link to={'/settings'}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/80">
+                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <IoSettingsSharp className="text-4xl" />
                         <p className="text-xl">Settings</p>
                     </div>

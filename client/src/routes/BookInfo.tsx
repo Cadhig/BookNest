@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom"
-import Header from "../components/Header"
 import { useEffect, useState } from "react"
 import { ImAmazon } from "react-icons/im"
 import MobileHeader from "../components/MobileHeader"
@@ -120,12 +119,11 @@ export default function BookInfo() {
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
-            <Header />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
             <div className="flex flex-col-reverse md:flex-row justify-center gap-4" onClick={() => toggleMobileMenu(false)}>
                 <Sidebar />
                 <div className="default-font md:w-1/2 m-2 flex flex-col items-center">
-                    <div className="flex flex-col gap-4 md:w-full items-center md:border md:border-book-green md:p-5">
+                    <div className="flex flex-col gap-4 md:w-full items-center mt-4">
                         <div className="flex flex-col  items-center  gap-4">
                             <div className="flex w-full justify-center gap-1 ">
                                 <p className="text-center text-2xl font-bold ">{bookData && bookData.items[0].volumeInfo.title}</p>

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Bookmarked } from "../types"
 import MobileHeader from "../components/MobileHeader"
-import Header from "../components/Header"
 import Sidebar from "../components/Sidebar"
 import MobileMenu from "../components/MobileMenu"
 import SearchBar from "../components/SearchBar"
@@ -77,10 +76,9 @@ export default function BookList() {
         <div className="h-svh default-font text-book-dark">
             <MobileMenu mobileMenu={mobileMenu} />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <Header />
             <div className="flex flex-col-reverse gap-2 md:flex-row">
                 <Sidebar />
-                <div className="w-full md:w-1/2">
+                <div className="w-full md:w-1/2 mt-4">
                     <p className="text-center text-xl font-bold">{apiData && apiData[0].username}'s Saved Books</p>
                     <div className={noBookmarks}>
                         <p className="inline text-black/50 text-xl">No saved books yet!</p>

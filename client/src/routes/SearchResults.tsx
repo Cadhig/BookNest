@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { GoogleBooks } from "../types"
-import Header from "../components/Header"
 import MobileHeader from "../components/MobileHeader"
 import MobileMenu from "../components/MobileMenu"
 import { Link } from "react-router-dom"
@@ -34,11 +33,10 @@ export default function SearchResults() {
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
-            <Header />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
             <div className="flex flex-col-reverse md:flex-row">
                 <Sidebar />
-                <div className="default-font w-full md:w-1/2 flex flex-col items-center h-1/4" onClick={() => toggleMobileMenu(false)}>
+                <div className="default-font w-full md:w-1/2 flex flex-col items-center mt-4 h-1/4" onClick={() => toggleMobileMenu(false)}>
                     <div className="text-center text-2xl">
                         <p>Results for '{search.book}'</p>
                     </div>

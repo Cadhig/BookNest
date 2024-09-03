@@ -1,4 +1,3 @@
-import Header from "../components/Header";
 import MobileHeader from "../components/MobileHeader";
 import MobileMenu from "../components/MobileMenu";
 import Sidebar from "../components/Sidebar";
@@ -166,11 +165,10 @@ export default function Settings() {
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
-            <Header />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
             <div className="flex">
                 <Sidebar />
-                <div className="md:border md:border-book-green w-1/2 mx-2 flex flex-col gap-4 p-4">
+                <div className="w-1/2 flex flex-col gap-4 mt-4">
                     <p className="text-center text-2xl">Account Settings</p>
                     <div className="flex flex-col gap-4 items-center text-xl">
                         <img src={placeholder} alt="" className="rounded-full w-40" />

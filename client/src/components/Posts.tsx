@@ -88,7 +88,7 @@ export default function Posts(props: postType) {
     }
 
     return (
-        <div className="flex flex-col mx-2 gap-4 max-h-full overflow-auto">
+        <div className="flex flex-col m-2 gap-4 max-h-full overflow-auto">
             {postData && postData.map((content, index) => {
                 const userId = userData && userData[0]._id
                 const hasUserLiked = content.likes.some((like: string) => like === userId);

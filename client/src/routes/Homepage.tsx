@@ -1,5 +1,4 @@
 import { useState } from "react"
-import Header from "../components/Header"
 import MobileHeader from "../components/MobileHeader"
 import SearchBar from "../components/SearchBar"
 import MobileMenu from "../components/MobileMenu"
@@ -24,14 +23,11 @@ export default function Homepage() {
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <Header />
             <div onClick={() => toggleMobileMenu(false)} className="flex flex-col md:flex-row-reverse">
                 <SearchBar />
                 <div className="flex flex-col md:w-1/2 w-full max-h-full">
-                    <div className="md:border-x md:border-x-book-green max-h-full w-full">
-                        <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
-                        <Posts refreshFeed={refreshFeed} />
-                    </div>
+                    <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
+                    <Posts refreshFeed={refreshFeed} />
                 </div>
                 <Sidebar />
             </div>
