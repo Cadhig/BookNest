@@ -56,7 +56,7 @@ export default function BookInfo() {
 
     function switchBookmarkStatus() {
         console.log(bookmarkStatus)
-        if (bookmarkStatus === true) {
+        if (bookmarkStatus) {
             setBookmark(<IoBookmark />)
             addBook()
 
