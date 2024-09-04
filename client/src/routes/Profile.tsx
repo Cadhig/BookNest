@@ -17,6 +17,10 @@ export default function Profile() {
     const [hideLocation, setHideLocation] = useState<string>('flex gap-2 items-center')
     const [hideBirthday, setHideBirthday] = useState<string>('flex gap-2 items-center')
     const [postAlert, setPostAlert] = useState<string>('hidden')
+    const [postsBar, setPostsBar] = useState<string>("bg-book-green rounded-full w-1/4 h-[2px]")
+    const [postsText, setPostsText] = useState<string>("w-1/2 flex flex-col items-center text-xl font-bold")
+    const [likesBar, setLikesbar] = useState<string>('hidden')
+    const [likesText, setLikesText] = useState<string>("w-1/2 flex flex-col items-center text-xl text-book-dark/60")
 
     useEffect(() => {
         fetchData()
@@ -63,6 +67,28 @@ export default function Profile() {
             .catch((err) => console.error(err))
     }
 
+    function switchFeedType(feedType: string) {
+        if (feedType === 'posts') {
+            showPosts()
+        } else {
+            showLikes()
+        }
+    }
+
+    function showPosts() {
+        setPostsText('w-1/2 flex flex-col items-center text-xl font-bold')
+        setPostsBar('bg-book-green rounded-full w-1/4 h-[2px]')
+        setLikesbar('hidden')
+        setLikesText('w-1/2 flex flex-col items-center text-xl text-book-dark/60')
+    }
+
+    function showLikes() {
+        setPostsText('w-1/2 flex flex-col items-center text-xl text-book-dark/60')
+        setPostsBar('hidden')
+        setLikesbar('bg-book-green rounded-full w-1/4 h-[2px]')
+        setLikesText('w-1/2 flex flex-col items-center text-xl font-bold')
+    }
+
     return (
         <div className="h-svh w-full">
             <MobileMenu mobileMenu={mobileMenu} />
@@ -71,6 +97,16 @@ export default function Profile() {
                 <Sidebar />
                 <div className='flex flex-col gap-4 lg:w-1/2'>
                     <CoverAndProfilePicture from={from} hideLocation={hideLocation} hideBirthday={hideBirthday} apiData={apiData} />
+                    <div className="flex my-4">
+                        <div className={postsText} onClick={() => switchFeedType('posts')}>
+                            <button>Posts</button>
+                            <div className={postsBar}></div>
+                        </div>
+                        <div className={likesText} onClick={() => switchFeedType('likes')}>
+                            <button>Likes</button>
+                            <div className={likesBar}></div>
+                        </div>
+                    </div>
                     <ProfilePosts apiData={apiData} postAlert={postAlert} />
                 </div>
                 <SearchBar />

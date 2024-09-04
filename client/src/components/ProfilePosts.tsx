@@ -4,7 +4,6 @@ import { Post } from "../types"
 export default function ProfilePosts(props: any) {
     return (
         <div className="flex flex-col mx-2 gap-4 max-h-full overflow-auto default-font">
-            <h1 className="text-xl text-center font-bold">Posts from {props.apiData && props.apiData[0].username}</h1>
             <p className={props.postAlert}>No posts yet!</p>
             {props.apiData && props.apiData[0].posts.map((content: Post, index: number) => {
                 return <div className="flex flex-col justify-center gap-4 text-lg" key={index}>
