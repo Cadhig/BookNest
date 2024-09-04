@@ -2,9 +2,23 @@ import { BsPersonCircle, BsFillHouseFill, BsFillBellFill, BsEnvelopeFill } from 
 import { IoBookmarks, IoSettingsSharp } from "react-icons/io5";
 import { GiBookCover } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Sidebar() {
+    const [username, setUsername] = useState()
+    useEffect(() => {
+        fetch('http://localhost:3000/api/user/loggedInUser', {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(response => setUsername(response[0].username))
+    }, [])
 
+    console.log(username)
     return (
         <div className="hidden md:flex md:w-1/4 ml-2 h-full default-font">
             <div className="flex flex-col gap-8">
@@ -37,7 +51,7 @@ export default function Sidebar() {
                     <GiBookCover className="text-4xl" />
                     <p className="text-xl">Clubs (coming soon)</p>
                 </div>
-                <Link to={'/profile'} state={{ from: 'user' }}>
+                <Link to={'/profile'} state={{ from: username }}>
                     <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <BsPersonCircle className="text-4xl" />
                         <p className="text-xl">Profile</p>

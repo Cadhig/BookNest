@@ -16,10 +16,6 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-mongoose.connect("mongodb://localhost/BookNest")
-
 app.use(session({
     secret: 'my-secret',
     resave: false,
@@ -31,6 +27,10 @@ app.use(session({
         mongoUrl: "mongodb://localhost/BookNest",
     })
 }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+mongoose.connect("mongodb://localhost/BookNest")
+
 
 app.get('/nytApi', async (req, res) => {
     request({

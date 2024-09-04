@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import MobileHeader from "../components/MobileHeader"
 import SearchBar from "../components/SearchBar"
 import MobileMenu from "../components/MobileMenu"
 import CreatePost from "../components/CreatePost"
 import Sidebar from "../components/Sidebar"
 import Posts from "../components/Posts"
+import { User } from "../types";
+import { PostsType } from "../types"
+
 
 export default function Homepage() {
     const [mobileMenu, setMobileMenu] = useState<string>('hidden')
@@ -13,6 +16,30 @@ export default function Homepage() {
     const [globalText, setGlobalText] = useState<string>("w-1/2 flex flex-col items-center text-xl font-bold")
     const [followingBar, setFollowingbar] = useState<string>('hidden')
     const [followingText, setFollowingText] = useState<string>("w-1/2 flex flex-col items-center text-xl text-book-dark/60")
+    const [postData, setPostData] = useState<PostsType>()
+    const [userData, setUserData] = useState<User | any>()
+    const [refreshPost, setRefreshPost] = useState<User | any>()
+    const [likedPostData, setLikedPostData] = useState<any>()
+
+    async function fetchLoggedInUser() {
+        await fetch('http://localhost:3000/api/user/loggedInUser', {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(response => setUserData(response))
+            .catch(err => console.error(err))
+        await fetch('http://localhost:3000/api/posts')
+            .then(res => res.json())
+            .then(response => setPostData(response))
+            .catch(err => console.error(err))
+    }
+    useEffect(() => {
+        fetchLoggedInUser()
+    }, [refreshFeed, refreshPost, likedPostData])
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -44,6 +71,9 @@ export default function Homepage() {
         setFollowingText('w-1/2 flex flex-col items-center text-xl font-bold')
     }
 
+    if (!postData && !userData) {
+        return null
+    }
 
     return (
         <div className="h-svh default-font text-book-dark">
@@ -63,7 +93,7 @@ export default function Homepage() {
                         </div>
                     </div>
                     <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
-                    <Posts refreshFeed={refreshFeed} />
+                    <Posts postAlert="hidden" refreshFeed={refreshFeed} likedPostData={likedPostData} userData={userData} refreshPost={refreshPost} setLikedPostData={setLikedPostData} postData={postData} setRefreshPost={setRefreshPost} />
                 </div>
                 <Sidebar />
             </div>

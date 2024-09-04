@@ -115,7 +115,12 @@ router.post('/login', async (req, res, next) => {
             password,
             isLoggedIn: true
         }
-        res.status(200).send()
+        req.session.save(err => {
+            if (err) {
+                return res.status(500).json({ error: 'Failed to save session' });
+            }
+            res.status(200).send();
+        });
     } catch (err) {
         return res.status(500).json(err)
     }

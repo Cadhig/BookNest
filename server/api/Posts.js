@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Posts = require('../models/Posts.js');
 const User = require('../models/User.js');
+const { loggedInUser } = require('./User.js')
 
 router.get('/', (req, res) => {
     if (!req.sessionID) {
@@ -18,6 +19,22 @@ router.get('/', (req, res) => {
             })
         })
 
+})
+
+router.get('/:username', (req, res) => {
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    Posts.find({ username: req.params.username }).sort({ createdAt: -1 })
+        .then((result) => {
+            return res.status(200).json(result)
+        })
+        .catch((err) => {
+            console.error(err)
+            return res.status(400).json({
+                message: 'Could not fetch posts'
+            })
+        })
 })
 
 router.post('/', async (req, res) => {

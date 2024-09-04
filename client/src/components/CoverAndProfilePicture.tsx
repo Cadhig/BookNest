@@ -7,7 +7,7 @@ import { FaCakeCandles, FaLocationDot } from "react-icons/fa6";
 
 interface ProfileUser {
     from: string
-    apiData: any,
+    userData: any,
     hideLocation: string,
     hideBirthday: string
 }
@@ -47,17 +47,17 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
             </div>
             <div className='ml-6 flex flex-col gap-2'>
                 <div className='flex items-center gap-2'>
-                    <p className='font-bold text-xl'>{props.apiData && props.apiData[0].username}</p>
+                    <p className='font-bold text-xl'>{props.userData && props.userData[0].username}</p>
                 </div>
-                <p>{props.apiData && props.apiData[0].bio}</p>
+                <p>{props.userData && props.userData[0].bio}</p>
                 <div className="flex gap-4 text-black/60">
                     <div className={props.hideLocation}>
                         <FaLocationDot />
-                        <p>{props.apiData && props.apiData[0].location}</p>
+                        <p>{props.userData && props.userData[0].location}</p>
                     </div>
                     <div className={props.hideBirthday}>
                         <FaCakeCandles />
-                        <p>{props.apiData && props.apiData[0].birthday}</p>
+                        <p>{props.userData && props.userData[0].birthday}</p>
                     </div>
                 </div>
             </div>

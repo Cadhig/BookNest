@@ -4,15 +4,17 @@ import MobileMenu from "../components/MobileMenu"
 import MobileHeader from "../components/MobileHeader"
 import Sidebar from "../components/Sidebar"
 import SearchBar from "../components/SearchBar"
-import ProfilePosts from "../components/ProfilePosts"
 import CoverAndProfilePicture from "../components/CoverAndProfilePicture"
+import { PostsType } from "../types"
+import Posts from "../components/Posts"
+import { User } from "../types"
 
 
 
 export default function Profile() {
     const location = useLocation()
     const { from } = location.state
-    const [apiData, setApiData] = useState<any>()
+    const [userData, setUserData] = useState<any>()
     const [mobileMenu, setMobileMenu] = useState<string>('hidden')
     const [hideLocation, setHideLocation] = useState<string>('flex gap-2 items-center')
     const [hideBirthday, setHideBirthday] = useState<string>('flex gap-2 items-center')
@@ -20,13 +22,15 @@ export default function Profile() {
     const [postsBar, setPostsBar] = useState<string>("bg-book-green rounded-full w-1/4 h-[2px]")
     const [postsText, setPostsText] = useState<string>("w-1/2 flex flex-col items-center text-xl font-bold")
     const [likesBar, setLikesbar] = useState<string>('hidden')
+    const [postData, setPostData] = useState<PostsType>()
     const [likesText, setLikesText] = useState<string>("w-1/2 flex flex-col items-center text-xl text-book-dark/60")
+    const [refreshPost, setRefreshPost] = useState<User | any>()
+    const [likedPostData, setLikedPostData] = useState<any>()
 
     useEffect(() => {
         fetchData()
-    }, [from])
-    console.log(apiData)
-
+    }, [from, refreshPost, likedPostData])
+    console.log(from)
     function toggleMobileMenu(val: boolean) {
         if (val) {
             setMobileMenu("absolute z-30 mobileMenuStyles w3-animate-left")
@@ -50,7 +54,7 @@ export default function Profile() {
             .then(async (res) => {
                 if (res.ok) {
                     const jsonData = await res.json()
-                    setApiData(jsonData)
+                    setUserData(jsonData)
                     if (!jsonData[0].location) {
                         setHideLocation('hidden')
                     }
@@ -65,6 +69,14 @@ export default function Profile() {
                 }
             })
             .catch((err) => console.error(err))
+        await fetch(`http://localhost:3000/api/posts/${from}`)
+            .then(res => res.json())
+            .then(response => {
+                console.log(response)
+                setPostData(response)
+            }
+            )
+            .catch(err => console.error(err))
     }
 
     function switchFeedType(feedType: string) {
@@ -89,6 +101,10 @@ export default function Profile() {
         setLikesText('w-1/2 flex flex-col items-center text-xl font-bold')
     }
 
+    if (!postData && !userData) {
+        return null
+    }
+
     return (
         <div className="h-svh w-full">
             <MobileMenu mobileMenu={mobileMenu} />
@@ -96,7 +112,7 @@ export default function Profile() {
             <div className='flex w-full md:flex-row flex-col-reverse gap-4 md:gap-0 default-font' onClick={() => setMobileMenu('hidden')}>
                 <Sidebar />
                 <div className='flex flex-col gap-4 lg:w-1/2'>
-                    <CoverAndProfilePicture from={from} hideLocation={hideLocation} hideBirthday={hideBirthday} apiData={apiData} />
+                    <CoverAndProfilePicture from={from} hideLocation={hideLocation} hideBirthday={hideBirthday} userData={userData} />
                     <div className="flex my-4">
                         <div className={postsText} onClick={() => switchFeedType('posts')}>
                             <button>Posts</button>
@@ -107,7 +123,7 @@ export default function Profile() {
                             <div className={likesBar}></div>
                         </div>
                     </div>
-                    <ProfilePosts apiData={apiData} postAlert={postAlert} />
+                    <Posts postAlert={postAlert} likedPostData={likedPostData} userData={userData} refreshPost={refreshPost} setLikedPostData={setLikedPostData} postData={postData} setRefreshPost={setRefreshPost} />
                 </div>
                 <SearchBar />
             </div>
