@@ -2,11 +2,24 @@ import { BsPersonCircle, BsFillHouseFill, BsFillBellFill, BsEnvelopeFill } from 
 import { IoBookmarks, IoSettingsSharp } from "react-icons/io5";
 import { GiBookCover } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 interface MobileMenuProps {
     mobileMenu: string
 }
 export default function MobileMenu(props: MobileMenuProps) {
+    const [username, setUsername] = useState()
 
+    useEffect(() => {
+        fetch('http://localhost:3000/api/user/loggedInUser', {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then(res => res.json())
+            .then(response => setUsername(response[0].username))
+    }, [])
 
     return (
         <div className={props.mobileMenu}>
@@ -36,7 +49,7 @@ export default function MobileMenu(props: MobileMenuProps) {
                         <GiBookCover className="text-4xl" />
                         <p className="text-xl">Clubs</p>
                     </div>
-                    <Link to={'/profile'} state={{ from: 'user' }}>
+                    <Link to={'/profile'} state={{ from: username }}>
                         <div className="flex items-center gap-2">
                             <BsPersonCircle className="text-4xl" />
                             <p className="text-xl">Profile</p>
