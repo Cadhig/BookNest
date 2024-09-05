@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import MobileHeader from "../components/MobileHeader"
-import SearchBar from "../components/SearchBar"
+import RightSidebar from "../components/RightSidebar"
 import MobileMenu from "../components/MobileMenu"
 import CreatePost from "../components/CreatePost"
 import Sidebar from "../components/Sidebar"
@@ -80,7 +80,7 @@ export default function Homepage() {
             <MobileMenu mobileMenu={mobileMenu} />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
             <div onClick={() => toggleMobileMenu(false)} className="flex flex-col md:flex-row-reverse">
-                <SearchBar />
+                <RightSidebar />
                 <div className="flex flex-col md:w-1/2 w-full max-h-full">
                     <div className="flex my-4">
                         <div className={globalText} onClick={() => switchFeedType('global')}>

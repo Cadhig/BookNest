@@ -5,7 +5,7 @@ import MobileHeader from "../components/MobileHeader"
 import MobileMenu from "../components/MobileMenu"
 import { Link } from "react-router-dom"
 import Sidebar from "../components/Sidebar"
-import SearchBar from "../components/SearchBar"
+import RightSidebar from "../components/RightSidebar"
 export default function SearchResults() {
     const location = useLocation()
     const { search } = location.state
@@ -55,7 +55,7 @@ export default function SearchResults() {
                         })}
                     </div>
                 </div>
-                <SearchBar />
+                <RightSidebar />
             </div>
         </div>
     )

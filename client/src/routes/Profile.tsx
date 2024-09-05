@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom"
 import MobileMenu from "../components/MobileMenu"
 import MobileHeader from "../components/MobileHeader"
 import Sidebar from "../components/Sidebar"
-import SearchBar from "../components/SearchBar"
+import RightSidebar from "../components/RightSidebar"
 import CoverAndProfilePicture from "../components/CoverAndProfilePicture"
 import { PostsType } from "../types"
 import Posts from "../components/Posts"
@@ -125,7 +125,7 @@ export default function Profile() {
                     </div>
                     <Posts postAlert={postAlert} likedPostData={likedPostData} userData={userData} refreshPost={refreshPost} setLikedPostData={setLikedPostData} postData={postData} setRefreshPost={setRefreshPost} />
                 </div>
-                <SearchBar />
+                <RightSidebar />
             </div>
         </div>
     );

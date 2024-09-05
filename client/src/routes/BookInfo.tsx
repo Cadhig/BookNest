@@ -5,7 +5,7 @@ import MobileHeader from "../components/MobileHeader"
 import Reviews from "../components/Reviews"
 import MobileMenu from "../components/MobileMenu"
 import { GoogleBooks } from "../types"
-import SearchBar from "../components/SearchBar"
+import RightSidebar from "../components/RightSidebar"
 import Sidebar from "../components/Sidebar"
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 
@@ -153,7 +153,7 @@ export default function BookInfo() {
                         <Reviews />
                     </div>
                 </div>
-                <SearchBar />
+                <RightSidebar />
             </div >
         </div>
     )

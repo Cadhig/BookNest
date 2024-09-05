@@ -4,7 +4,7 @@ import { Bookmarked } from "../types"
 import MobileHeader from "../components/MobileHeader"
 import Sidebar from "../components/Sidebar"
 import MobileMenu from "../components/MobileMenu"
-import SearchBar from "../components/SearchBar"
+import RightSidebar from "../components/RightSidebar"
 
 export default function BookList() {
     const navigate = useNavigate()
@@ -92,7 +92,7 @@ export default function BookList() {
                         })}
                     </div>
                 </div>
-                <SearchBar />
+                <RightSidebar />
             </div>
         </div>
     )

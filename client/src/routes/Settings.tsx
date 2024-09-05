@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import placeholder from '../assets/profile.jpg'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../components/SearchBar";
+import RightSidebar from "../components/RightSidebar";
 
 export default function Settings() {
     const navigate = useNavigate()
@@ -230,7 +230,7 @@ export default function Settings() {
                         <button className="bg-red-600 text-book-light rounded-full py-2 px-4" onClick={() => Logout()}>Logout</button>
                     </div>
                 </div>
-                <SearchBar />
+                <RightSidebar />
             </div>
         </div>
     )
