@@ -79,7 +79,7 @@ export default function BookList() {
             <div className="flex flex-col-reverse gap-2 md:flex-row">
                 <Sidebar />
                 <div className="w-full md:w-1/2 mt-4">
-                    <p className="text-center text-xl font-bold">{apiData && apiData[0].username}'s Saved Books</p>
+                    <p className="text-center text-3xl font-bold">Your Bookmarks</p>
                     <div className={noBookmarks}>
                         <p className="inline text-black/50 text-xl">No saved books yet!</p>
                     </div>

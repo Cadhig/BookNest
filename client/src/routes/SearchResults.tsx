@@ -37,7 +37,7 @@ export default function SearchResults() {
             <div className="flex flex-col-reverse md:flex-row">
                 <Sidebar />
                 <div className="default-font w-full md:w-1/2 flex flex-col items-center mt-4 h-1/4" onClick={() => toggleMobileMenu(false)}>
-                    <div className="text-center text-2xl">
+                    <div className="text-center text-3xl">
                         <p>Results for '{search.book}'</p>
                     </div>
                     <div className="flex flex-col w-full md:w-full">
