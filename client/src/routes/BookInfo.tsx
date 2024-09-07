@@ -21,6 +21,7 @@ export default function BookInfo() {
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
     const [showGooglePlay, setShowGooglePlay] = useState<string>('block text-2xl')
+    const [showPreview, setShowPreview] = useState<string>('block text-xl text-blue-500 hover:underline')
 
     useEffect(() => {
         setIsbn(isbnData)
@@ -50,13 +51,15 @@ export default function BookInfo() {
                             if (bookResponse?.items[0].saleInfo.buyLink === undefined) {
                                 setShowGooglePlay('hidden')
                             }
+                            if (bookResponse?.items[0].accessInfo.webReaderLink === undefined) {
+                                setShowPreview('hidden')
+                            }
                         }
                     })
                     .catch((err) => console.error(err))
             })
             .catch((err) => console.error(err))
     }, [data])
-    console.log(bookData?.items[0].saleInfo.buyLink)
     console.log(bookData)
     function switchBookmarkStatus() {
         if (bookmarkStatus) {
@@ -138,9 +141,17 @@ export default function BookInfo() {
                                 <div className="h-60 overflow-auto">
                                     <p>{bookData && bookData.items[0].volumeInfo.description}</p>
                                 </div>
+                                <div>
+                                    <a className={showPreview} target="_blank" href={bookData && bookData.items[0].accessInfo.webReaderLink}>Preview</a>
+                                </div>
+                                <div>
+                                    <p>Categories: {bookData && bookData.items[0].volumeInfo.categories}</p>
+                                </div>
+                                <div>
+                                </div>
                                 <div className="flex justify-center gap-6">
                                     <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
-                                    <a className={showGooglePlay} href={bookData && bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
+                                    <a target="_blank" className={showGooglePlay} href={bookData && bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +166,7 @@ export default function BookInfo() {
                                 <p>{bookData && bookData.items[0].volumeInfo.authors[0]}</p>
                             </div>
                         </div>
+                        <p>Published on {bookData && bookData.items[0].volumeInfo.publishedDate}</p>
                         <Reviews />
                     </div>
                 </div>
