@@ -26,6 +26,9 @@ export default function MobileMenu(props: MobileMenuProps) {
             <div className="h-full m-4">
                 <div className="flex flex-col gap-10">
                     <Link to={'/homepage'}>
+                        <div className="header-font text-4xl text-book-dark">BookNest</div>
+                    </Link>
+                    <Link to={'/homepage'}>
                         <div className="flex items-center gap-2">
                             <BsFillHouseFill className="text-4xl" />
                             <p className="text-xl">Home</p>

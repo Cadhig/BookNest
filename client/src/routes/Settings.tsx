@@ -166,9 +166,9 @@ export default function Settings() {
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <div className="flex">
+            <div className="flex flex-col-reverse lg:flex-row">
                 <Sidebar />
-                <div className="w-1/2 flex flex-col gap-4 mt-4">
+                <div className="lg:w-1/2 flex flex-col gap-4 mt-4">
                     <p className="text-center text-2xl">Account Settings</p>
                     <div className="flex flex-col gap-4 items-center text-xl">
                         <img src={placeholder} alt="" className="rounded-full w-40" />
