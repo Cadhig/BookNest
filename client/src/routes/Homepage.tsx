@@ -79,9 +79,9 @@ export default function Homepage() {
         <div className="h-svh default-font text-book-dark">
             <MobileMenu mobileMenu={mobileMenu} />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <div onClick={() => toggleMobileMenu(false)} className="flex flex-col md:flex-row-reverse">
+            <div onClick={() => toggleMobileMenu(false)} className="flex flex-col lg:flex-row-reverse">
                 <RightSidebar />
-                <div className="flex flex-col md:w-1/2 w-full max-h-full">
+                <div className="flex flex-col lg:w-1/2 w-full max-h-full">
                     <div className="flex my-4">
                         <div className={globalText} onClick={() => switchFeedType('global')}>
                             <button>Global</button>

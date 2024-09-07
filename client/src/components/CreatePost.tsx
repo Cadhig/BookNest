@@ -30,7 +30,7 @@ export default function CreatePost(props: postType) {
     }
 
     return (
-        <div className="p-2 flex flex-col gap-2 mt-4 md:mt-0">
+        <div className="p-2 flex flex-col gap-2 mt-4 lg:mt-0">
             <div className='flex gap-2 justify-center items-center'>
                 <img src={profile} alt="" className='w-16 rounded-full object-cover' />
                 <input type="text" placeholder='What are you reading...' className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => setPostText(e.target.value)} />

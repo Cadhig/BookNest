@@ -18,7 +18,7 @@ export default function Sidebar() {
             .then(response => setUsername(response[0].username))
     }, [])
     return (
-        <div className="hidden md:flex md:w-1/4 ml-2 h-full default-font">
+        <div className="hidden lg:flex lg:w-1/4 ml-2 h-full default-font">
             <div className="flex flex-col gap-8">
                 <div className="flex items-center p-2">
                     <Link to={'/homepage'}>

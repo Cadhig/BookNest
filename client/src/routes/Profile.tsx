@@ -109,7 +109,7 @@ export default function Profile() {
         <div className="h-svh w-full">
             <MobileMenu mobileMenu={mobileMenu} />
             <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <div className='flex w-full md:flex-row flex-col-reverse gap-4 md:gap-0 default-font' onClick={() => setMobileMenu('hidden')}>
+            <div className='flex w-full lg:flex-row flex-col-reverse gap-4 lg:gap-0 default-font' onClick={() => setMobileMenu('hidden')}>
                 <Sidebar />
                 <div className='flex flex-col gap-4 lg:w-1/2'>
                     <CoverAndProfilePicture from={from} hideLocation={hideLocation} hideBirthday={hideBirthday} userData={userData} />
