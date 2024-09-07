@@ -8,6 +8,8 @@ import { GoogleBooks } from "../types"
 import RightSidebar from "../components/RightSidebar"
 import Sidebar from "../components/Sidebar"
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
+import { FaGooglePlay } from "react-icons/fa";
+
 
 export default function BookInfo() {
     const location = useLocation()
@@ -18,6 +20,7 @@ export default function BookInfo() {
     const [isbn, setIsbn] = useState(isbnData)
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
+    const [showGooglePlay, setShowGooglePlay] = useState<string>('block text-2xl')
 
     useEffect(() => {
         setIsbn(isbnData)
@@ -42,9 +45,10 @@ export default function BookInfo() {
                                 if (CurrentBookmarkedIsbn === DisplayedBookIsbn) {
                                     setBookmarkStatus(false)
                                     setBookmark(<IoBookmark />)
-                                    return
                                 }
-
+                            }
+                            if (bookResponse?.items[0].saleInfo.buyLink === undefined) {
+                                setShowGooglePlay('hidden')
                             }
                         }
                     })
@@ -52,9 +56,9 @@ export default function BookInfo() {
             })
             .catch((err) => console.error(err))
     }, [data])
-
+    console.log(bookData?.items[0].saleInfo.buyLink)
+    console.log(bookData)
     function switchBookmarkStatus() {
-        console.log(bookmarkStatus)
         if (bookmarkStatus) {
             setBookmark(<IoBookmark />)
             addBook()
@@ -134,8 +138,9 @@ export default function BookInfo() {
                                 <div className="h-60 overflow-auto">
                                     <p>{bookData && bookData.items[0].volumeInfo.description}</p>
                                 </div>
-                                <div className="flex justify-center">
+                                <div className="flex justify-center gap-6">
                                     <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
+                                    <a className={showGooglePlay} href={bookData && bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
                                 </div>
                             </div>
                         </div>

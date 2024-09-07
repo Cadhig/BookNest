@@ -60,9 +60,9 @@ interface Isbn {
 }
 
 interface BuyLink {
-    name: string;
-    url: string;
+    url: string
 }
+
 
 export interface GoogleBooksResults {
     kind: string;
@@ -110,6 +110,7 @@ interface VolumeInfo {
 }
 
 interface SaleInfo {
+    buyLink: string | undefined;
     country: string;
     saleability: string;
     isEbook: boolean;

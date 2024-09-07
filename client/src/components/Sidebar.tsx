@@ -17,8 +17,6 @@ export default function Sidebar() {
             .then(res => res.json())
             .then(response => setUsername(response[0].username))
     }, [])
-
-    console.log(username)
     return (
         <div className="hidden md:flex md:w-1/4 ml-2 h-full default-font">
             <div className="flex flex-col gap-8">
