@@ -17,7 +17,6 @@ interface postProps {
     postAlert?: string
 }
 export default function Posts(props: postProps) {
-    console.log(props.postData)
     function likeOrUnlikePost(id: string, hasUserLiked: any) {
         if (hasUserLiked) {
             unlikePost(id)

@@ -26,11 +26,11 @@ export default function Profile() {
     const [likesText, setLikesText] = useState<string>("w-1/2 flex flex-col items-center text-xl text-book-dark/60")
     const [refreshPost, setRefreshPost] = useState<User | any>()
     const [likedPostData, setLikedPostData] = useState<any>()
+    const [feedType, setFeedType] = useState<string>('posts')
 
     useEffect(() => {
         fetchData()
-    }, [from, refreshPost, likedPostData])
-    console.log(from)
+    }, [from, refreshPost, likedPostData, feedType])
     function toggleMobileMenu(val: boolean) {
         if (val) {
             setMobileMenu("absolute z-30 mobileMenuStyles w3-animate-left")
@@ -64,19 +64,17 @@ export default function Profile() {
                     if (!jsonData[0].posts[0]) {
                         setPostAlert('inline text-lg text-black/50 text-center')
                     }
+                    if (feedType === 'posts') {
+                        setPostData(jsonData[0].posts)
+                    }
+                    if (feedType === 'likes') {
+                        setPostData(jsonData[0].likes)
+                    }
                 } else {
                     console.log(res)
                 }
             })
             .catch((err) => console.error(err))
-        await fetch(`http://localhost:3000/api/posts/${from}`)
-            .then(res => res.json())
-            .then(response => {
-                console.log(response)
-                setPostData(response)
-            }
-            )
-            .catch(err => console.error(err))
     }
 
     function switchFeedType(feedType: string) {
@@ -88,6 +86,7 @@ export default function Profile() {
     }
 
     function showPosts() {
+        setFeedType('posts')
         setPostsText('w-1/2 flex flex-col items-center text-xl font-bold')
         setPostsBar('bg-book-green rounded-full w-1/4 h-[2px]')
         setLikesbar('hidden')
@@ -95,6 +94,7 @@ export default function Profile() {
     }
 
     function showLikes() {
+        setFeedType('likes')
         setPostsText('w-1/2 flex flex-col items-center text-xl text-book-dark/60')
         setPostsBar('hidden')
         setLikesbar('bg-book-green rounded-full w-1/4 h-[2px]')

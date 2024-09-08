@@ -28,12 +28,12 @@ router.post('/profile', async (req, res) => {
         try {
             const user = await User.find({ username: req.session.user.username }).select("-password")
                 .populate({ path: 'posts', strictPopulate: false, options: { sort: { createdAt: -1 } } })
+                .populate({ path: 'likes', strictPopulate: false, options: { sort: { createdAt: -1 } } })
                 .exec()
             console.log(user)
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
-
             return res.status(200).json(user);
         } catch (err) {
             console.error(err);
@@ -41,7 +41,10 @@ router.post('/profile', async (req, res) => {
         }
     }
     try {
-        const user = await User.find({ username: username }).select("-password").populate({ path: 'posts', strictPopulate: false }).exec()
+        const user = await User.find({ username: username }).select("-password")
+            .populate({ path: 'posts', strictPopulate: false, options: { sort: { createdAt: -1 } } })
+            .populate({ path: 'likes', strictPopulate: false, options: { sort: { createdAt: -1 } } })
+            .exec()
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
