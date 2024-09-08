@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Posts = require('../models/Posts.js');
 const User = require('../models/User.js');
-const { loggedInUser } = require('./User.js')
 
 router.get('/', (req, res) => {
     if (!req.sessionID) {
@@ -39,7 +38,6 @@ router.get('/:username', (req, res) => {
 
 router.post('/', async (req, res) => {
     const { postText } = req.body
-    console.log(req.session)
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }

@@ -4,6 +4,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
 import { User } from "../types";
 import { Post } from "../types"
+import moment from 'moment';
 
 interface postProps {
     postData: any
@@ -72,6 +73,7 @@ export default function Posts(props: postProps) {
             .catch((err) => console.error(err))
     }
 
+
     return (
         <div className="flex flex-col m-2 gap-4 max-h-full overflow-auto">
             {props.postData && props.postData.map((content: Post, index: number) => {
@@ -93,9 +95,12 @@ export default function Posts(props: postProps) {
                             </div>
                             <p className="text-ellipsis">{content.postText}</p>
                         </div>
-                        <div className="flex">
-                            <p onClick={() => likeOrUnlikePost(content._id, hasUserLiked)}>{hasUserLiked ? <IoHeart /> : <IoMdHeartEmpty />}</p>
-                            <p className="text-right text-xs">{content.createdAt}</p>
+                        <div className="flex gap-1 items-center justify-between">
+                            <div className='flex items-center gap-1'>
+                                <p onClick={() => likeOrUnlikePost(content._id, hasUserLiked)}>{hasUserLiked ? <IoHeart /> : <IoMdHeartEmpty />}</p>
+                                <p>{content.likes.length}</p>
+                            </div>
+                            <p className="text-right text-xs">{moment(content.createdAt).startOf('second').fromNow()}</p>
                         </div>
                     </div>
                     <div className="h-[1px] bg-book-green"></div>
