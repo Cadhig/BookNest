@@ -73,17 +73,18 @@ router.post('/bookmarks', async (req, res) => {
             return res.status(400).json({ message: 'Could not retrieve books' });
         }
     }
-    // try {
-    //     const user = await User.find({ username: username }).select("-password").populate({ path: 'books', strictPopulate: false }).exec()
-    //     if (!user) {
-    //         return res.status(404).json({ message: 'User not found' });
-    //     }
-
-    //     return res.status(200).json(user);
-    // } catch (err) {
-    //     console.error(err);
-    //     return res.status(400).json({ message: 'Could not retrieve books' });
-    // }
+    try {
+        const userBooks = await User.find({ username: username }).select("-password")
+            .populate({ path: 'books', strictPopulate: false })
+            .exec()
+        if (!userBooks) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.status(200).json(userBooks);
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not retrieve books' });
+    }
 })
 
 router.post('/signup', async (req, res) => {

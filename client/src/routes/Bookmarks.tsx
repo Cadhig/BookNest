@@ -13,6 +13,7 @@ export default function BookList() {
     const [apiData, setApiData] = useState<any>()
     const [mobileMenu, setMobileMenu] = useState<string>('hidden')
     const [noBookmarks, setNoBookmarks] = useState<string>('hidden')
+    const [user, setUser] = useState<string>()
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -23,6 +24,7 @@ export default function BookList() {
     }
 
     async function fetchData() {
+        console.log(from)
         const data = {
             username: from
         }
@@ -38,6 +40,11 @@ export default function BookList() {
                 if (res.ok) {
                     const jsonData = await res.json()
                     setApiData(jsonData)
+                    if (from === 'user') {
+                        setUser('Your Bookmarks')
+                    } else {
+                        setUser(jsonData[0].username + "'s Bookmarks")
+                    }
                 } else {
                     console.log(res)
                 }
@@ -79,7 +86,7 @@ export default function BookList() {
             <div className="flex flex-col-reverse gap-2 lg:flex-row">
                 <Sidebar />
                 <div className="w-full lg:w-1/2 mt-4">
-                    <p className="text-center text-3xl font-bold">Your Bookmarks</p>
+                    <p className="text-center text-3xl font-bold">{user}</p>
                     <div className={noBookmarks}>
                         <p className="inline text-black/50 text-xl">No saved books yet!</p>
                     </div>

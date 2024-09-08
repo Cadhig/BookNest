@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import profile from '../assets/profile.jpg'
 import backdrop from '../assets/backdrop.jpg'
 import { FaCakeCandles, FaLocationDot } from "react-icons/fa6";
+import { Link } from 'react-router-dom'
 
 interface ProfileUser {
     from: string
@@ -36,9 +37,11 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                     <img src={profile} alt="profile" className='rounded-full size-24' />
                 </div>
                 <div className={showInteractionButtons}>
-                    <div className="bg-book-green flex cursor-pointer hover:bg-book-green-hover items-center rounded-full p-2">
-                        <IoBookmarks className="text-2xl text-book-light" />
-                    </div>
+                    <Link to={'/bookmarks'} state={{ from: props.userData && props.userData[0].username }}>
+                        <div className="bg-book-green flex cursor-pointer hover:bg-book-green-hover items-center rounded-full p-2">
+                            <IoBookmarks className="text-2xl text-book-light" />
+                        </div>
+                    </Link>
                     <div className="bg-book-green cursor-pointer hover:bg-book-green-hover flex items-center rounded-full p-2">
                         <BsEnvelopeFill className="text-2xl text-book-light" />
                     </div>
