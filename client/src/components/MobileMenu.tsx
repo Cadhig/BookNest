@@ -10,7 +10,7 @@ export default function MobileMenu(props: MobileMenuProps) {
     const [username, setUsername] = useState()
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/user/loggedInUser', {
+        fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",

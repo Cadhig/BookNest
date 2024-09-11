@@ -28,7 +28,7 @@ export default function BookList() {
         const data = {
             username: from
         }
-        await fetch(`http://localhost:3000/api/user/bookmarks`, {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/bookmarks`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

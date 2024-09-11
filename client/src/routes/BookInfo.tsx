@@ -29,7 +29,7 @@ export default function BookInfo() {
             .then(res => res.json())
             .then(bookResponse => {
                 setBookData(bookResponse)
-                fetch('http://localhost:3000/api/user/loggedInUser', {
+                fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export default function BookInfo() {
             bookIsbn: bookData && bookData.items[0].volumeInfo.industryIdentifiers[0].identifier,
             bookImage: bookData && bookData.items[0].volumeInfo.imageLinks?.thumbnail
         }
-        await fetch('http://localhost:3000/api/books/saved', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/books/saved`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -98,7 +98,7 @@ export default function BookInfo() {
         const data = {
             bookIsbn: bookData && bookData.items[0].volumeInfo.industryIdentifiers[0].identifier
         }
-        await fetch('http://localhost:3000/api/books/unsave', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/books/unsave`, {
             method: 'DELETE',
             body: JSON.stringify(data),
             headers: {

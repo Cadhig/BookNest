@@ -30,7 +30,7 @@ export default function Posts(props: postProps) {
         const data = {
             postId: id
         }
-        await fetch(`http://localhost:3000/api/posts/unlikePost`, {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts/unlikePost`, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
@@ -53,7 +53,7 @@ export default function Posts(props: postProps) {
         const data = {
             postId: id
         }
-        await fetch(`http://localhost:3000/api/posts/likePost`, {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts/likePost`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

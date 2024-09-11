@@ -40,7 +40,7 @@ export default function Settings() {
             oldPassword: oldPassword,
             password: newPassword
         }
-        await fetch('http://localhost:3000/api/user/changePass', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/changePass`, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
@@ -66,7 +66,7 @@ export default function Settings() {
         const data = {
             bio: bio
         }
-        await fetch('http://localhost:3000/api/user/bio', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/bio`, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
@@ -93,7 +93,7 @@ export default function Settings() {
         const data = {
             location: location
         }
-        await fetch('http://localhost:3000/api/user/location', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/location`, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
@@ -119,7 +119,7 @@ export default function Settings() {
         const data = {
             birthday: birthday
         }
-        await fetch('http://localhost:3000/api/user/birthday', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/birthday`, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
@@ -142,7 +142,7 @@ export default function Settings() {
     }
 
     async function Logout() {
-        await fetch('http://localhost:3000/api/user/logout', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/logout`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

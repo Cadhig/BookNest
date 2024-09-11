@@ -22,7 +22,7 @@ export default function Homepage() {
     const [likedPostData, setLikedPostData] = useState<any>()
 
     async function fetchLoggedInUser() {
-        await fetch('http://localhost:3000/api/user/loggedInUser', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function Homepage() {
             .then(res => res.json())
             .then(response => setUserData(response))
             .catch(err => console.error(err))
-        await fetch('http://localhost:3000/api/posts')
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`)
             .then(res => res.json())
             .then(response => setPostData(response))
             .catch(err => console.error(err))

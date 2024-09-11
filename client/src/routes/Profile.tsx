@@ -43,7 +43,7 @@ export default function Profile() {
         const data = {
             username: from
         }
-        await fetch(`http://localhost:3000/api/user/profile`, {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/profile`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

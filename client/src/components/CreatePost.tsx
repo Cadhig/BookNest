@@ -12,7 +12,7 @@ export default function CreatePost(props: postType) {
         const data = {
             postText: postText
         }
-        await fetch('http://localhost:3000/api/posts', {
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
