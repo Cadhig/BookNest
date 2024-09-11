@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const Posts = require('./Posts.js')
-const Books = require('./Books.js')
 
 function formatDate(createdAt) {
     return createdAt.toString()
