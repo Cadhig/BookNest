@@ -23,12 +23,12 @@ app.use(session({
     },
     saveUninitialized: true,
     store: MongoStore.create({
-        mongoUrl: "mongodb://localhost/BookNest" || process.env.MONGOURL,
+        mongoUrl: "mongodb://localhost/BookNest" || process.env.MONGO_URL,
     })
 }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-mongoose.connect("mongodb://localhost/BookNest" || process.env.MONGOURL)
+mongoose.connect("mongodb://localhost/BookNest" || process.env.MONGO_URL)
 
 
 app.use(apiRoutes)
