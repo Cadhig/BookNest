@@ -9,7 +9,7 @@ const app = express()
 const cors = require('cors')
 
 const corsOptions = {
-    origin: 'http://localhost:5173' || process.env.ORIGIN,
+    origin: process.env.ORIGIN,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }
@@ -23,13 +23,17 @@ app.use(session({
     },
     saveUninitialized: true,
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URL || "mongodb://localhost/BookNest",
+        mongoUrl: process.env.MONGO_URL,
     })
 }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-mongoose.connect(process.env.MONGO_URL || "mongodb://localhost/BookNest")
+mongoose.connect(process.env.MONGO_URL)
 
+app.get('/test', (req, res) => {
+    console.log('test')
+    return res.status(200).send('this test worked')
+})
 
 app.use(apiRoutes)
 
