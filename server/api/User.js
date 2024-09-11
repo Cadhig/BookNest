@@ -3,6 +3,11 @@ const User = require('../models/User.js')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
+router.get('/test', (req, res) => {
+    console.log('user test worked')
+    return res.status(200).send('user test success')
+})
+
 router.get('/loggedInUser', async (req, res) => {
     console.log(req.session)
     try {
