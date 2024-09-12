@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "serve -s build",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "start": "vite preview"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
