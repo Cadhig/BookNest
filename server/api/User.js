@@ -99,10 +99,8 @@ router.post('/signup', async (req, res) => {
         username: username,
         password: hash
     })
-    console.log('created')
         .then((response) => {
-            console.log('response')
-            return res.json(response)
+            return res.status(200).json(response)
         })
         .catch((err) => {
             console.error(err)
