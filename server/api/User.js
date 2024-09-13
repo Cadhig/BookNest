@@ -91,13 +91,17 @@ router.post('/bookmarks', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
+    console.log('accessed')
     const { username, password } = req.body
     const hash = await bcrypt.hash(password, 13)
+    console.log('hashed')
     User.create({
         username: username,
         password: hash
     })
+    console.log('created')
         .then((response) => {
+            console.log('response')
             return res.json(response)
         })
         .catch((err) => {
