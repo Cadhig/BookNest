@@ -35,7 +35,6 @@ app.get('/test', (req, res) => {
     return res.status(200).send('this test worked')
 })
 
-app.options('*', cors(corsOptions));
 
 app.use(apiRoutes)
 
