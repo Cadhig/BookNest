@@ -35,10 +35,9 @@ app.get('/test', (req, res) => {
     return res.status(200).send('this test worked')
 })
 
-
 app.use(apiRoutes)
 
-app.listen(process.env.PORT, () => {
-    console.log('listening on ' + process.env.PORT)
+app.listen(3000, () => {
+    console.log('listening on ' + 3000)
     console.log('allowed origin = ' + process.env.ORIGIN)
 })
