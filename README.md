@@ -1,6 +1,8 @@
 # BookNest
 BookNest is a platform where book lovers can connect! Users will be able to search books by author or title, create social media posts, follow other users, add books to their TBR, customize their profile, and more!
 
+⭐ **This app is not yet completed and is still a work in progress**
+
 ## 📚 Features
 📖 **Book Search**: Search for your favorite titles using keywords, author name, or title.
 
@@ -70,5 +72,3 @@ To run this project locally, follow these steps:
 ## 🤝 Contributions
 
 Contributions are welcome! If you have any suggestions or improvements, feel free to fork the repository, create a new branch, and submit a pull request.
-
-**This app is not yet completed and is still a work in progress**
