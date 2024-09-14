@@ -1,11 +1,22 @@
 # BookNest
 BookNest is a platform where book lovers can connect! Users will be able to search books by author or title, create social media posts, follow other users, add books to their TBR, customize their profile, and more!
 
+## 📚 Features
+📖 **Book Search**: Search for your favorite titles using keywords, author name, or title.
+
+📖 **Bookmarks**: Save your favorite reads to your profile. 
+
+📖 **Connect with Others**: Create posts, view / like other users posts and view others bookmarks
+
+📖 **Profile Customization**: Customize your profile with a personalized bio, location, birthday, and profile / cover pictures.
 
 ## Tech used
-📐 **Frameworks**: React <br>
-💾 **Database**: MongoDB <br>
-🛠 **Tools**: Express, Express-Session, Mongoose, TailwindCss <br>
+📐 **Frameworks**: React
+
+💾 **Database**: MongoDB 
+
+🛠 **Tools**: Express, Express-Session, Mongoose, TailwindCss
+
 🌐 **API** <a href="https://developers.google.com/books">Google Books</a>
 
 ## ⚙️ Installation & Setup
