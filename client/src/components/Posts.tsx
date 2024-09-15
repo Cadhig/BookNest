@@ -75,11 +75,11 @@ export default function Posts(props: postProps) {
 
     return (
         <div className="flex flex-col m-2 gap-4 max-h-full overflow-auto">
+            <p className={props.postAlert}>No posts yet!</p>
             {props.postData && props.postData.map((content: Post, index: number) => {
                 const userId = props.userData && props.userData[0]._id
                 const hasUserLiked = content.likes.some((like: string) => like === userId);
                 return <div className="flex flex-col justify-center gap-4 text-lg" key={index}>
-                    <p className={props.postAlert}>No posts yet!</p>
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-col gap-2 ">
                             <div className="flex gap-2 items-center">

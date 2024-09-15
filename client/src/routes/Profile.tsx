@@ -61,7 +61,7 @@ export default function Profile() {
                     if (!jsonData[0].birthday) {
                         setHideBirthday('hidden')
                     }
-                    if (!jsonData[0].posts[0]) {
+                    if (jsonData[0].posts.length < 1) {
                         setPostAlert('inline text-lg text-black/50 text-center')
                     }
                     if (feedType === 'posts') {
@@ -76,6 +76,7 @@ export default function Profile() {
             })
             .catch((err) => console.error(err))
     }
+
 
     function switchFeedType(feedType: string) {
         if (feedType === 'posts') {

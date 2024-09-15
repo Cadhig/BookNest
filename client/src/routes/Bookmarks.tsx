@@ -42,8 +42,14 @@ export default function BookList() {
                     setApiData(jsonData)
                     if (from === 'user') {
                         setUser('Your Bookmarks')
+                        if (jsonData && jsonData[0].books.length < 1) {
+                            setNoBookmarks('inline w-full text-center')
+                        }
                     } else {
                         setUser(jsonData[0].username + "'s Bookmarks")
+                        if (jsonData && jsonData[0].books.length < 1) {
+                            setNoBookmarks('inline w-full text-center')
+                        }
                     }
                 } else {
                     console.log(res)
@@ -73,9 +79,6 @@ export default function BookList() {
 
     useEffect(() => {
         fetchData()
-        if (apiData && apiData[0].books.length < 1) {
-            setNoBookmarks('w-full text-center mt-2')
-        }
     }, [])
 
     console.log(apiData)
@@ -88,7 +91,7 @@ export default function BookList() {
                 <div className="w-full lg:w-1/2 mt-4">
                     <p className="text-center text-3xl font-bold">{user}</p>
                     <div className={noBookmarks}>
-                        <p className="inline text-black/50 text-xl">No saved books yet!</p>
+                        <p className="text-black/50 text-center text-xl mt-4 lg:mt-4">No saved books yet!</p>
                     </div>
                     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 gap-2 m-2" onClick={() => toggleMobileMenu(false)}>
                         {apiData && apiData[0].books.map((content: Bookmarked, index: number) => {
