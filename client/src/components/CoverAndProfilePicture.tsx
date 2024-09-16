@@ -12,7 +12,7 @@ interface ProfileUser {
     hideLocation: string,
     hideBirthday: string,
     refresh: boolean,
-    setRefresh: (arg: boolean) => boolean
+    setRefresh: (arg: boolean) => void
 }
 
 export default function CoverAndProfilePicture(props: ProfileUser) {
