@@ -3,8 +3,10 @@ import { IoBookmarks } from 'react-icons/io5'
 import { useEffect, useState } from 'react'
 import profile from '../assets/profile.jpg'
 import backdrop from '../assets/backdrop.jpg'
-import { FaCakeCandles, FaLocationDot } from "react-icons/fa6";
+import { FaCakeCandles, FaLocationDot, FaCalendarDays } from "react-icons/fa6";
+
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 interface ProfileUser {
     from: string
@@ -118,6 +120,10 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                     <div className={props.hideBirthday}>
                         <FaCakeCandles />
                         <p>{props.userData[0].user && props.userData[0].user[0].birthday}</p>
+                    </div>
+                    <div className='flex gap-2 items-center'>
+                        <FaCalendarDays />
+                        <p>Joined {moment(props.userData[0].user[0].createdAt).format("MMM YYYY")}</p>
                     </div>
                 </div>
                 <div className='flex gap-4'>
