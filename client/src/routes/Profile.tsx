@@ -27,10 +27,11 @@ export default function Profile() {
     const [refreshPost, setRefreshPost] = useState<User | any>()
     const [likedPostData, setLikedPostData] = useState<any>()
     const [feedType, setFeedType] = useState<string>('posts')
+    const [refresh, setRefresh] = useState<boolean>(false)
 
     useEffect(() => {
         fetchData()
-    }, [from, refreshPost, likedPostData, feedType])
+    }, [from, refreshPost, likedPostData, feedType, refresh])
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -56,20 +57,20 @@ export default function Profile() {
                 if (res.ok) {
                     const jsonData = await res.json()
                     setUserData(jsonData)
-                    if (!jsonData[0].location) {
+                    if (!jsonData[0].user[0].location) {
                         setHideLocation('hidden')
                     }
-                    if (!jsonData[0].birthday) {
+                    if (!jsonData[0].user[0].birthday) {
                         setHideBirthday('hidden')
                     }
-                    if (jsonData[0].posts.length < 1) {
+                    if (jsonData[0].user[0].posts.length < 1) {
                         setPostAlert('inline text-lg text-black/50 text-center')
                     }
                     if (feedType === 'posts') {
-                        setPostData(jsonData[0].posts)
+                        setPostData(jsonData[0].user[0].posts)
                     }
                     if (feedType === 'likes') {
-                        setPostData(jsonData[0].likes)
+                        setPostData(jsonData[0].user[0].likes)
                     }
                 } else {
                     console.log(res)
@@ -103,27 +104,6 @@ export default function Profile() {
         setLikesText('w-1/2 flex flex-col items-center text-xl font-bold')
     }
 
-
-    async function followUser() {
-        console.log(userData[0]._id)
-        const data = {
-            userId: userData[0]._id
-        }
-        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/follow`, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include"
-        })
-            .then(async (res) => {
-                if (res.ok) {
-                    console.log(res)
-                }
-            })
-    }
-
     if (!postData && !userData) {
         return null
     }
@@ -135,7 +115,7 @@ export default function Profile() {
             <div className='flex w-full lg:flex-row flex-col-reverse gap-4 lg:gap-0 default-font' onClick={() => setMobileMenu('hidden')}>
                 <Sidebar />
                 <div className='flex flex-col gap-4 lg:w-1/2'>
-                    <CoverAndProfilePicture followUser={followUser} from={from} hideLocation={hideLocation} hideBirthday={hideBirthday} userData={userData} />
+                    <CoverAndProfilePicture refresh={refresh} setRefresh={setRefresh} from={from} hideLocation={hideLocation} hideBirthday={hideBirthday} userData={userData} />
                     <div className="flex my-4">
                         <div className={postsText} onClick={() => switchFeedType('posts')}>
                             <button>Posts</button>
@@ -146,7 +126,7 @@ export default function Profile() {
                             <div className={likesBar}></div>
                         </div>
                     </div>
-                    <Posts postAlert={postAlert} likedPostData={likedPostData} userData={userData} refreshPost={refreshPost} setLikedPostData={setLikedPostData} postData={postData} setRefreshPost={setRefreshPost} />
+                    <Posts postAlert={postAlert} likedPostData={likedPostData} userData={userData[0].user} refreshPost={refreshPost} setLikedPostData={setLikedPostData} postData={postData} setRefreshPost={setRefreshPost} />
                 </div>
                 <RightSidebar />
             </div>

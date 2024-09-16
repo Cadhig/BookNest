@@ -9,7 +9,6 @@ router.get('/test', (req, res) => {
 })
 
 router.get('/loggedInUser', async (req, res) => {
-    console.log(req.session)
     try {
         const user = await User.find({ username: req.session.user.username }).select("-password")
             .populate({ path: 'books', strictPopulate: false })
@@ -25,7 +24,6 @@ router.get('/loggedInUser', async (req, res) => {
 })
 
 router.post('/profile', async (req, res) => {
-    console.log(req.session)
     const { username } = req.body
     if (username === 'user') {
         try {
@@ -33,7 +31,6 @@ router.post('/profile', async (req, res) => {
                 .populate({ path: 'posts', strictPopulate: false, options: { sort: { createdAt: -1 } } })
                 .populate({ path: 'likes', strictPopulate: false, options: { sort: { createdAt: -1 } } })
                 .exec()
-            console.log(user)
             if (!user) {
                 return res.status(404).json({ message: 'User not found' });
             }
@@ -51,8 +48,11 @@ router.post('/profile', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
-        return res.status(200).json(user);
+        const loggedInUserIsFollowingTargetUser = user[0].followers.find((loggedInUser) => req.session.user.id === loggedInUser.toString())
+        if (loggedInUserIsFollowingTargetUser === undefined) {
+            return res.status(200).json([{ user: user }, { isLoggedInUserFollowing: false }]);
+        }
+        return res.status(200).json([{ user: user }, { isLoggedInUserFollowing: true }])
     } catch (err) {
         console.error(err);
         return res.status(400).json({ message: 'Could not retrieve posts' });
@@ -69,7 +69,6 @@ router.post('/bookmarks', async (req, res) => {
             if (!userBooks) {
                 return res.status(404).json({ message: 'User not found' });
             }
-            console.log(userBooks)
             return res.status(200).json(userBooks);
         } catch (err) {
             console.error(err);
@@ -91,10 +90,8 @@ router.post('/bookmarks', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-    console.log('accessed')
     const { username, password } = req.body
     const hash = await bcrypt.hash(password, 13)
-    console.log('hashed')
     User.create({
         username: username,
         password: hash
