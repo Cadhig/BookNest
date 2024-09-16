@@ -1,4 +1,3 @@
-import { BsEnvelopeFill } from 'react-icons/bs'
 import { IoBookmarks } from 'react-icons/io5'
 import { useEffect, useState } from 'react'
 import profile from '../assets/profile.jpg'
@@ -101,9 +100,6 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                             <IoBookmarks className="text-2xl text-book-light" />
                         </div>
                     </Link>
-                    <div className="bg-book-green cursor-pointer hover:bg-book-green-hover flex items-center rounded-full p-2">
-                        <BsEnvelopeFill className="text-2xl text-book-light" />
-                    </div>
                     <button className='bg-book-green text-book-light py-2 px-5 rounded-full hover:bg-book-green-hover' onClick={() => followOrUnfollowUser()}>{followButton}</button>
                 </div>
             </div>
