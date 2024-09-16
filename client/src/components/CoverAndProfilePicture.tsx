@@ -11,6 +11,7 @@ interface ProfileUser {
     userData: any,
     hideLocation: string,
     hideBirthday: string
+    followUser: () => void
 }
 
 export default function CoverAndProfilePicture(props: ProfileUser) {
@@ -45,7 +46,7 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                     <div className="bg-book-green cursor-pointer hover:bg-book-green-hover flex items-center rounded-full p-2">
                         <BsEnvelopeFill className="text-2xl text-book-light" />
                     </div>
-                    <button className='bg-book-green text-book-light py-2 px-5 rounded-full hover:bg-book-green-hover'>Follow</button>
+                    <button className='bg-book-green text-book-light py-2 px-5 rounded-full hover:bg-book-green-hover' onClick={() => props.followUser()}>Follow</button>
                 </div>
             </div>
             <div className='ml-6 flex flex-col gap-2'>

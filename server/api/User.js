@@ -221,4 +221,42 @@ router.put('/birthday', async (req, res) => {
         })
 })
 
+router.post('/follow', async (req, res) => {
+    const { userId } = req.body
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    try {
+        await User.findOneAndUpdate({ _id: userId }, {
+            $push: { followers: req.session.user.id }
+        })
+        await User.findOneAndUpdate({ username: req.session.user.username }, {
+            $push: { following: userId }
+        })
+        return res.status(200).json({ success: 'able to like post' })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not like post!' });
+    }
+})
+
+router.post('/unfollow', async (req, res) => {
+    const { userId } = req.body
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    try {
+        await User.findOneAndUpdate({ _id: userId }, {
+            $pull: { followers: req.session.user.id }
+        })
+        await User.findOneAndUpdate({ username: req.session.user.username }, {
+            $pull: { following: userId }
+        })
+        return res.status(200).json({ success: 'able to like post' })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not like post!' });
+    }
+})
+
 module.exports = router

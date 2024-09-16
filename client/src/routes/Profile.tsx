@@ -31,6 +31,7 @@ export default function Profile() {
     useEffect(() => {
         fetchData()
     }, [from, refreshPost, likedPostData, feedType])
+
     function toggleMobileMenu(val: boolean) {
         if (val) {
             setMobileMenu("absolute z-30 mobileMenuStyles w3-animate-left")
@@ -102,6 +103,27 @@ export default function Profile() {
         setLikesText('w-1/2 flex flex-col items-center text-xl font-bold')
     }
 
+
+    async function followUser() {
+        console.log(userData[0]._id)
+        const data = {
+            userId: userData[0]._id
+        }
+        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/follow`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include"
+        })
+            .then(async (res) => {
+                if (res.ok) {
+                    console.log(res)
+                }
+            })
+    }
+
     if (!postData && !userData) {
         return null
     }
@@ -113,7 +135,7 @@ export default function Profile() {
             <div className='flex w-full lg:flex-row flex-col-reverse gap-4 lg:gap-0 default-font' onClick={() => setMobileMenu('hidden')}>
                 <Sidebar />
                 <div className='flex flex-col gap-4 lg:w-1/2'>
-                    <CoverAndProfilePicture from={from} hideLocation={hideLocation} hideBirthday={hideBirthday} userData={userData} />
+                    <CoverAndProfilePicture followUser={followUser} from={from} hideLocation={hideLocation} hideBirthday={hideBirthday} userData={userData} />
                     <div className="flex my-4">
                         <div className={postsText} onClick={() => switchFeedType('posts')}>
                             <button>Posts</button>

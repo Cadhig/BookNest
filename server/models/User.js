@@ -29,10 +29,8 @@ const userSchema = new mongoose.Schema({
         default: () => Date.now(),
         get: formatDate
     },
-    following: {
-        type: [mongoose.SchemaTypes.ObjectId],
-        ref: "User"
-    },
+    followers: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
+    following: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
     books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Books' }],
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }]
