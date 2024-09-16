@@ -85,6 +85,7 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
             followUser()
         }
     }
+
     return (
         <div>
             <div className='relative h-80 defaultFont'>
@@ -117,6 +118,16 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                     <div className={props.hideBirthday}>
                         <FaCakeCandles />
                         <p>{props.userData[0].user && props.userData[0].user[0].birthday}</p>
+                    </div>
+                </div>
+                <div className='flex gap-4'>
+                    <div className='flex gap-1'>
+                        <p>{props.userData[0].user[0].followers.length}</p>
+                        <p className='text-black/60'>Followers</p>
+                    </div>
+                    <div className='flex gap-1'>
+                        <p>{props.userData[0].user[0].following.length}</p>
+                        <p className='text-black/60'>Following</p>
                     </div>
                 </div>
             </div>
