@@ -15,7 +15,7 @@ BookNest is a platform where book lovers can connect! Users will be able to sear
 ## Tech used
 📐 **Frameworks**: React
 
-💾 **Database**: MongoDB 
+💾 **Database**: MongoDB, AWS S3 
 
 🛠 **Tools**: Express, Express-Session, Mongoose, TailwindCss
 
@@ -49,25 +49,28 @@ To run this project locally, follow these steps:
    VITE_GOOGLE_API_KEY="YourAPIKey"
     VITE_API_ROUTE="http://localhost:3000"
    ```
+5. Create an <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html">AWS S3 bucket</a>, with an <a href="https://aws.amazon.com/iam/">IAM</a> user, grab your `access key` and `secret acccess key`
 
-5. Create another `.env` file within the `server` directory:
+6. Create another `.env` file within the `server` directory:
    ```
    MONGO_URL="YourMongoDBUrl" # Mine is mongodb://localhost/BookNest
    ORIGIN="http://localhost:5173"
    PORT="3000"
+   AWS_ACCESS_KEY="YourAccessKey"
+   AWS_SECRET_KEY="YourSecretAccessKey"
    ```
 
-6. To view the project in the browser... Open the `client` directory and run:
+7. To view the project in the browser... Open the `client` directory and run:
    ```
    npm run dev
    ```
 
-7. To begin the backend server... Open the `server` directory and run:
+8. To begin the backend server... Open the `server` directory and run:
    ```
    npm start
    ```
 
-8. Open your browser and navigate to: `http://localhost:5173`
+9. Open your browser and navigate to: `http://localhost:5173`
 
 ## 🤝 Contributions
 
