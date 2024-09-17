@@ -49,7 +49,11 @@ To run this project locally, follow these steps:
    VITE_GOOGLE_API_KEY="YourAPIKey"
     VITE_API_ROUTE="http://localhost:3000"
    ```
-5. Create an <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html">AWS S3 bucket</a>, with an <a href="https://aws.amazon.com/iam/">IAM</a> user, grab your `access key` and `secret acccess key`
+5. Create an <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html">AWS S3 bucket</a>, with an <a href="https://aws.amazon.com/iam/">IAM</a> user / policy, grab your `access key`, `secret acccess key` as well as the name of your s3 bucket and region.
+
+   Need help? 
+   - <a href="https://youtu.be/yGYeYJpRWPM?si=DjMfOZrNZ5Uysyfl&t=286">Creating an s3 bucket</a>
+   - <a href="https://youtu.be/yGYeYJpRWPM?si=wPWqvA8IISg5dH82&t=520">Creating IAM user / policy</a>
 
 6. Create another `.env` file within the `server` directory:
    ```
@@ -58,6 +62,8 @@ To run this project locally, follow these steps:
    PORT="3000"
    AWS_ACCESS_KEY="YourAccessKey"
    AWS_SECRET_KEY="YourSecretAccessKey"
+   BUCKET_NAME="your-s3-bucket-name"
+   BUCKET_REGION="your-region" # Mine is set to us-east-2
    ```
 
 7. To view the project in the browser... Open the `client` directory and run:
