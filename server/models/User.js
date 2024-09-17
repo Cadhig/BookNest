@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema({
         get: formatDate
     },
     profilePicture: {
-        type: String
+        type: String,
+        default: "https://book-nest-image-store.s3.us-east-2.amazonaws.com/aceb8f4bc5cdba79301e572528559e1a"
     },
     followers: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
     following: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
