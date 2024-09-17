@@ -1,5 +1,5 @@
 import { BsPersonCircle, BsFillHouseFill } from "react-icons/bs";
-import { IoBookmarks, IoSettingsSharp } from "react-icons/io5";
+import { IoBookmarks, IoSettingsSharp, IoCodeWorking } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -61,6 +61,10 @@ export default function Sidebar() {
                         <p className="text-xl">Settings</p>
                     </div>
                 </Link>
+                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                    <IoCodeWorking className="text-xl" />
+                    <a href="https://cadencehiggins.notion.site/Book-Nest-Release-Notes-104e758b497780c2b45bd03cf7ec486b" target="_blank">Release Notes</a>
+                </div>
             </div>
         </div>
     )

@@ -22,11 +22,8 @@ export default function MobileMenu(props: MobileMenuProps) {
 
     return (
         <div className={props.mobileMenu}>
-            <div className="h-full m-4">
+            <div className="h-full m-4 flex">
                 <div className="flex flex-col gap-10">
-                    <Link to={'/homepage'}>
-                        <div className="header-font text-5xl text-book-dark">BookNest</div>
-                    </Link>
                     <Link to={'/homepage'}>
                         <div className="flex items-center gap-2">
                             <BsFillHouseFill className="text-4xl" />
@@ -63,6 +60,7 @@ export default function MobileMenu(props: MobileMenuProps) {
                             <p className="text-xl">Settings</p>
                         </div>
                     </Link>
+                    <a className="text-blue-500 underline" href="https://cadencehiggins.notion.site/Book-Nest-Release-Notes-104e758b497780c2b45bd03cf7ec486b" target="_blank">Release Notes</a>
                 </div>
             </div>
         </div>
