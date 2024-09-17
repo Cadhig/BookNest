@@ -15,11 +15,11 @@ BookNest is a platform where book lovers can connect! Users will be able to sear
 ## Tech used
 📐 **Frameworks**: React
 
-💾 **Database**: MongoDB, AWS S3 
+💾 **Databases**: MongoDB, AWS S3 
 
 🛠 **Tools**: Express, Express-Session, Mongoose, TailwindCss
 
-🌐 **API** <a href="https://developers.google.com/books">Google Books</a>
+🌐 **APIs**: <a href="https://developers.google.com/books">Google Books</a>
 
 ## ⚙️ Installation & Setup
 
