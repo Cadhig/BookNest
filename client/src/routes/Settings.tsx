@@ -188,23 +188,30 @@ export default function Settings() {
                     })
                     const imageURL = secureURL.url.split('?')[0]
                     setAWSImageUrl(imageURL)
+                    const data = {
+                        AWSImageUrl: imageURL
+                    }
+                    console.log(data)
+                    await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/profilePicture`, {
+                        method: "PUT",
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        credentials: "include"
+                    })
+                        .then((res) => {
+                            if (res.ok) {
+                                setAlertClass('inline text-book-green text-lg')
+                                setAlertText('Successfully updated profile picture!')
+                            } else {
+                                console.log(res)
+                                setAlertClass('inline text-red-500 text-lg')
+                                setAlertText('Something went wrong!')
+                                return
+                            }
+                        })
                 }
-                console.log(res)
-            })
-
-        const data = {
-            AWSImageUrl: AWSImageUrl && AWSImageUrl
-        }
-
-        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/profilePicture`, {
-            method: "PUT",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include"
-        })
-            .then((res) => {
                 console.log(res)
             })
     }

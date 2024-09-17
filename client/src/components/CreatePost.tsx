@@ -29,7 +29,7 @@ export default function CreatePost(props: postType) {
             })
     }
 
-    console.log(props.userData[0].profilePicture)
+
     return (
         <div className="p-2 flex flex-col gap-2 mt-4 lg:mt-0">
             <div className='flex gap-2 justify-center items-center'>
