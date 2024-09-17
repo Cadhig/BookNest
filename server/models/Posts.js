@@ -25,6 +25,11 @@ const postSchema = new mongoose.Schema({
         userId: mongoose.SchemaType.ObjectId,
         ref: "User"
     },
+    profilePicture: {
+        type: mongoose.SchemaTypes.String,
+        userId: mongoose.SchemaType.ObjectId,
+        ref: "User"
+    }
     // comments: [commentSchema]
 })
 

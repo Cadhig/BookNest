@@ -167,6 +167,7 @@ export interface Post {
     createdAt: string;
     postText: string;
     username: string;
+    profilePicture: string;
     likes: string[]
     _id: string;
     __v: number;

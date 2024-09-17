@@ -41,9 +41,12 @@ router.post('/', async (req, res) => {
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
+    console.log(req.session.user)
     try {
+        const profilePicture = await User.find({ username: req.session.user.username }).populate({ path: 'profilePicture', strictPopulate: false }).exec()
         const newPost = await Posts.create({
             postText: postText,
+            profilePicture: profilePicture[0].profilePicture,
             username: req.session.user.username,
             userId: req.session.user.uuid
         })

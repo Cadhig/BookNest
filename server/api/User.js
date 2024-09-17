@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require('../models/User.js')
+const Posts = require('../models/Posts.js')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
@@ -191,8 +192,8 @@ router.put('/profilePicture', async (req, res) => {
     console.log(AWSImageUrl)
 
     const user = await User.findOne({ username: req.session.user.username })
-
     await User.findOneAndUpdate({ username: user.username }, { profilePicture: AWSImageUrl })
+    await Posts.updateMany({ username: user.username }, { profilePicture: AWSImageUrl })
         .then(() => {
             return res.status(200).json({ message: "Profile Picture updated!" })
         })

@@ -1,4 +1,4 @@
-import placeholder from '../assets/profile.jpg'
+
 import { Link } from "react-router-dom"
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
@@ -72,6 +72,7 @@ export default function Posts(props: postProps) {
             .catch((err) => console.error(err))
     }
 
+    console.log(props.postData)
 
     return (
         <div className="flex flex-col m-2 gap-4 max-h-full overflow-auto">
@@ -84,7 +85,7 @@ export default function Posts(props: postProps) {
                         <div className="flex flex-col gap-2 ">
                             <div className="flex gap-2 items-center">
                                 <Link to={'/profile'} state={{ from: content.username }}>
-                                    <img src={placeholder} alt="" className="h-10 rounded-full" />
+                                    <img src={content.profilePicture} alt="" className="size-10 object-cover rounded-full" />
                                 </Link>
                                 <div className="flex flex-col">
                                     <Link to={'/profile'} state={{ from: content.username }}>
