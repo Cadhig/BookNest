@@ -186,6 +186,24 @@ router.put('/location', async (req, res) => {
         })
 })
 
+router.put('/profilePicture', async (req, res) => {
+    const { AWSImageUrl } = req.body
+    console.log(AWSImageUrl)
+
+    const user = await User.findOne({ username: req.session.user.username })
+
+    await User.findOneAndUpdate({ username: user.username }, { profilePicture: AWSImageUrl })
+        .then(() => {
+            return res.status(200).json({ message: "Profile Picture updated!" })
+        })
+        .catch((err) => {
+            console.error(err);
+            return res.status(400).json({
+                message: 'Cannot Update Profile Picture!'
+            })
+        })
+})
+
 router.put('/bio', async (req, res) => {
     const { bio } = req.body
     const user = await User.findOne({ username: req.session.user.username })

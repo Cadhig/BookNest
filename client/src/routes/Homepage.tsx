@@ -92,7 +92,7 @@ export default function Homepage() {
                             <div className={followingBar}></div>
                         </div>
                     </div>
-                    <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
+                    <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} userData={userData} />
                     <Posts postAlert="hidden" refreshFeed={refreshFeed} likedPostData={likedPostData} userData={userData} refreshPost={refreshPost} setLikedPostData={setLikedPostData} postData={postData} setRefreshPost={setRefreshPost} />
                 </div>
                 <Sidebar />

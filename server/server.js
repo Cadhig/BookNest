@@ -2,6 +2,7 @@ const express = require('express')
 const apiRoutes = require('./api')
 const mongoose = require('mongoose')
 const session = require('express-session')
+const generateUploadURL = require('./services/s3.js')
 const MongoStore = require('connect-mongo')
 require('dotenv').config()
 const app = express()
@@ -33,6 +34,12 @@ mongoose.connect(process.env.MONGO_URL)
 app.get('/test', (req, res) => {
     console.log('test')
     return res.status(200).send('this test worked')
+})
+
+app.get('/s3', async (req, res) => {
+    const url = await generateUploadURL()
+    return res.status(200).send({ url })
+
 })
 
 app.use(apiRoutes)
