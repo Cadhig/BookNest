@@ -72,7 +72,6 @@ export default function Posts(props: postProps) {
             .catch((err) => console.error(err))
     }
 
-    console.log(props.postData)
 
     return (
         <div className="flex flex-col m-2 gap-4 max-h-full overflow-auto">

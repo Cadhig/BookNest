@@ -16,30 +16,36 @@ export default function Homepage() {
     const [globalText, setGlobalText] = useState<string>("w-1/2 flex flex-col items-center text-xl font-bold")
     const [followingBar, setFollowingbar] = useState<string>('hidden')
     const [followingText, setFollowingText] = useState<string>("w-1/2 flex flex-col items-center text-xl text-book-dark/60")
-    const [postData, setPostData] = useState<PostsType>()
+    const [postData, setPostData] = useState<PostsType | any>()
     const [userData, setUserData] = useState<User | any>()
     const [refreshPost, setRefreshPost] = useState<User | any>()
     const [likedPostData, setLikedPostData] = useState<any>()
+    const [feedType, setFeedType] = useState<string>('global')
 
     async function fetchLoggedInUser() {
-        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
+        const loggedInUser = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
             },
             credentials: "include"
         })
-            .then(res => res.json())
-            .then(response => setUserData(response))
-            .catch(err => console.error(err))
-        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`)
-            .then(res => res.json())
-            .then(response => setPostData(response))
-            .catch(err => console.error(err))
+        const loggedInUserParsed = await loggedInUser.json()
+        setUserData(loggedInUserParsed)
+        console.log(loggedInUserParsed)
+        if (feedType === 'following') {
+            setPostData(loggedInUserParsed[0].following)
+        }
+        if (feedType === 'global') {
+            const globalPosts = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`)
+            const globalPostsParsed = await globalPosts.json()
+            setPostData(globalPostsParsed)
+        }
+
     }
     useEffect(() => {
         fetchLoggedInUser()
-    }, [refreshFeed, refreshPost, likedPostData])
+    }, [refreshFeed, refreshPost, likedPostData, switchFeedType])
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -58,6 +64,7 @@ export default function Homepage() {
     }
 
     function showGlobal() {
+        setFeedType('global')
         setGlobalText('w-1/2 flex flex-col items-center text-xl font-bold')
         setGlobalBar('bg-book-green rounded-full w-1/4 h-[2px]')
         setFollowingbar('hidden')
@@ -65,6 +72,7 @@ export default function Homepage() {
     }
 
     function showFollowing() {
+        setFeedType('following')
         setGlobalText('w-1/2 flex flex-col items-center text-xl text-book-dark/60')
         setGlobalBar('hidden')
         setFollowingbar('bg-book-green rounded-full w-1/4 h-[2px]')
