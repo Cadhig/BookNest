@@ -3,6 +3,7 @@ const router = express.Router();
 const Posts = require('../models/Posts.js');
 const User = require('../models/User.js');
 
+
 router.get('/', (req, res) => {
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
@@ -36,6 +37,7 @@ router.get('/:username', (req, res) => {
         })
 })
 
+
 router.post('/', async (req, res) => {
     const { postText } = req.body
     if (!req.sessionID) {
@@ -52,6 +54,9 @@ router.post('/', async (req, res) => {
         })
         await User.findOneAndUpdate({ username: newPost.username }, {
             $push: { posts: newPost._id }
+        })
+        await User.findOneAndUpdate({ username: req.session.user.username }, {
+            $push: { followingPosts: newPost._id }
         })
         return res.status(200).json(newPost);
     } catch (err) {

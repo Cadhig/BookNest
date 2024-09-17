@@ -13,6 +13,7 @@ router.get('/loggedInUser', async (req, res) => {
     try {
         const user = await User.find({ username: req.session.user.username }).select("-password")
             .populate({ path: 'books', strictPopulate: false })
+            .populate({ path: 'followingPosts', strictPopulate: false, options: { sort: { createdAt: -1 } } })
             .exec()
         if (!user) {
             return res.status(404).json({ message: 'User not found' });

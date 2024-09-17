@@ -21,6 +21,11 @@ export default function Homepage() {
     const [refreshPost, setRefreshPost] = useState<User | any>()
     const [likedPostData, setLikedPostData] = useState<any>()
     const [feedType, setFeedType] = useState<string>('global')
+    const [postAlert, setPostAlert] = useState<string>('hidden')
+
+    useEffect(() => {
+        fetchLoggedInUser()
+    }, [refreshFeed, refreshPost, likedPostData, globalBar, followingBar])
 
     async function fetchLoggedInUser() {
         const loggedInUser = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
@@ -32,20 +37,12 @@ export default function Homepage() {
         })
         const loggedInUserParsed = await loggedInUser.json()
         setUserData(loggedInUserParsed)
-        console.log(loggedInUserParsed)
-        if (feedType === 'following') {
-            setPostData(loggedInUserParsed[0].following)
-        }
         if (feedType === 'global') {
-            const globalPosts = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`)
-            const globalPostsParsed = await globalPosts.json()
-            setPostData(globalPostsParsed)
+            showGlobal()
+        } else {
+            showFollowing()
         }
-
     }
-    useEffect(() => {
-        fetchLoggedInUser()
-    }, [refreshFeed, refreshPost, likedPostData, switchFeedType])
 
     function toggleMobileMenu(val: boolean) {
         if (val) {
@@ -63,20 +60,35 @@ export default function Homepage() {
         }
     }
 
-    function showGlobal() {
+    async function showGlobal() {
         setFeedType('global')
         setGlobalText('w-1/2 flex flex-col items-center text-xl font-bold')
         setGlobalBar('bg-book-green rounded-full w-1/4 h-[2px]')
         setFollowingbar('hidden')
         setFollowingText('w-1/2 flex flex-col items-center text-xl text-book-dark/60')
+        const globalPosts = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`)
+        const globalPostsParsed = await globalPosts.json()
+        setPostData(globalPostsParsed)
+        if (globalPostsParsed.length == 0) {
+            setPostAlert('inline text-lg text-black/50 text-center')
+        } else {
+            setPostAlert('hidden')
+        }
     }
 
-    function showFollowing() {
+    async function showFollowing() {
         setFeedType('following')
         setGlobalText('w-1/2 flex flex-col items-center text-xl text-book-dark/60')
         setGlobalBar('hidden')
         setFollowingbar('bg-book-green rounded-full w-1/4 h-[2px]')
         setFollowingText('w-1/2 flex flex-col items-center text-xl font-bold')
+        const followingPosts = userData[0].followingPosts
+        if (followingPosts.length == 0) {
+            setPostAlert('inline text-lg text-black/50 text-center')
+        } else {
+            setPostAlert('hidden')
+        }
+        setPostData(followingPosts)
     }
 
     if (!postData && !userData) {
@@ -101,7 +113,7 @@ export default function Homepage() {
                         </div>
                     </div>
                     <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} userData={userData} />
-                    <Posts postAlert="hidden" refreshFeed={refreshFeed} likedPostData={likedPostData} userData={userData} refreshPost={refreshPost} setLikedPostData={setLikedPostData} postData={postData} setRefreshPost={setRefreshPost} />
+                    <Posts postAlert={postAlert} refreshFeed={refreshFeed} likedPostData={likedPostData} userData={userData} refreshPost={refreshPost} setLikedPostData={setLikedPostData} postData={postData} setRefreshPost={setRefreshPost} />
                 </div>
                 <Sidebar />
             </div>

@@ -35,6 +35,7 @@ const userSchema = new mongoose.Schema({
     },
     followers: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
     following: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
+    followingPosts: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Posts" }],
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
     books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Books' }],
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
