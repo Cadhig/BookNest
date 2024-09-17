@@ -20,7 +20,6 @@ export default function Settings() {
     const [birthday, setBirthday] = useState<string>()
     const [showProfilePicture, setShowProfilePicture] = useState<string>('hidden')
     const [imageFile, setImageFile] = useState<File>()
-    const [AWSImageUrl, setAWSImageUrl] = useState<string>()
     const [alertClass, setAlertClass] = useState<string>('hidden')
     const [alertText, setAlertText] = useState<string>()
 
@@ -168,7 +167,6 @@ export default function Settings() {
         const files = (event.target as HTMLInputElement).files
         if (files && files.length > 0) {
             setImageFile(files[0])
-            console.log(imageFile)
         }
     }
 
@@ -187,11 +185,9 @@ export default function Settings() {
                         body: imageFile
                     })
                     const imageURL = secureURL.url.split('?')[0]
-                    setAWSImageUrl(imageURL)
                     const data = {
                         AWSImageUrl: imageURL
                     }
-                    console.log(data)
                     await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/profilePicture`, {
                         method: "PUT",
                         body: JSON.stringify(data),
@@ -212,7 +208,6 @@ export default function Settings() {
                             }
                         })
                 }
-                console.log(res)
             })
     }
 
