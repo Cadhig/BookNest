@@ -31,24 +31,24 @@ export default function Sidebar() {
                         <p className="text-xl">Home</p>
                     </div>
                 </Link>
-                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                     <BsFillBellFill className="text-4xl" />
                     <p className="text-xl">Notifications (coming soon)</p>
-                </div>
-                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                </div> */}
+                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                     <BsEnvelopeFill className="text-4xl" />
                     <p className="text-xl">Messages (coming soon)</p>
-                </div>
+                </div> */}
                 <Link to={'/bookmarks'} state={{ from: 'user' }}>
                     <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <IoBookmarks className="text-4xl" />
                         <p className="text-xl">Bookmarks</p>
                     </div>
                 </Link>
-                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                     <GiBookCover className="text-4xl" />
                     <p className="text-xl">Clubs (coming soon)</p>
-                </div>
+                </div> */}
                 <Link to={'/profile'} state={{ from: username }}>
                     <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <BsPersonCircle className="text-4xl" />

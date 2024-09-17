@@ -34,24 +34,24 @@ export default function MobileMenu(props: MobileMenuProps) {
                             <p className="text-xl">Home</p>
                         </div>
                     </Link>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                         <BsFillBellFill className="text-4xl" />
                         <p className="text-xl">Notifications</p>
-                    </div>
-                    <div className="flex items-center gap-2">
+                    </div> */}
+                    {/* <div className="flex items-center gap-2">
                         <BsEnvelopeFill className="text-4xl" />
                         <p className="text-xl">Messages</p>
-                    </div>
+                    </div> */}
                     <Link to={'/bookmarks'} state={{ from: 'user' }}>
                         <div className="flex items-center gap-2">
                             <IoBookmarks className="text-4xl" />
                             <p className="text-xl">Bookmarks</p>
                         </div>
                     </Link>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                         <GiBookCover className="text-4xl" />
                         <p className="text-xl">Clubs</p>
-                    </div>
+                    </div> */}
                     <Link to={'/profile'} state={{ from: username }}>
                         <div className="flex items-center gap-2">
                             <BsPersonCircle className="text-4xl" />
