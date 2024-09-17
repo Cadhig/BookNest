@@ -1,6 +1,5 @@
-import { BsPersonCircle, BsFillHouseFill, BsFillBellFill, BsEnvelopeFill } from "react-icons/bs";
+import { BsPersonCircle, BsFillHouseFill } from "react-icons/bs";
 import { IoBookmarks, IoSettingsSharp } from "react-icons/io5";
-import { GiBookCover } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 interface MobileMenuProps {
