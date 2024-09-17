@@ -1,7 +1,6 @@
 import MobileHeader from "../components/MobileHeader";
 import MobileMenu from "../components/MobileMenu";
 import Sidebar from "../components/Sidebar";
-import placeholder from '../assets/profile.jpg'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RightSidebar from "../components/RightSidebar";
