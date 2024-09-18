@@ -111,7 +111,7 @@ router.post('/signup', async (req, res) => {
             }
             res.status(200).send();
         });
-    } catch {
+    } catch (err) {
         console.error(err)
         res.status(400).json({ error: 'Account Already Exists' })
         return
