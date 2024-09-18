@@ -49,7 +49,7 @@ export default function Signup() {
             if (response.ok) {
                 window.alert('Account creation successful')
                 console.log('Success!')
-                return navigate('/')
+                return navigate('/homepage')
             } else {
                 Alerts('Username taken!')
                 console.log('Something went wrong!')

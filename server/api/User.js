@@ -93,19 +93,30 @@ router.post('/bookmarks', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
     const { username, password } = req.body
-    const hash = await bcrypt.hash(password, 13)
-    User.create({
-        username: username,
-        password: hash
-    })
-        .then((response) => {
-            return res.status(200).json(response)
+    try {
+        const hash = await bcrypt.hash(password, 13)
+        const newUser = await User.create({
+            username: username,
+            password: hash
         })
-        .catch((err) => {
-            console.error(err)
-            res.status(400).json({ error: 'Account Already Exists' })
-            return
-        })
+        req.session.user = {
+            id: newUser._id,
+            username,
+            password,
+            isLoggedIn: true
+        }
+        req.session.save(err => {
+            if (err) {
+                return res.status(500).json({ error: 'Failed to save session' });
+            }
+            res.status(200).send();
+        });
+    } catch {
+        console.error(err)
+        res.status(400).json({ error: 'Account Already Exists' })
+        return
+    }
+
 })
 
 
