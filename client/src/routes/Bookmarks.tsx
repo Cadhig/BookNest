@@ -72,7 +72,7 @@ export default function BookList() {
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [from])
 
     console.log(apiData)
     return (
