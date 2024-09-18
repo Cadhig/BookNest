@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://book-nest-image-store.s3.us-east-2.amazonaws.com/aceb8f4bc5cdba79301e572528559e1a"
     },
+    coverPicture: {
+        type: String,
+        default: "https://book-nest-image-store.s3.us-east-2.amazonaws.com/bd95ad98b2f6f24de784908385a5f95f"
+    },
     followers: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
     following: [{ type: mongoose.SchemaTypes.ObjectId, ref: "User" }],
     followingPosts: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Posts" }],

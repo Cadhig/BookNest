@@ -19,6 +19,7 @@ export default function Settings() {
     const [showBirthday, setShowBirthday] = useState<string>('hidden')
     const [birthday, setBirthday] = useState<string>()
     const [showProfilePicture, setShowProfilePicture] = useState<string>('hidden')
+    const [showCoverPicture, setShowCoverPicture] = useState<string>('hidden')
     const [imageFile, setImageFile] = useState<File>()
     const [alertClass, setAlertClass] = useState<string>('hidden')
     const [alertText, setAlertText] = useState<string>()
@@ -170,13 +171,12 @@ export default function Settings() {
         }
     }
 
-    async function changeProfilePicture() {
+    async function changePicture(endpoint: string, type: string) {
         console.log('here')
         await fetch(`${import.meta.env.VITE_API_ROUTE}/s3`)
             .then(async (res) => {
                 if (res.ok) {
                     const secureURL = await res.json()
-                    console.log(secureURL)
                     await fetch(secureURL.url, {
                         method: "PUT",
                         headers: {
@@ -188,7 +188,8 @@ export default function Settings() {
                     const data = {
                         AWSImageUrl: imageURL
                     }
-                    await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/profilePicture`, {
+                    console.log(data)
+                    await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/${endpoint}`, {
                         method: "PUT",
                         body: JSON.stringify(data),
                         headers: {
@@ -199,7 +200,7 @@ export default function Settings() {
                         .then((res) => {
                             if (res.ok) {
                                 setAlertClass('inline text-book-green text-lg')
-                                setAlertText('Successfully updated profile picture!')
+                                setAlertText(`Successfully updated ${type} picture!`)
                             } else {
                                 console.log(res)
                                 setAlertClass('inline text-red-500 text-lg')
@@ -211,6 +212,7 @@ export default function Settings() {
             })
     }
 
+
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={mobileMenu} />
@@ -219,13 +221,27 @@ export default function Settings() {
                 <Sidebar />
                 <div className="lg:w-1/2 flex flex-col gap-4 mt-4">
                     <p className="text-center text-2xl">Account Settings</p>
+                    {/* profile picture */}
                     <div className="flex flex-col gap-4 items-center text-xl">
                         <div className="flex flex-col gap-4 w-3/4 lg:w-1/4">
                             <button className="text-xl bg-book-green text-book-light hover:border-book-green-hover cursor-pointer rounded-full p-2 " onClick={() => setShowProfilePicture('flex flex-col gap-4')}>Change Profile Picture</button>
                             <div className={showProfilePicture}>
                                 <input type="file" accept="image/*" onChange={(e) => onChange(e)} />
                                 <p className={alertClass}>{alertText}</p>
-                                <button className="bg-book-green text-book-light p-2 rounded-full hover:bg-book-green-hover" onClick={() => changeProfilePicture()}>Submit</button>
+                                <button className="bg-book-green text-book-light p-2 rounded-full hover:bg-book-green-hover" onClick={() => changePicture('profilePicture', 'profile')}>Submit</button>
+                                <button className="text-sm text-red-500" onClick={() => {
+                                    setAlertClass('hidden')
+                                    setShowProfilePicture('hidden')
+                                }}>close</button>
+                            </div>
+                        </div>
+                        {/* cover picture */}
+                        <div className="flex flex-col gap-4 w-3/4 lg:w-1/4">
+                            <button className="text-xl bg-book-green text-book-light hover:border-book-green-hover cursor-pointer rounded-full p-2 " onClick={() => setShowCoverPicture('flex flex-col gap-4')}>Change Cover Picture</button>
+                            <div className={showCoverPicture}>
+                                <input type="file" accept="image/*" onChange={(e) => onChange(e)} />
+                                <p className={alertClass}>{alertText}</p>
+                                <button className="bg-book-green text-book-light p-2 rounded-full hover:bg-book-green-hover" onClick={() => changePicture('coverPicture', 'cover')}>Submit</button>
                                 <button className="text-sm text-red-500" onClick={() => {
                                     setAlertClass('hidden')
                                     setShowProfilePicture('hidden')

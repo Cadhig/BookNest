@@ -89,7 +89,7 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
     return (
         <div>
             <div className='relative h-80 defaultFont'>
-                <img src={backdrop} alt="cover" className=' h-64 w-full object-cover mx-auto z-10' />
+                <img src={props.userData[0].user[0].coverPicture && props.userData[0].user[0].coverPicture} alt="cover" className=' h-64 w-full object-cover mx-auto z-10' />
                 <div className='rounded-full size-28 z-20 flex absolute items-center justify-center  left-6 lg:left-[6%] top-48 border-2 border-book-green'>
                     <img src={props.userData[0].user[0].profilePicture && props.userData[0].user[0].profilePicture} alt="profile" className='rounded-full object-cover size-24' />
                 </div>
