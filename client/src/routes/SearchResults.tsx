@@ -10,7 +10,7 @@ export default function SearchResults() {
     const location = useLocation()
     const { search } = location.state
     const [apiData, setApiData] = useState<GoogleBooks>()
-    const [mobileMenu, setMobileMenu] = useState('hidden')
+    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
 
     const book = search.book.replace(/ /g, '').toLowerCase()
 
@@ -22,21 +22,13 @@ export default function SearchResults() {
             .catch((err) => console.error(err))
     }, [search])
 
-    function toggleMobileMenu(val: boolean) {
-        if (val) {
-            setMobileMenu("mobileMenuStyles w3-animate-left")
-        } else {
-            setMobileMenu('hidden')
-        }
-    }
-
     return (
         <div className="h-svh">
-            <MobileMenu mobileMenu={mobileMenu} />
-            <MobileHeader toggleMobileMenu={toggleMobileMenu} />
+            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
+            <MobileHeader setMobileMenu={setShowMobileMenu} />
             <div className="flex flex-col-reverse lg:flex-row">
                 <Sidebar />
-                <div className="default-font w-full lg:w-1/2 flex flex-col items-center mt-4 h-1/4" onClick={() => toggleMobileMenu(false)}>
+                <div className="default-font w-full lg:w-1/2 flex flex-col items-center mt-4 h-1/4" onClick={() => setShowMobileMenu(false)}>
                     <div className="text-center text-3xl">
                         <p>Results for '{search.book}'</p>
                     </div>

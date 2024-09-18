@@ -7,23 +7,21 @@ import { Post } from "../types"
 import moment from 'moment';
 
 interface postProps {
-    postData: any
-    likedPostData: any,
-    refreshPost: User | any,
-    setRefreshPost: (props: boolean) => void
-    setLikedPostData: (props: any) => void,
-    userData: User | any,
+    postData: Post[] | undefined
+    setRefreshFeed: (props: boolean) => void,
+    userData: User[],
     refreshFeed?: boolean
-    postAlert?: string
+    showPostAlert?: boolean
 }
 export default function Posts(props: postProps) {
-    function likeOrUnlikePost(id: string, hasUserLiked: any) {
+
+    function likeOrUnlikePost(id: string, hasUserLiked: boolean) {
         if (hasUserLiked) {
             unlikePost(id)
         } else {
             likePost(id)
         }
-        props.setRefreshPost(!props.refreshPost)
+        props.setRefreshFeed(!props.refreshFeed)
     }
 
     async function unlikePost(id: string) {
@@ -38,15 +36,6 @@ export default function Posts(props: postProps) {
             },
             credentials: "include"
         })
-            .then(async (res) => {
-                if (res.ok) {
-                    const jsonData = await res.json()
-                    props.setLikedPostData(jsonData)
-                } else {
-                    console.log(res)
-                }
-            })
-            .catch((err) => console.error(err))
     }
 
     async function likePost(id: string) {
@@ -61,23 +50,14 @@ export default function Posts(props: postProps) {
             },
             credentials: "include"
         })
-            .then(async (res) => {
-                if (res.ok) {
-                    const jsonData = await res.json()
-                    props.setLikedPostData(jsonData)
-                } else {
-                    console.log(res)
-                }
-            })
-            .catch((err) => console.error(err))
     }
 
     return (
         <div className="flex flex-col m-2 gap-4 max-h-full overflow-auto">
-            <p className={props.postAlert}>No posts yet!</p>
+            <p className={props.showPostAlert ? 'inline text-lg text-black/50 text-center' : 'hidden'}>No posts yet!</p>
             {props.postData && props.postData.map((content: Post, index: number) => {
                 const userId = props.userData && props.userData[0]._id
-                const hasUserLiked = content.likes.some((like: string) => like === userId);
+                const hasUserLiked = content.likes.some((like: any) => like === userId);
                 return <div className="flex flex-col justify-center gap-4 text-lg" key={index}>
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-col gap-2 ">

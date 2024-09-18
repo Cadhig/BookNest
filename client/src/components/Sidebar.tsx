@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function Sidebar() {
-    const [username, setUsername] = useState()
+    const [username, setUsername] = useState<string>()
+
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
             method: 'GET',

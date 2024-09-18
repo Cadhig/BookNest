@@ -14,14 +14,14 @@ import { FaGooglePlay } from "react-icons/fa";
 export default function BookInfo() {
     const location = useLocation()
     const { data } = location.state
-    const [mobileMenu, setMobileMenu] = useState('hidden')
+    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [bookData, setBookData] = useState<GoogleBooks>()
     const isbnData = data.industryIdentifiers[0].identifier
     const [isbn, setIsbn] = useState(isbnData)
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
-    const [showGooglePlay, setShowGooglePlay] = useState<string>('block text-2xl')
-    const [showPreview, setShowPreview] = useState<string>('block text-xl text-blue-500 hover:underline')
+    const [showGooglePlay, setShowGooglePlay] = useState<boolean>(true)
+    const [showPreview, setShowPreview] = useState<boolean>(true)
 
     useEffect(() => {
         setIsbn(isbnData)
@@ -49,10 +49,10 @@ export default function BookInfo() {
                                 }
                             }
                             if (bookResponse?.items[0].saleInfo.buyLink === undefined) {
-                                setShowGooglePlay('hidden')
+                                setShowGooglePlay(false)
                             }
                             if (bookResponse?.items[0].accessInfo.webReaderLink === undefined) {
-                                setShowPreview('hidden')
+                                setShowPreview(false)
                             }
                         }
                     })
@@ -114,20 +114,13 @@ export default function BookInfo() {
             })
     }
 
-    function toggleMobileMenu(val: boolean) {
-        if (val) {
-            setMobileMenu("mobileMenuStyles w3-animate-left")
-        } else {
-            setMobileMenu('hidden')
-        }
-    }
 
     const amazonLink = `https://www.amazon.com/s?k=${bookData && bookData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
     return (
         <div className="h-svh">
-            <MobileMenu mobileMenu={mobileMenu} />
-            <MobileHeader toggleMobileMenu={toggleMobileMenu} />
-            <div className="flex flex-col-reverse lg:flex-row justify-center gap-4" onClick={() => toggleMobileMenu(false)}>
+            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
+            <MobileHeader setMobileMenu={setShowMobileMenu} />
+            <div className="flex flex-col-reverse lg:flex-row justify-center gap-4" onClick={() => setShowMobileMenu(false)}>
                 <Sidebar />
                 <div className="default-font lg:w-1/2 m-2 flex flex-col items-center">
                     <div className="flex flex-col gap-4 lg:w-full items-center mt-4">
@@ -142,7 +135,7 @@ export default function BookInfo() {
                                     <p>{bookData && bookData.items[0].volumeInfo.description}</p>
                                 </div>
                                 <div>
-                                    <a className={showPreview} target="_blank" href={bookData && bookData.items[0].accessInfo.webReaderLink}>Preview</a>
+                                    <a className={showPreview ? 'block text-xl text-blue-500 hover:underline' : 'hidden'} target="_blank" href={bookData && bookData.items[0].accessInfo.webReaderLink}>Preview</a>
                                 </div>
                                 <div>
                                     <p>Categories: {bookData && bookData.items[0].volumeInfo.categories}</p>
@@ -151,7 +144,7 @@ export default function BookInfo() {
                                 </div>
                                 <div className="flex justify-center gap-6">
                                     <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
-                                    <a target="_blank" className={showGooglePlay} href={bookData && bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
+                                    <a target="_blank" className={showGooglePlay ? "block text-2xl" : "hidden"} href={bookData && bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
                                 </div>
                             </div>
                         </div>

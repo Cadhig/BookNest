@@ -7,7 +7,7 @@ import RightSidebar from "../components/RightSidebar";
 
 export default function Settings() {
     const navigate = useNavigate()
-    const [mobileMenu, setMobileMenu] = useState<string>('hidden')
+    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [showPassword, setShowPassword] = useState<string>('hidden')
     const [oldPassword, setOldPassword] = useState<string>()
     const [newPassword, setNewPassword] = useState<string>()
@@ -23,14 +23,6 @@ export default function Settings() {
     const [imageFile, setImageFile] = useState<File>()
     const [alertClass, setAlertClass] = useState<string>('hidden')
     const [alertText, setAlertText] = useState<string>()
-
-    function toggleMobileMenu(val: boolean) {
-        if (val) {
-            setMobileMenu("mobileMenuStyles w3-animate-left")
-        } else {
-            setMobileMenu('hidden')
-        }
-    }
 
     async function changePassword() {
         if (newPassword !== confirmNewPassword) {
@@ -215,11 +207,11 @@ export default function Settings() {
 
     return (
         <div className="h-svh">
-            <MobileMenu mobileMenu={mobileMenu} />
-            <MobileHeader toggleMobileMenu={toggleMobileMenu} />
+            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
+            <MobileHeader setMobileMenu={setShowMobileMenu} />
             <div className="flex flex-col-reverse lg:flex-row">
                 <Sidebar />
-                <div className="lg:w-1/2 flex flex-col gap-4 mt-4">
+                <div className="lg:w-1/2 flex flex-col gap-4 mt-4" onClick={() => setShowMobileMenu(false)}>
                     <p className="text-center text-2xl">Account Settings</p>
                     {/* profile picture */}
                     <div className="flex flex-col gap-4 items-center text-xl">

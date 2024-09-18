@@ -11,17 +11,10 @@ export default function BookList() {
     const location = useLocation()
     const { from } = location.state
     const [apiData, setApiData] = useState<any>()
-    const [mobileMenu, setMobileMenu] = useState<string>('hidden')
-    const [noBookmarks, setNoBookmarks] = useState<string>('hidden')
+    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
+    const [noBookmarks, setNoBookmarks] = useState<boolean>(false)
     const [user, setUser] = useState<string>()
 
-    function toggleMobileMenu(val: boolean) {
-        if (val) {
-            setMobileMenu("mobileMenuStyles w3-animate-left")
-        } else {
-            setMobileMenu('hidden')
-        }
-    }
 
     async function fetchData() {
         console.log(from)
@@ -43,12 +36,12 @@ export default function BookList() {
                     if (from === 'user') {
                         setUser('Your Bookmarks')
                         if (jsonData && jsonData[0].books.length < 1) {
-                            setNoBookmarks('inline w-full text-center')
+                            setNoBookmarks(true)
                         }
                     } else {
                         setUser(jsonData[0].username + "'s Bookmarks")
                         if (jsonData && jsonData[0].books.length < 1) {
-                            setNoBookmarks('inline w-full text-center')
+                            setNoBookmarks(true)
                         }
                     }
                 } else {
@@ -84,16 +77,16 @@ export default function BookList() {
     console.log(apiData)
     return (
         <div className="h-svh default-font text-book-dark">
-            <MobileMenu mobileMenu={mobileMenu} />
-            <MobileHeader toggleMobileMenu={toggleMobileMenu} />
+            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
+            <MobileHeader setMobileMenu={setShowMobileMenu} />
             <div className="flex flex-col-reverse gap-2 lg:flex-row">
                 <Sidebar />
                 <div className="w-full lg:w-1/2 mt-4">
                     <p className="text-center text-3xl font-bold">{user}</p>
-                    <div className={noBookmarks}>
+                    <div className={noBookmarks ? 'inline w-full text-center' : 'hidden'}>
                         <p className="text-black/50 text-center text-xl mt-4 lg:mt-4">No saved books yet!</p>
                     </div>
-                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 gap-2 m-2" onClick={() => toggleMobileMenu(false)}>
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 gap-2 m-2" onClick={() => setShowMobileMenu(false)}>
                         {apiData && apiData[0].books.map((content: Bookmarked, index: number) => {
                             return <div key={index} onClick={() => viewBookInfo(content.bookIsbn)} className="cursor-pointer">
                                 <img src={content.bookImage} alt="" />

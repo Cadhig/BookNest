@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
 import { BsThreeDotsVertical } from "react-icons/bs";
 interface HeaderProps {
-    toggleMobileMenu: (value: boolean) => void
+    setMobileMenu: (value: boolean) => void
 }
 export default function MobileHeader(props: HeaderProps) {
 
     return (
         <div className=" w-full flex lg:hidden items-center justify-center">
-            <BsThreeDotsVertical className="text-4xl absolute left-4" onClick={() => props.toggleMobileMenu(true)} />
+            <BsThreeDotsVertical className="text-4xl absolute left-4" onClick={() => props.setMobileMenu(true)} />
             <Link to={'/homepage'}>
                 <div className=" header-font w-full text-center text-4xl p-4 text-book-dark lg:hidden cursor-pointer">BookNest</div>
             </Link>

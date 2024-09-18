@@ -7,31 +7,31 @@ export default function Signup() {
     const [username, setUsername] = useState<string>()
     const [password, setPassword] = useState<string>()
     const [verifyPassword, setVerifyPassword] = useState<string>()
-    const [alertClass, setAlertClass] = useState<string>('hidden')
-    const [alertType, setAlertType] = useState<string>()
+    const [showAlert, setShowAlert] = useState<boolean>(false)
+    const [alertMessage, setAlertMessage] = useState<string>()
 
     function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
-        setAlertClass('hidden')
+        setShowAlert(false)
     }
     function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
         setPassword(event.target.value)
-        setAlertClass('hidden')
+        setShowAlert(false)
     }
     function handleVerifyPasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
         setVerifyPassword(event.target.value)
-        setAlertClass('hidden')
+        setShowAlert(false)
     }
 
-    function Alerts(aClass: string, aType: string) {
-        setAlertClass(aClass)
-        setAlertType(aType)
+    function Alerts(message: string) {
+        setShowAlert(true)
+        setAlertMessage(message)
     }
 
 
     async function signup() {
         if (password !== verifyPassword) {
-            return Alerts('inline text-red-500', "Passwords do not match!")
+            return Alerts("Passwords do not match!")
         }
         const data = {
             username: username,
@@ -51,7 +51,7 @@ export default function Signup() {
                 console.log('Success!')
                 return navigate('/')
             } else {
-                Alerts('inline text-red-500', 'Username taken!')
+                Alerts('Username taken!')
                 console.log('Something went wrong!')
             }
         } catch (err) {
@@ -77,7 +77,7 @@ export default function Signup() {
                         <p className="text-lg">Password</p>
                         <input type="password" placeholder="******" onChange={handleVerifyPasswordChange} className="border-book-green border rounded p-1 w-full" />
                     </div>
-                    <p className={alertClass}>{alertType}</p>
+                    <p className={showAlert ? 'inline text-red-500' : 'hidden'}>{alertMessage}</p>
                     <button className="bg-book-green w-full py-2 rounded text-xl hover:bg-book-green/90 active:bg-book-green/80 text-book-light" onClick={signup}>Signup</button>
                     <div className="flex gap-1">
                         <p>Already have an acccount?</p>

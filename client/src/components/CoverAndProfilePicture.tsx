@@ -1,6 +1,5 @@
 import { IoBookmarks } from 'react-icons/io5'
 import { useEffect, useState } from 'react'
-import backdrop from '../assets/backdrop.jpg'
 import { FaCakeCandles, FaLocationDot, FaCalendarDays } from "react-icons/fa6";
 
 import { Link } from 'react-router-dom'
@@ -9,15 +8,14 @@ import moment from 'moment'
 interface ProfileUser {
     from: string
     userData: any,
-    hideLocation: string,
-    hideBirthday: string,
-    refresh: boolean,
-    setRefresh: (arg: boolean) => void
+    showLocation: boolean,
+    showBirthday: boolean,
+    followButton: boolean,
+    setFollowButton: (arg: boolean) => void
 }
 
 export default function CoverAndProfilePicture(props: ProfileUser) {
-    const [showInteractionButtons, setShowInteractionButtons] = useState<string>('hidden')
-    const [followButton, setFollowButton] = useState<string>('Follow')
+    const [followButton, setFollowButton] = useState<"Follow" | "Unfollow">('Follow')
 
     useEffect(() => {
         if (props.userData[1].isLoggedInUserFollowing) {
@@ -25,11 +23,6 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
         }
         if (!props.userData[1].isLoggedInUserFollowing) {
             setFollowButton('Follow')
-        }
-        if (props.from === 'user') {
-            setShowInteractionButtons('hidden')
-        } else {
-            setShowInteractionButtons('w-full flex justify-end p-4 gap-4')
         }
 
     }, [props.from, followButton, followOrUnfollowUser])
@@ -50,7 +43,7 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                 if (res.ok) {
                     console.log(res)
                     setFollowButton('Unfollow')
-                    props.setRefresh(!props.refresh)
+                    props.setFollowButton(!props.followButton)
                 }
             })
     }
@@ -71,7 +64,7 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                 if (res.ok) {
                     console.log(res)
                     setFollowButton('Follow')
-                    props.setRefresh(!props.refresh)
+                    props.setFollowButton(!props.followButton)
                 }
             })
     }
@@ -93,7 +86,7 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                 <div className='rounded-full size-28 z-20 flex absolute items-center justify-center  left-6 lg:left-[6%] top-48 border-2 border-book-green'>
                     <img src={props.userData[0].user[0].profilePicture && props.userData[0].user[0].profilePicture} alt="profile" className='rounded-full object-cover size-24' />
                 </div>
-                <div className={showInteractionButtons}>
+                <div className="w-full flex justify-end p-4 gap-4">
                     <Link to={'/bookmarks'} state={{ from: props.userData[0].user && props.userData[0].user[0].username }}>
                         <div className="bg-book-green flex cursor-pointer hover:bg-book-green-hover items-center rounded-full p-2">
                             <IoBookmarks className="text-2xl text-book-light" />
@@ -108,11 +101,11 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                 </div>
                 <p>{props.userData[0].user && props.userData[0].user[0].bio}</p>
                 <div className="flex gap-4 text-black/60">
-                    <div className={props.hideLocation}>
+                    <div className={props.showLocation ? "flex gap-2 items-center" : "hidden"}>
                         <FaLocationDot />
                         <p>{props.userData[0].user && props.userData[0].user[0].location}</p>
                     </div>
-                    <div className={props.hideBirthday}>
+                    <div className={props.showBirthday ? "flex gap-2 items-center" : "hidden"}>
                         <FaCakeCandles />
                         <p>{props.userData[0].user && props.userData[0].user[0].birthday}</p>
                     </div>

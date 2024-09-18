@@ -168,7 +168,7 @@ export interface Post {
     postText: string;
     username: string;
     profilePicture: string;
-    likes: string[]
+    likes: User[]
     _id: string;
     __v: number;
 }
@@ -178,8 +178,11 @@ export interface User {
     birthday: string;
     createdAt: string;
     following: User[];
+    followers: User[];
     posts: Post[];
-    likes: string[]
+    likes: Post[];
+    profilePicture: string;
+    coverPicture: string;
     books: Bookmarked[];
     username: string;
     _id: string;

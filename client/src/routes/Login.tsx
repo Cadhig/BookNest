@@ -6,21 +6,19 @@ function Login() {
   const navigate = useNavigate()
   const [username, setUsername] = useState<string>()
   const [password, setPassword] = useState<string>()
-  const [alertClass, setAlertClass] = useState<string>('hidden')
-  const [alert, setAlert] = useState<string>()
+  const [showAlert, setShowAlert] = useState<boolean>(false)
 
   function displayAlert() {
-    setAlert("Incorrect credentials")
-    setAlertClass('inline text-red-500')
+    setShowAlert(true)
   }
 
   function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setUsername(event.target.value)
-    setAlertClass('hidden')
+    setShowAlert(false)
   }
   function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
     setPassword(event.target.value)
-    setAlertClass('hidden')
+    setShowAlert(false)
   }
 
   async function login() {
@@ -64,7 +62,7 @@ function Login() {
             <input type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded p-1 w-full" />
           </div>
           <button className="bg-book-green w-full py-2 rounded text-xl active:bg-book-green/80 hover:bg-book-green-hover text-book-light" onClick={login}>Login</button>
-          <div className={alertClass}>{alert}</div>
+          <div className={showAlert ? 'inline text-red-500' : 'hidden'}>Incorrect login credentials</div>
           <div className="flex gap-1">
             <p>Don't have an account?</p>
             <Link to={'/signup'} className="text-blue-500 hover:underline">Signup</Link>

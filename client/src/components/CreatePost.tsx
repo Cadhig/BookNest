@@ -8,6 +8,7 @@ interface postType {
 }
 export default function CreatePost(props: postType) {
     const [postText, setPostText] = useState<string>()
+
     async function sendPost() {
         const data = {
             postText: postText

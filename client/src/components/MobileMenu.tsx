@@ -6,7 +6,7 @@ interface MobileMenuProps {
     mobileMenu: string
 }
 export default function MobileMenu(props: MobileMenuProps) {
-    const [username, setUsername] = useState()
+    const [username, setUsername] = useState<string>()
 
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
