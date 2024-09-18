@@ -4,37 +4,35 @@ const Posts = require('../models/Posts.js');
 const User = require('../models/User.js');
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    Posts.find().sort({ createdAt: -1 })
-        .then((result) => {
-            return res.status(200).json(result)
+    try {
+        const posts = await Posts.find().sort({ createdAt: -1 })
+        return res.status(200).json(posts)
+    } catch (err) {
+        console.error(err)
+        return res.status(400).json({
+            message: 'Could not fetch posts'
         })
-        .catch((err) => {
-            console.error(err)
-            return res.status(400).json({
-                message: 'Could not fetch posts'
-            })
-        })
+    }
 
 })
 
-router.get('/:username', (req, res) => {
+router.get('/:username', async (req, res) => {
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    Posts.find({ username: req.params.username }).sort({ createdAt: -1 })
-        .then((result) => {
-            return res.status(200).json(result)
+    try {
+        const usersPosts = await Posts.find({ username: req.params.username }).sort({ createdAt: -1 })
+        return res.status(200).json(usersPosts)
+    } catch (err) {
+        console.error(err)
+        return res.status(400).json({
+            message: 'Could not fetch posts'
         })
-        .catch((err) => {
-            console.error(err)
-            return res.status(400).json({
-                message: 'Could not fetch posts'
-            })
-        })
+    }
 })
 
 

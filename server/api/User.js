@@ -165,103 +165,95 @@ router.put('/changePass', async (req, res) => {
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
-    const user = await User.findOne({ username: req.session.user.username })
-    const passwordMatch = await bcrypt.compare(oldPassword, user.password)
-    if (!passwordMatch) {
-        return res.status(401).json({ error: 'previous password invalid' })
+    try {
+        const user = await User.findOne({ username: req.session.user.username })
+        const passwordMatch = await bcrypt.compare(oldPassword, user.password)
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'previous password invalid' })
+        }
+        const hash = await bcrypt.hash(password, 13)
+        await User.findOneAndUpdate({ username: user.username }, { password: hash })
+        return res.status(200).json({ message: "Password Updated!" })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({
+            message: 'Cannot Update Password!'
+        })
     }
-    const hash = await bcrypt.hash(password, 13)
-    await User.findOneAndUpdate({ username: user.username }, { password: hash })
-        .then(() => {
-            return res.status(200).json({ message: "Password Updated!" })
-        })
-        .catch((err) => {
-            console.error(err);
-            return res.status(400).json({
-                message: 'Cannot Update Password!'
-            })
-        })
+
 })
 
 router.put('/location', async (req, res) => {
     const { location } = req.body
-    const user = await User.findOne({ username: req.session.user.username })
-
-    await User.findOneAndUpdate({ username: user.username }, { location: location })
-        .then(() => {
-            return res.status(200).json({ message: "Location updated!" })
+    try {
+        const user = await User.findOne({ username: req.session.user.username })
+        await User.findOneAndUpdate({ username: user.username }, { location: location })
+        return res.status(200).json({ message: "Location updated!" })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({
+            message: 'Cannot Update Location!'
         })
-        .catch((err) => {
-            console.error(err);
-            return res.status(400).json({
-                message: 'Cannot Update Location!'
-            })
-        })
+    }
 })
 
 router.put('/profilePicture', async (req, res) => {
     const { AWSImageUrl } = req.body
+    try {
+        const user = await User.findOne({ username: req.session.user.username })
+        await User.findOneAndUpdate({ username: user.username }, { profilePicture: AWSImageUrl })
+        await Posts.updateMany({ username: user.username }, { profilePicture: AWSImageUrl })
 
-    const user = await User.findOne({ username: req.session.user.username })
-    await User.findOneAndUpdate({ username: user.username }, { profilePicture: AWSImageUrl })
-    await Posts.updateMany({ username: user.username }, { profilePicture: AWSImageUrl })
-        .then(() => {
-            return res.status(200).json({ message: "Profile Picture updated!" })
+        return res.status(200).json({ message: "Profile Picture updated!" })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({
+            message: 'Cannot Update Profile Picture!'
         })
-        .catch((err) => {
-            console.error(err);
-            return res.status(400).json({
-                message: 'Cannot Update Profile Picture!'
-            })
-        })
+    }
 })
 
 router.put('/coverPicture', async (req, res) => {
     const { AWSImageUrl } = req.body
+    try {
+        const user = await User.findOne({ username: req.session.user.username })
+        await User.findOneAndUpdate({ username: user.username }, { coverPicture: AWSImageUrl })
 
-    const user = await User.findOne({ username: req.session.user.username })
-    await User.findOneAndUpdate({ username: user.username }, { coverPicture: AWSImageUrl })
-        .then(() => {
-            return res.status(200).json({ message: "Cover Picture updated!" })
+        return res.status(200).json({ message: "Cover Picture updated!" })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({
+            message: 'Cannot Update Cover Picture!'
         })
-        .catch((err) => {
-            console.error(err);
-            return res.status(400).json({
-                message: 'Cannot Update Cover Picture!'
-            })
-        })
+    }
 })
 
 router.put('/bio', async (req, res) => {
     const { bio } = req.body
-    const user = await User.findOne({ username: req.session.user.username })
-
-    await User.findOneAndUpdate({ username: user.username }, { bio: bio })
-        .then(() => {
-            return res.status(200).json({ message: "Bio updated!" })
+    try {
+        const user = await User.findOne({ username: req.session.user.username })
+        await User.findOneAndUpdate({ username: user.username }, { bio: bio })
+        return res.status(200).json({ message: "Bio updated!" })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({
+            message: 'Cannot Update Bio!'
         })
-        .catch((err) => {
-            console.error(err);
-            return res.status(400).json({
-                message: 'Cannot Update Bio!'
-            })
-        })
+    }
 })
 
 router.put('/birthday', async (req, res) => {
     const { birthday } = req.body
-    const user = await User.findOne({ username: req.session.user.username })
-
-    await User.findOneAndUpdate({ username: user.username }, { birthday: birthday })
-        .then(() => {
-            return res.status(200).json({ message: "Birthday updated!" })
+    try {
+        const user = await User.findOne({ username: req.session.user.username })
+        await User.findOneAndUpdate({ username: user.username }, { birthday: birthday })
+        return res.status(200).json({ message: "Birthday updated!" })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({
+            message: 'Cannot Update Birthday!'
         })
-        .catch((err) => {
-            console.error(err);
-            return res.status(400).json({
-                message: 'Cannot Update Birthday!'
-            })
-        })
+    }
 })
 
 router.post('/follow', async (req, res) => {
