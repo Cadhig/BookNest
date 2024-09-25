@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
     books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Books' }],
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Posts' }],
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reviews' }]
 })
 
 module.exports = mongoose.model("User", userSchema)

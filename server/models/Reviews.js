@@ -4,7 +4,7 @@ function formatDate(createdAt) {
     return createdAt.toString()
 }
 
-const bookSchema = new mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
     bookName: {
         type: String,
         required: true
@@ -22,13 +22,20 @@ const bookSchema = new mongoose.Schema({
         userId: mongoose.SchemaType.ObjectId,
         ref: "User"
     },
+    reviewText: {
+        type: String,
+        required: true
+    },
+    reviewRating: {
+        type: Number,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: () => Date.now(),
         get: formatDate
     },
-    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reviews' }]
 
 })
 
-module.exports = mongoose.model("Books", bookSchema)
+module.exports = mongoose.model("Reviews", reviewSchema)
