@@ -15,13 +15,12 @@ export default function BookInfo() {
     const location = useLocation()
     const { data } = location.state
     const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
-    const [bookData, setBookData] = useState<GoogleBooks>()
+    const [bookData, setBookData] = useState<GoogleBooks | undefined>()
     const isbnData = data.industryIdentifiers[0].identifier
     const [isbn, setIsbn] = useState(isbnData)
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
     const [showGooglePlay, setShowGooglePlay] = useState<boolean>(true)
-    const [showPreview, setShowPreview] = useState<boolean>(true)
 
     useEffect(() => {
         setIsbn(isbnData)
@@ -51,16 +50,13 @@ export default function BookInfo() {
                             if (bookResponse?.items[0].saleInfo.buyLink === undefined) {
                                 setShowGooglePlay(false)
                             }
-                            if (bookResponse?.items[0].accessInfo.webReaderLink === undefined) {
-                                setShowPreview(false)
-                            }
                         }
                     })
                     .catch((err) => console.error(err))
             })
             .catch((err) => console.error(err))
     }, [data])
-    console.log(bookData)
+
     function switchBookmarkStatus() {
         if (bookmarkStatus) {
             setBookmark(<IoBookmark />)
@@ -114,8 +110,6 @@ export default function BookInfo() {
             })
     }
 
-
-    const amazonLink = `https://www.amazon.com/s?k=${bookData && bookData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
@@ -124,47 +118,87 @@ export default function BookInfo() {
                 <Sidebar />
                 <div className="default-font lg:w-1/2 m-2 flex flex-col items-center">
                     <div className="flex flex-col gap-4 lg:w-full items-center mt-4">
-                        <div className="flex flex-col  items-center  gap-4">
-                            <div className="flex w-full justify-center gap-1 ">
-                                <p className="text-center text-2xl font-bold ">{bookData && bookData.items[0].volumeInfo.title}</p>
-                                <p className="text-3xl text-end" onClick={() => switchBookmarkStatus()}>{bookmark}</p>
-                            </div>
-                            <img src={bookData && bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={bookData && bookData.items[0].volumeInfo.title} className="size-1/2 md:h-60 md:w-32 lg:h-96 lg:w-60" />
-                            <div className="flex flex-col gap-2 text-center items-center justify-between">
-                                <div className="h-20 overflow-auto">
-                                    <p>{bookData && bookData.items[0].volumeInfo.description}</p>
-                                </div>
-                                <div>
-                                    <a className={showPreview ? 'block text-xl text-blue-500 hover:underline' : 'hidden'} target="_blank" href={bookData && bookData.items[0].accessInfo.webReaderLink}>Preview</a>
-                                </div>
-                                <div>
-                                    <p>Categories: {bookData && bookData.items[0].volumeInfo.categories}</p>
-                                </div>
-                                <div>
-                                </div>
-                                <div className="flex justify-center gap-6">
-                                    <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
-                                    <a target="_blank" className={showGooglePlay ? "block text-2xl" : "hidden"} href={bookData && bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
-                                </div>
-                            </div>
+                        <div className="flex flex-col gap-4">
+                            <BookTitle bookData={bookData} switchBookmarkStatus={switchBookmarkStatus} bookmark={bookmark} />
+                            <BookImageAndDescription bookData={bookData} />
+                            <BookLinksAndActions bookData={bookData} switchBookmarkStatus={switchBookmarkStatus} showGooglePlay={showGooglePlay} bookmark={bookmark} />
                         </div>
-                        <div className="flex items-center justify-center gap-4 text-center">
-                            <div>
-                                <p>Publisher</p>
-                                <p>{bookData && bookData.items[0].volumeInfo.publisher}</p>
-                            </div>
-                            <div className="h-14 bg-black w-[1px]"></div>
-                            <div>
-                                <p>Author</p>
-                                <p>{bookData && bookData.items[0].volumeInfo.authors[0]}</p>
-                            </div>
-                        </div>
-                        <p>Published on {bookData && bookData.items[0].volumeInfo.publishedDate}</p>
+                        <PublisherAndAuthor bookData={bookData} />
                         <Reviews />
                     </div>
                 </div>
                 <RightSidebar />
             </div >
+        </div>
+    )
+}
+
+interface bookInfoChildren {
+    bookData: GoogleBooks | undefined,
+    switchBookmarkStatus?: () => void,
+    bookmark?: React.ReactNode,
+    showGooglePlay?: boolean
+}
+
+function BookTitle(props: bookInfoChildren) {
+
+    return (
+        <div className="flex w-full justify-center gap-1 ">
+            <p className="text-center text-2xl font-bold ">{props.bookData && props.bookData.items[0].volumeInfo.title}</p>
+            <p className="text-3xl text-end lg:hidden" onClick={() => props.switchBookmarkStatus?.()}>{props.bookmark}</p>
+        </div>
+    )
+}
+
+function BookImageAndDescription(props: bookInfoChildren) {
+
+    return (
+        <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
+            <img src={props.bookData && props.bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={props.bookData && props.bookData.items[0].volumeInfo.title} className="size-1/2 md:size-1/4 lg:h-96 lg:w-60" />
+            <div className="h-36 lg:h-96 overflow-auto">
+                <p>{props.bookData && props.bookData.items[0].volumeInfo.description}</p>
+            </div>
+        </div>
+    )
+}
+
+function BookLinksAndActions(props: bookInfoChildren) {
+
+    const amazonLink = `https://www.amazon.com/s?k=${props.bookData && props.bookData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
+
+    return (
+        <div>
+            <div className="flex flex-col lg:flex-row items-center justify-between px-4 gap-4">
+                <div className="hidden lg:flex text-xl items-center gap-2">
+                    <p>Bookmark</p>
+                    <p className="text-3xl" onClick={() => props.switchBookmarkStatus?.()}>{props.bookmark}</p>
+                </div>
+                <div className="flex gap-6">
+                    <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
+                    <a target="_blank" className={props.showGooglePlay ? "block text-2xl" : "hidden"} href={props.bookData && props.bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function PublisherAndAuthor(props: bookInfoChildren) {
+
+    return (
+        <div className="flex flex-col items-center justify-center gap-4 w-full">
+            <p>Categories: {props.bookData && props.bookData.items[0].volumeInfo.categories}</p>
+            <div className="flex w-full justify-center gap-4 text-center">
+                <div>
+                    <p>Publisher</p>
+                    <p>{props.bookData && props.bookData.items[0].volumeInfo.publisher}</p>
+                </div>
+                <div className="h-14 bg-black w-[1px]"></div>
+                <div>
+                    <p>Author</p>
+                    <p>{props.bookData && props.bookData.items[0].volumeInfo.authors[0]}</p>
+                </div>
+            </div>
+            <p>Published on {props.bookData && props.bookData.items[0].volumeInfo.publishedDate}</p>
         </div>
     )
 }
