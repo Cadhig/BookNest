@@ -124,7 +124,7 @@ export default function BookInfo() {
                             <BookLinksAndActions bookData={bookData} switchBookmarkStatus={switchBookmarkStatus} showGooglePlay={showGooglePlay} bookmark={bookmark} />
                         </div>
                         <PublisherAndAuthor bookData={bookData} />
-                        <Reviews />
+                        <Reviews bookData={bookData} />
                     </div>
                 </div>
                 <RightSidebar />
