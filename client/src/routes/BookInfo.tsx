@@ -118,7 +118,7 @@ export default function BookInfo() {
             <MobileHeader setMobileMenu={setShowMobileMenu} />
             <div className="flex flex-col-reverse lg:flex-row justify-center gap-4" onClick={() => setShowMobileMenu(false)}>
                 <Sidebar />
-                <div className="default-font lg:w-1/2 m-2 flex flex-col items-center">
+                <div className="default-font lg:w-1/2 m-2 flex flex-col items-center max-h-svh hideScrollbar overflow-auto">
                     <div className="flex flex-col gap-4 lg:w-full items-center mt-4">
                         <div className="flex flex-col gap-4">
                             <BookTitle bookData={bookData} switchBookmarkStatus={switchBookmarkStatus} bookmark={bookmark} />

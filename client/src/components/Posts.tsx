@@ -53,7 +53,7 @@ export default function Posts(props: postProps) {
     }
 
     return (
-        <div className="flex flex-col m-2 gap-4 max-h-full overflow-auto">
+        <div className="flex flex-col m-2 gap-4 max-h-full">
             <p className={props.showPostAlert ? 'inline text-lg text-book-dark/50 text-center' : 'hidden'}>No posts yet!</p>
             {props.postData && props.postData.map((content: Post, index: number) => {
                 const userId = props.userData && props.userData[0]._id
@@ -63,17 +63,17 @@ export default function Posts(props: postProps) {
                         <div className="flex flex-col gap-2 ">
                             <div className="flex gap-2 items-center">
                                 <Link to={'/profile'} state={{ from: content.username }}>
-                                    <img src={content.profilePicture} alt="" className="size-10 object-cover rounded-full" />
+                                    <img src={content.profilePicture} alt="" className="size-12 object-cover rounded-full" />
                                 </Link>
                                 <div className="flex flex-col">
                                     <Link to={'/profile'} state={{ from: content.username }}>
-                                        <p className="hover:underline cursor-pointer font-bold">@{content.username}</p>
+                                        <p className="hover:underline cursor-pointer font-bold text-xl">@{content.username}</p>
                                     </Link>
                                 </div>
                             </div>
-                            <p className="text-ellipsis">{content.postText}</p>
+                            <p className="text-lg">{content.postText}</p>
                         </div>
-                        <div className="flex gap-1 justify-between">
+                        <div className="flex gap-1 justify-between items-center">
                             <div className='flex items-center gap-1'>
                                 <div onClick={() => likeOrUnlikePost(content._id, hasUserLiked)}>{hasUserLiked ? <IoHeart size={20} /> : <IoMdHeartEmpty size={20} />}</div>
                                 <div>{content.likes.length}</div>

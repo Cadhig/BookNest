@@ -77,7 +77,7 @@ export default function Profile() {
             <MobileHeader setMobileMenu={setShowMobileMenu} />
             <div className='flex w-full lg:flex-row flex-col-reverse gap-4 lg:gap-0 default-font' onClick={() => setShowMobileMenu(false)}>
                 <Sidebar />
-                <div className='flex flex-col gap-4 lg:w-1/2'>
+                <div className='flex flex-col gap-4 lg:w-1/2 max-h-svh hideScrollbar overflow-auto'>
                     <CoverAndProfilePicture followButton={followButton} setFollowButton={setFollowButton} from={from} showLocation={showLocation} showBirthday={showBirthday} userData={userData} />
                     <div className="flex my-4">
                         <div className={feedType === 'posts' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-book-dark/60"} onClick={() => setFeedType('posts')}>

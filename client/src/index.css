@@ -22,6 +22,17 @@
   background-color: #B1C0A1;
 }
 
+.hideScrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+
+.hideScrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
 a {
   color: #0B2027 !important;
 }

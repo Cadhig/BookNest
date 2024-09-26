@@ -77,21 +77,23 @@ export default function Homepage() {
         <div className="h-svh default-font text-book-dark">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div onClick={() => setShowMobileMenu(false)} className="flex flex-col lg:flex-row-reverse">
+            <div onClick={() => setShowMobileMenu(false)} className="flex flex-col lg:flex-row-reverse justify-center gap-4">
                 <RightSidebar />
-                <div className="flex flex-col lg:w-1/2 w-full max-h-full">
-                    <div className="flex my-4">
-                        <div className={feedType === "global" ? "w-1/2 flex flex-col items-center text-xl font-bold" : 'w-1/2 flex flex-col items-center text-xl text-book-dark/60'} onClick={() => switchFeedType('global')}>
-                            <button>Global</button>
-                            <div className={feedType === "global" ? "bg-book-green rounded-full w-1/4 h-[2px]" : "hidden"}></div>
+                <div className="max-h-svh lg:w-1/2 overflow-auto hideScrollbar">
+                    <div className="flex flex-col w-full ">
+                        <div className="flex my-4">
+                            <div className={feedType === "global" ? "w-1/2 flex flex-col items-center text-xl font-bold" : 'w-1/2 flex flex-col items-center text-xl text-book-dark/60'} onClick={() => switchFeedType('global')}>
+                                <button>Global</button>
+                                <div className={feedType === "global" ? "bg-book-green rounded-full w-1/4 h-[2px]" : "hidden"}></div>
+                            </div>
+                            <div className={feedType === "following" ? "w-1/2 flex flex-col items-center text-xl font-bold" : 'w-1/2 flex flex-col items-center text-xl text-book-dark/60'} onClick={() => switchFeedType('following')}>
+                                <button>Following</button>
+                                <div className={feedType === "following" ? 'bg-book-green rounded-full w-1/4 h-[2px]' : 'hidden'}></div>
+                            </div>
                         </div>
-                        <div className={feedType === "following" ? "w-1/2 flex flex-col items-center text-xl font-bold" : 'w-1/2 flex flex-col items-center text-xl text-book-dark/60'} onClick={() => switchFeedType('following')}>
-                            <button>Following</button>
-                            <div className={feedType === "following" ? 'bg-book-green rounded-full w-1/4 h-[2px]' : 'hidden'}></div>
-                        </div>
+                        <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} userData={userData} />
+                        <Posts showPostAlert={showPostAlert} refreshFeed={refreshFeed} setRefreshFeed={setRefreshFeed} userData={userData} postData={postData} />
                     </div>
-                    <CreatePost setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} userData={userData} />
-                    <Posts showPostAlert={showPostAlert} refreshFeed={refreshFeed} setRefreshFeed={setRefreshFeed} userData={userData} postData={postData} />
                 </div>
                 <Sidebar />
             </div>
