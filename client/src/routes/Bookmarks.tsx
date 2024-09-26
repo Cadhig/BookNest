@@ -88,9 +88,9 @@ export default function BookList() {
                     </div>
                     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-6 gap-2 m-2" onClick={() => setShowMobileMenu(false)}>
                         {apiData && apiData[0].books.map((content: Bookmarked, index: number) => {
-                            return <div key={index} onClick={() => viewBookInfo(content.bookIsbn)} className="cursor-pointer">
+                            return <div key={index} onClick={() => viewBookInfo(content.bookIsbn)} className="flex flex-col items-center gap-2 cursor-pointer">
                                 <img src={content.bookImage} alt="" />
-                                <p>{content.bookName}</p>
+                                <p className="text-xl">{content.bookName}</p>
                             </div>
                         })}
                     </div>

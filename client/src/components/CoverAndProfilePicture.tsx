@@ -99,7 +99,7 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                 <div className='flex items-center gap-2'>
                     <p className='font-bold text-xl'>{props.userData[0].user && props.userData[0].user[0].username}</p>
                 </div>
-                <p>{props.userData[0].user && props.userData[0].user[0].bio}</p>
+                <div className='text-lg'>{props.userData[0].user && props.userData[0].user[0].bio}</div>
                 <div className="flex gap-4 text-black/60">
                     <div className={props.showLocation ? "flex gap-2 items-center" : "hidden"}>
                         <FaLocationDot />

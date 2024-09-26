@@ -54,7 +54,7 @@ export default function Posts(props: postProps) {
 
     return (
         <div className="flex flex-col m-2 gap-4 max-h-full overflow-auto">
-            <p className={props.showPostAlert ? 'inline text-lg text-black/50 text-center' : 'hidden'}>No posts yet!</p>
+            <p className={props.showPostAlert ? 'inline text-lg text-book-dark/50 text-center' : 'hidden'}>No posts yet!</p>
             {props.postData && props.postData.map((content: Post, index: number) => {
                 const userId = props.userData && props.userData[0]._id
                 const hasUserLiked = content.likes.some((like: any) => like === userId);
@@ -73,10 +73,10 @@ export default function Posts(props: postProps) {
                             </div>
                             <p className="text-ellipsis">{content.postText}</p>
                         </div>
-                        <div className="flex gap-1 items-center justify-between">
+                        <div className="flex gap-1 justify-between">
                             <div className='flex items-center gap-1'>
-                                <p onClick={() => likeOrUnlikePost(content._id, hasUserLiked)}>{hasUserLiked ? <IoHeart /> : <IoMdHeartEmpty />}</p>
-                                <p>{content.likes.length}</p>
+                                <div onClick={() => likeOrUnlikePost(content._id, hasUserLiked)}>{hasUserLiked ? <IoHeart size={20} /> : <IoMdHeartEmpty size={20} />}</div>
+                                <div>{content.likes.length}</div>
                             </div>
                             <p className="text-right text-xs">{moment(content.createdAt).startOf('second').fromNow()}</p>
                         </div>

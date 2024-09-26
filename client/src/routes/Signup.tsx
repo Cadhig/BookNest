@@ -67,21 +67,21 @@ export default function Signup() {
                     <h1 className="text-3xl">Welcome to BookNest!</h1>
                     <div className="w-full">
                         <p className="text-lg">Username</p>
-                        <input type="text" placeholder="username" onChange={handleUsernameChange} className="border-book-green border rounded p-1 w-full" />
+                        <input type="text" placeholder="username" onChange={handleUsernameChange} className="border-book-green border rounded p-2 w-full" />
                     </div>
                     <div className="w-full">
                         <p className="text-lg">Password</p>
-                        <input type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded p-1 w-full" />
+                        <input type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded p-2 w-full" />
                     </div>
                     <div className="w-full">
                         <p className="text-lg">Password</p>
-                        <input type="password" placeholder="******" onChange={handleVerifyPasswordChange} className="border-book-green border rounded p-1 w-full" />
+                        <input type="password" placeholder="******" onChange={handleVerifyPasswordChange} className="border-book-green border rounded p-2 w-full" />
                     </div>
                     <p className={showAlert ? 'inline text-red-500' : 'hidden'}>{alertMessage}</p>
                     <button className="bg-book-green w-full py-2 rounded text-xl hover:bg-book-green/90 active:bg-book-green/80 text-book-light" onClick={signup}>Signup</button>
-                    <div className="flex gap-1">
+                    <div className="flex text-lg gap-1">
                         <p>Already have an acccount?</p>
-                        <Link to={'/'} className="text-blue-500 hover:underline">Login</Link>
+                        <Link to={'/'}><p className="text-blue-500 hover:underline">Login </p></Link>
                     </div>
                 </div>
             </div>
