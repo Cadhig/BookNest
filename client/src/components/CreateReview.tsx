@@ -5,7 +5,7 @@ import { Rating, RatingProps } from 'semantic-ui-react'
 export default function Reviews(props: any) {
     const [reviewText, setReviewText] = useState<string>()
     const [rating, setRating] = useState<number>()
-
+    const [error, setError] = useState<boolean>(false)
     useEffect(() => {
         setRating(0)
     }, [])
@@ -28,6 +28,10 @@ export default function Reviews(props: any) {
         })
             .then((response) => {
                 console.log(response)
+                if (!response.ok) {
+                    setError(true)
+                }
+                props.setRefreshFeed(!props.refreshFeed)
             })
             .catch((err) => {
                 console.error(err)
@@ -41,15 +45,16 @@ export default function Reviews(props: any) {
     }
 
     return (
-        <div className="p-2 flex flex-col gap-2 mt-4 lg:mt-0">
+        <div className="p-2 flex flex-col gap-2 mt-4 lg:mt-0 w-1/2">
             <div className='flex gap-2 flex-col justify-center items-center'>
                 <div className="flex gap-2 text-xl items-center">
                     <div>Rate</div>
                     <Rating rating={rating} icon='star' defaultRating={0} maxRating={4} onRate={handleRatingChange} size='huge' />
                 </div>
-                <input type="text" placeholder='What are you reading...' className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => {
+                <input type="text" placeholder="What did you think about this book?" className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => {
                     setReviewText(e.target.value)
                 }} />
+                <p className={error ? 'text-right text-red-600' : 'hidden'}>You have already posted a review!</p>
                 <button className='bg-book-green text-book-light px-4 py-2 rounded-full hover:bg-book-green-hover' onClick={sendReview}>Post Review</button>
             </div>
         </div>

@@ -22,6 +22,7 @@ export default function BookInfo() {
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
     const [showGooglePlay, setShowGooglePlay] = useState<boolean>(true)
+    const [refreshFeed, setRefreshFeed] = useState<boolean>(false)
 
     useEffect(() => {
         setIsbn(isbnData)
@@ -125,8 +126,8 @@ export default function BookInfo() {
                             <BookLinksAndActions bookData={bookData} switchBookmarkStatus={switchBookmarkStatus} showGooglePlay={showGooglePlay} bookmark={bookmark} />
                         </div>
                         <PublisherAndAuthor bookData={bookData} />
-                        <CreateReview bookData={bookData} />
-                        <Reviews bookIsbn={isbn} />
+                        <CreateReview bookData={bookData} setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
+                        <Reviews bookIsbn={isbn} refreshFeed={refreshFeed} />
                     </div>
                 </div>
                 <RightSidebar />

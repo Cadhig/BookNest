@@ -13,7 +13,8 @@ interface Reviews {
     reviewText?: string,
     username?: string,
     __v?: number,
-    _id?: string
+    _id?: string,
+    refreshFeed: boolean
 }
 
 export default function Review(props: Reviews) {
@@ -31,11 +32,11 @@ export default function Review(props: Reviews) {
 
     useEffect(() => {
         getReviews()
-    }, [])
+    }, [props.refreshFeed])
 
     return (
         <div className="flex flex-col m-2 gap-4 max-h-full w-full overflow-auto">
-            <p className={showReviewAlert ? 'inline text-lg text-black/50 text-center' : 'hidden'}>Reviews yet!</p>
+            <p className={showReviewAlert ? 'inline text-lg text-black/50 text-center' : 'hidden'}>No reviews yet!</p>
             {reviews && reviews.map((content: Reviews, index: number) => {
                 return <div className="flex flex-col justify-center gap-4 text-lg" key={index}>
                     <div className="flex flex-col gap-2">

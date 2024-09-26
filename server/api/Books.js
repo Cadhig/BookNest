@@ -52,6 +52,12 @@ router.post('/review', async (req, res) => {
         return res.status(401).json({ error: "Unauthorized" })
     }
     try {
+        const hasUserReviewed = await Reviews.find({ bookIsbn: bookIsbn, username: req.session.user.username })
+        if (hasUserReviewed.length > 0) {
+            res.status(400).json(false)
+            return
+        }
+        console.log(hasUserReviewed)
         const review = await Reviews.create({
             bookName: bookName,
             bookIsbn: bookIsbn,
