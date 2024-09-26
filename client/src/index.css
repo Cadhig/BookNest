@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .default-font {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -21,4 +20,8 @@
   width: 50%;
   height: 100svh;
   background-color: #B1C0A1;
+}
+
+a {
+  color: #0B2027 !important;
 }

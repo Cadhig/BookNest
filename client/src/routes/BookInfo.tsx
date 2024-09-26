@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { ImAmazon } from "react-icons/im"
 import MobileHeader from "../components/MobileHeader"
-import Reviews from "../components/Reviews"
+import CreateReview from "../components/CreateReview"
 import MobileMenu from "../components/MobileMenu"
 import { GoogleBooks } from "../types"
 import RightSidebar from "../components/RightSidebar"
@@ -124,7 +124,7 @@ export default function BookInfo() {
                             <BookLinksAndActions bookData={bookData} switchBookmarkStatus={switchBookmarkStatus} showGooglePlay={showGooglePlay} bookmark={bookmark} />
                         </div>
                         <PublisherAndAuthor bookData={bookData} />
-                        <Reviews bookData={bookData} />
+                        <CreateReview bookData={bookData} />
                     </div>
                 </div>
                 <RightSidebar />
@@ -169,7 +169,7 @@ function BookLinksAndActions(props: bookInfoChildren) {
     return (
         <div>
             <div className="flex flex-col lg:flex-row items-center justify-between px-4 gap-4">
-                <div className="hidden lg:flex text-xl items-center gap-2">
+                <div className="hidden lg:flex text-xl gap-2">
                     <p>Bookmark</p>
                     <p className="text-3xl" onClick={() => props.switchBookmarkStatus?.()}>{props.bookmark}</p>
                 </div>
