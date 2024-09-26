@@ -9,6 +9,7 @@ import RightSidebar from "../components/RightSidebar"
 import Sidebar from "../components/Sidebar"
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { FaGooglePlay } from "react-icons/fa";
+import Reviews from "../components/Reviews"
 
 
 export default function BookInfo() {
@@ -125,6 +126,7 @@ export default function BookInfo() {
                         </div>
                         <PublisherAndAuthor bookData={bookData} />
                         <CreateReview bookData={bookData} />
+                        <Reviews bookIsbn={isbn} />
                     </div>
                 </div>
                 <RightSidebar />

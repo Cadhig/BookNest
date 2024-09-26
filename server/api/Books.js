@@ -46,17 +46,6 @@ router.delete('/unsave', async (req, res) => {
     }
 })
 
-router.get('/reviewTest', async (req, res) => {
-    try {
-        const view = await Reviews.find()
-        return res.status(200).json(view)
-    }
-    catch (err) {
-        console.error(err);
-        return res.status(400).json({ message: 'Could not remove book!' });
-    }
-})
-
 router.post('/review', async (req, res) => {
     const { bookIsbn, bookName, bookImage, reviewText, reviewRating } = req.body
     if (!req.sessionID) {
@@ -85,4 +74,21 @@ router.post('/review', async (req, res) => {
     }
 })
 
+router.get('/reviews/:bookIsbn', async (req, res) => {
+    const bookIsbn = req.params.bookIsbn
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    try {
+        const reviews = await Reviews.find({ bookIsbn: bookIsbn })
+        if (!reviews) {
+            return res.status(404).json({ message: 'Reviews not found' })
+        }
+        return res.status(200).json(reviews)
+    } catch (err) {
+        console.error(err)
+        return res.status(400).json({ message: 'Could not retrieve reviews' })
+    }
+
+})
 module.exports = router
