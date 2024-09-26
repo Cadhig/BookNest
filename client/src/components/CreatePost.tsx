@@ -10,6 +10,12 @@ export default function CreatePost(props: postType) {
     const [postText, setPostText] = useState<string>()
     const [showError, setShowError] = useState<boolean>(false)
 
+    function handleKeyDown(event: any) {
+        if (event.key === 'Enter') {
+            sendPost()
+        }
+    };
+
     async function sendPost() {
         const data = {
             postText: postText
@@ -39,7 +45,7 @@ export default function CreatePost(props: postType) {
         <div className="p-2 flex flex-col gap-2 mt-4 lg:mt-0">
             <div className='flex gap-2 justify-center items-center'>
                 <img src={props.userData[0].profilePicture && props.userData[0].profilePicture} alt="" className='size-14 rounded-full object-cover' />
-                <input type="text" placeholder='What are you reading...' className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => {
+                <input onKeyDown={handleKeyDown} type="text" placeholder='What are you reading...' className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => {
                     setPostText(e.target.value)
                     setShowError(false)
                 }} />
