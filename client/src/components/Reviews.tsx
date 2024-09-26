@@ -49,7 +49,7 @@ export default function Review(props: Reviews) {
                                 </div>
                             </div>
                             <div>
-                                <Rating icon={'star'} defaultRating={content.reviewRating} maxRating={4} disabled />
+                                <Rating icon={'star'} defaultRating={content.reviewRating} maxRating={5} disabled />
                                 <p className="text-ellipsis">{content.reviewText}</p>
                             </div>
                         </div>

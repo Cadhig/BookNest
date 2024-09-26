@@ -49,7 +49,7 @@ export default function Reviews(props: any) {
             <div className='flex gap-2 flex-col justify-center items-center'>
                 <div className="flex gap-2 text-xl items-center">
                     <div>Rate</div>
-                    <Rating rating={rating} icon='star' defaultRating={0} maxRating={4} onRate={handleRatingChange} size='huge' />
+                    <Rating rating={rating} icon='star' defaultRating={0} maxRating={5} onRate={handleRatingChange} size='huge' />
                 </div>
                 <input type="text" placeholder="What did you think about this book?" className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => {
                     setReviewText(e.target.value)
