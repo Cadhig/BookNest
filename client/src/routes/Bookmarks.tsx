@@ -60,7 +60,7 @@ export default function BookList() {
             .then(async (res) => {
                 if (res.ok) {
                     const jsonData = await res.json()
-                    navigate('/bookInfo', { state: { data: jsonData.items[0].volumeInfo } })
+                    navigate('/bookInfo', { state: { data: jsonData.items[0].volumeInfo.industryIdentifiers[0].identifier } })
                 } else {
                     console.log(res)
                 }

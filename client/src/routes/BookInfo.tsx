@@ -16,19 +16,21 @@ import moment from "moment"
 
 export default function BookInfo() {
     const location = useLocation()
-    const { data } = location.state
+    const { data, isFromSearchResults } = location.state
     const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [bookData, setBookData] = useState<GoogleBooks | undefined>()
-    const isbnData = data.industryIdentifiers[0].identifier
-    const [isbn, setIsbn] = useState(isbnData)
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
     const [showGooglePlay, setShowGooglePlay] = useState<boolean>(true)
     const [refreshFeed, setRefreshFeed] = useState<boolean>(false)
 
     useEffect(() => {
-        setIsbn(isbnData)
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
+        console.log(data)
+        fetchBook()
+    }, [data])
+
+    async function fetchBook() {
+        await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isFromSearchResults ? data.industryIdentifiers[0].identifier : data}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
             .then(res => res.json())
             .then(bookResponse => {
                 setBookData(bookResponse)
@@ -59,8 +61,7 @@ export default function BookInfo() {
                     .catch((err) => console.error(err))
             })
             .catch((err) => console.error(err))
-    }, [data])
-
+    }
     function switchBookmarkStatus() {
         if (bookmarkStatus) {
             setBookmark(<IoBookmark />)
@@ -129,7 +130,9 @@ export default function BookInfo() {
                             <BookInformation bookData={bookData} />
                         </div>
                         <CreateReview bookData={bookData} setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
-                        <Reviews bookIsbn={isbn} refreshFeed={refreshFeed} />
+                        <div className="w-full">
+                            <Reviews bookIsbn={isFromSearchResults ? data.industryIdentifiers[0].identifier : data} refreshFeed={refreshFeed} isFromBookInfoPage={true} />
+                        </div>
                     </div>
                 </div>
                 <RightSidebar />
@@ -151,7 +154,7 @@ function BookImageColumn(props: bookInfoChildren) {
 
     return (
         <div className="flex w-full lg:w-1/2 flex-col items-center gap-4">
-            <img src={props.bookData && props.bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={props.bookData && props.bookData.items[0].volumeInfo.title} className="size-1/2 md:size-1/4 lg:h-96 lg:w-60" />
+            <img src={props.bookData && props.bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={props.bookData && props.bookData.items[0].volumeInfo.title} className="size-1/2 md:size-1/4 lg:h-96 lg:w-60 object-contain" />
             <p className="lg:hidden  text-center text-4xl font-bold ">{props.bookData && props.bookData.items[0].volumeInfo.title}</p>
             <div className="text-xl gap-2 flex">
                 <p>Bookmark</p>

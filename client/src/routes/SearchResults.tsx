@@ -11,6 +11,7 @@ export default function SearchResults() {
     const { search } = location.state
     const [apiData, setApiData] = useState<GoogleBooks>()
     const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
+    const [error, setError] = useState<boolean>(false)
 
     const book = search.book.replace(/ /g, '').toLowerCase()
 
@@ -18,7 +19,14 @@ export default function SearchResults() {
     useEffect(() => {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${book}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
             .then(res => res.json())
-            .then(data => setApiData(data))
+            .then(data => {
+                if (data.items[0].volumeInfo.industryIdentifiers[0].type === "OTHER") {
+                    setError(true)
+                } else {
+                    setApiData(data)
+                    setError(false)
+                }
+            })
             .catch((err) => console.error(err))
     }, [search])
 
@@ -32,20 +40,20 @@ export default function SearchResults() {
                     <div className="text-center text-3xl">
                         <p>Results for '{search.book}'</p>
                     </div>
-                    <div className="flex flex-col w-full lg:w-full">
+                    {error ? "No results match search" : <div className="flex flex-col w-full lg:w-full">
                         {apiData && apiData.items.map((content, index) => {
                             return <div key={index} className="flex flex-col justify-center">
                                 <div className="flex items-center gap-2 py-4 pl-2">
-                                    <Link to={'/bookInfo'} state={{ from: 'search', data: content.volumeInfo }}> <img src={content.volumeInfo.imageLinks?.thumbnail} alt={content.volumeInfo.title} className="h-28 lg:h-full" /></Link>
+                                    <Link to={'/bookInfo'} state={{ isFromSearchResults: true, data: content.volumeInfo }}> <img src={content.volumeInfo.imageLinks?.thumbnail} alt={content.volumeInfo.title} className="h-28 lg:h-full" /></Link>
                                     <div>
-                                        <Link to={'/bookInfo'} state={{ from: 'search', data: content.volumeInfo }}><p className="font-bold text-xl">{content.volumeInfo.title}</p></Link>
+                                        <Link to={'/bookInfo'} state={{ isFromSearchResults: true, data: content.volumeInfo }}><p className="font-bold text-xl">{content.volumeInfo.title}</p></Link>
                                         <p className="text-book-dark/60">{content.volumeInfo.authors}</p>
                                     </div>
                                 </div>
                                 <div className="w-full h-1 bg-book-sage"></div>
                             </div>
                         })}
-                    </div>
+                    </div>}
                 </div>
                 <RightSidebar />
             </div>
