@@ -17,7 +17,6 @@ export default function BookList() {
 
 
     async function fetchData() {
-        console.log(from)
         const data = {
             username: from
         }
@@ -61,7 +60,6 @@ export default function BookList() {
             .then(async (res) => {
                 if (res.ok) {
                     const jsonData = await res.json()
-                    console.log(jsonData)
                     navigate('/bookInfo', { state: { data: jsonData.items[0].volumeInfo } })
                 } else {
                     console.log(res)
@@ -74,7 +72,6 @@ export default function BookList() {
         fetchData()
     }, [from])
 
-    console.log(apiData)
     return (
         <div className="h-svh default-font text-book-dark">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />

@@ -27,7 +27,6 @@ export default function Reviews(props: any) {
             credentials: "include"
         })
             .then((response) => {
-                console.log(response)
                 if (!response.ok) {
                     setError(true)
                 }

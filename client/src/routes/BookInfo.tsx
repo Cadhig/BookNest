@@ -62,8 +62,6 @@ export default function BookInfo() {
     }, [data])
 
     function switchBookmarkStatus() {
-        console.log(bookmarkStatus)
-        console.log('triggered')
         if (bookmarkStatus) {
             setBookmark(<IoBookmark />)
             addBook()
@@ -71,7 +69,6 @@ export default function BookInfo() {
 
         } else {
             setBookmark(<IoBookmarkOutline />)
-            console.log('remmove book')
             removeBook()
             setBookmarkStatus(true)
         }

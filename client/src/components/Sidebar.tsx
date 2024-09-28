@@ -1,23 +1,25 @@
 import { BsPersonCircle, BsFillHouseFill } from "react-icons/bs";
 import { IoBookmarks, IoSettingsSharp, IoCodeWorking } from "react-icons/io5";
-
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-
+import { Link, useNavigate } from "react-router-dom";
 export default function Sidebar() {
-    const [username, setUsername] = useState<string>()
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include"
-        })
-            .then(res => res.json())
-            .then(response => setUsername(response[0].username))
-    }, [])
+    async function api() {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include"
+            })
+            const parsedResponse = await response.json()
+            navigate('/profile', { state: { from: parsedResponse[0].username } })
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
         <div className="hidden lg:flex lg:w-1/4 ml-2 h-full default-font ">
             <div className="flex flex-col gap-8">
@@ -50,12 +52,12 @@ export default function Sidebar() {
                     <GiBookCover className="text-4xl" />
                     <p className="text-xl">Clubs (coming soon)</p>
                 </div> */}
-                <Link to={'/profile'} state={{ from: username }}>
+                <button onClick={() => api()}>
                     <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <BsPersonCircle className="text-4xl" />
                         <p className="text-xl">Profile</p>
                     </div>
-                </Link>
+                </button>
                 <Link to={'/settings'}>
                     <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
                         <IoSettingsSharp className="text-4xl" />
@@ -67,6 +69,6 @@ export default function Sidebar() {
                     <a href="https://cadencehiggins.notion.site/Book-Nest-Release-Notes-104e758b497780c2b45bd03cf7ec486b" target="_blank">Release Notes</a>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
