@@ -37,11 +37,11 @@ export default function Review(props: Reviews) {
 
     async function getReviews() {
         const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/books/reviews/${props.bookIsbn}`)
-        const responseParsed = await response.json()
-        if (responseParsed.length < 1) {
+        const userReviews = await response.json()
+        if (userReviews.length < 1) {
             setShowReviewAlert(true)
         }
-        setReviews(responseParsed)
+        setReviews(userReviews)
     }
 
     return (

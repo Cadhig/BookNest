@@ -197,3 +197,17 @@ export interface Bookmarked {
     _id: string;
     __v: number;
 }
+
+export interface ReviewProps {
+    reviewAverage: number,
+    reviewLength: number
+    reviewAlert: boolean
+}
+
+export interface bookInfoChildren {
+    bookData: GoogleBooks | undefined,
+    switchBookmarkStatus?: () => void,
+    bookmark?: React.ReactNode,
+    showGooglePlay?: boolean
+    review?: ReviewProps
+}

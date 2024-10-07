@@ -11,6 +11,8 @@ import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { FaGooglePlay, FaAngleDown, FaAngleUp } from "react-icons/fa";
 import Reviews from "../components/Reviews"
 import moment from "moment"
+import { Rating } from "semantic-ui-react"
+import { ReviewProps, bookInfoChildren } from "../types"
 
 
 
@@ -23,10 +25,12 @@ export default function BookInfo() {
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
     const [showGooglePlay, setShowGooglePlay] = useState<boolean>(true)
     const [refreshFeed, setRefreshFeed] = useState<boolean>(false)
+    const [review, setReview] = useState<ReviewProps | undefined>()
 
     useEffect(() => {
         console.log(data)
         fetchBook()
+        getReviewAverage()
     }, [data])
 
     async function fetchBook() {
@@ -117,6 +121,29 @@ export default function BookInfo() {
             })
     }
 
+    async function getReviewAverage() {
+        const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/books/reviews/${isFromSearchResults ? data.industryIdentifiers[0].identifier : data}`)
+        const reviews = await response.json()
+        if (reviews.length < 1) {
+            setReview({
+                reviewAverage: 0,
+                reviewLength: reviews.length,
+                reviewAlert: true
+            })
+            return
+        }
+        let currentNum = 0
+        for (let i = 0; i < reviews.length; i++) {
+            currentNum += reviews[i].reviewRating
+        }
+        const reviewAverage = currentNum / reviews.length
+        setReview({
+            reviewAverage: reviewAverage,
+            reviewLength: reviews.length,
+            reviewAlert: false
+        })
+    }
+
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
@@ -126,7 +153,7 @@ export default function BookInfo() {
                 <div className="default-font lg:w-1/2 m-2 flex flex-col items-center max-h-svh hideScrollbar overflow-auto">
                     <div className="flex flex-col gap-4 w-full items-center mt-4 ">
                         <div className="flex flex-col gap-4 w-full lg:flex-row">
-                            <BookImageColumn bookData={bookData} bookmark={bookmark} switchBookmarkStatus={switchBookmarkStatus} showGooglePlay={showGooglePlay} />
+                            <BookImageColumn review={review} bookData={bookData} bookmark={bookmark} switchBookmarkStatus={switchBookmarkStatus} showGooglePlay={showGooglePlay} />
                             <BookInformation bookData={bookData} />
                         </div>
                         <CreateReview bookData={bookData} setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
@@ -141,22 +168,23 @@ export default function BookInfo() {
     )
 }
 
-interface bookInfoChildren {
-    bookData: GoogleBooks | undefined,
-    switchBookmarkStatus?: () => void,
-    bookmark?: React.ReactNode,
-    showGooglePlay?: boolean
-}
 
 function BookImageColumn(props: bookInfoChildren) {
 
     const amazonLink = `https://www.amazon.com/s?k=${props.bookData && props.bookData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
-
+    console.log(props.review?.reviewAverage)
     return (
         <div className="flex w-full lg:w-1/2 flex-col items-center gap-4">
             <img src={props.bookData && props.bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={props.bookData && props.bookData.items[0].volumeInfo.title} className="size-1/2 md:size-1/4 lg:h-96 lg:w-60 object-contain" />
             <p className="lg:hidden  text-center text-4xl font-bold ">{props.bookData && props.bookData.items[0].volumeInfo.title}</p>
-            <div className="text-xl gap-2 flex">
+            <div className="flex items-center flex-col">
+                <div className="text-2xl gap-2 flex items-center">
+                    <Rating size="massive" icon={'star'} defaultRating={props.review?.reviewAverage} maxRating={5} disabled key={props.review?.reviewAverage} />
+                    <p>{props.review?.reviewAverage}/5</p>
+                </div>
+                <p className="text-book-dark/60">{props.review?.reviewAlert ? "No reviews yet!" : `${props.review?.reviewLength} reviews`}</p>
+            </div>
+            <div className="text-2xl gap-2 flex">
                 <p>Bookmark</p>
                 <p className="text-3xl" onClick={() => props.switchBookmarkStatus?.()}>{props.bookmark}</p>
             </div>
