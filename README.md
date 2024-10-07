@@ -12,6 +12,8 @@ BookNest is a platform where book lovers can connect! Users will be able to sear
 
 📖 **Profile Customization**: Customize your profile with a personalized bio, location, birthday, and profile / cover pictures.
 
+📖 **Reviews**: Review books, and view other users book reviews.
+
 ## Tech used
 📐 **Frameworks**: React
 
