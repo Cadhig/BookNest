@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
-import MobileHeader from "../components/MobileHeader"
-import RightSidebar from "../components/RightSidebar"
-import MobileMenu from "../components/MobileMenu"
-import CreatePost from "../components/CreatePost"
-import Sidebar from "../components/Sidebar"
-import Posts from "../components/Posts"
+import MobileHeader from "../components/base/MobileHeader"
+import RightSidebar from "../components/base/RightSidebar"
+import MobileMenu from "../components/base/MobileMenu"
+import CreatePost from "../components/posting/CreatePost"
+import Sidebar from "../components/base/Sidebar"
+import Posts from "../components/posting/Posts"
 import { User } from "../types";
 import { PostsType } from "../types"
 

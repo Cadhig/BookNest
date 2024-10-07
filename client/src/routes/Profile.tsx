@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import MobileMenu from "../components/MobileMenu"
-import MobileHeader from "../components/MobileHeader"
-import Sidebar from "../components/Sidebar"
-import RightSidebar from "../components/RightSidebar"
-import CoverAndProfilePicture from "../components/CoverAndProfilePicture"
 import { Post } from "../types"
-import Posts from "../components/Posts"
 import { User } from "../types"
+import Posts from "../components/posting/Posts"
+import MobileMenu from "../components/base/MobileMenu"
+import MobileHeader from "../components/base/MobileHeader"
+import Sidebar from "../components/base/Sidebar"
+import RightSidebar from "../components/base/RightSidebar"
+import CoverAndProfilePicture from "../components/CoverAndProfilePicture"
 import Reviews from "../components/Reviews"
-
-
 
 export default function Profile() {
     const location = useLocation()

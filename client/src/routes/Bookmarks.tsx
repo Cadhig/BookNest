@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Bookmarked } from "../types"
-import MobileHeader from "../components/MobileHeader"
-import Sidebar from "../components/Sidebar"
-import MobileMenu from "../components/MobileMenu"
-import RightSidebar from "../components/RightSidebar"
+import MobileHeader from "../components/base/MobileHeader"
+import Sidebar from "../components/base/Sidebar"
+import MobileMenu from "../components/base/MobileMenu"
+import RightSidebar from "../components/base/RightSidebar"
 
 export default function BookList() {
     const navigate = useNavigate()

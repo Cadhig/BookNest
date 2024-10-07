@@ -2,8 +2,8 @@
 import { Link } from "react-router-dom"
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
-import { User } from "../types";
-import { Post } from "../types"
+import { User } from "../../types";
+import { Post } from "../../types";
 import moment from 'moment';
 
 interface postProps {

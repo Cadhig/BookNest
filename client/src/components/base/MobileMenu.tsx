@@ -2,9 +2,11 @@ import { BsPersonCircle, BsFillHouseFill } from "react-icons/bs";
 import { IoBookmarks, IoSettingsSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 interface MobileMenuProps {
     mobileMenu: string
 }
+
 export default function MobileMenu(props: MobileMenuProps) {
     const [username, setUsername] = useState<string>()
 

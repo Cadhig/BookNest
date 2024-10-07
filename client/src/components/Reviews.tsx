@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import 'semantic-ui-css/semantic.min.css';
-import moment from "moment"
 import { Rating } from "semantic-ui-react"
 import { Link } from "react-router-dom";
+import 'semantic-ui-css/semantic.min.css';
+import moment from "moment"
 
 interface Reviews {
     isFromBookInfoPage: boolean

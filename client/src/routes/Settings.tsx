@@ -1,9 +1,9 @@
-import MobileHeader from "../components/MobileHeader";
-import MobileMenu from "../components/MobileMenu";
-import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import RightSidebar from "../components/RightSidebar";
+import MobileHeader from "../components/base/MobileHeader";
+import MobileMenu from "../components/base/MobileMenu";
+import Sidebar from "../components/base/Sidebar";
+import RightSidebar from "../components/base/RightSidebar";
 
 export default function Settings() {
     const navigate = useNavigate()

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import 'semantic-ui-css/semantic.min.css';
 import { Rating, RatingProps } from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css';
 
 export default function Reviews(props: any) {
     const [reviewText, setReviewText] = useState<string>()

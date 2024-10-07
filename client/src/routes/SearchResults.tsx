@@ -1,11 +1,12 @@
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { GoogleBooks } from "../types"
-import MobileHeader from "../components/MobileHeader"
-import MobileMenu from "../components/MobileMenu"
 import { Link } from "react-router-dom"
-import Sidebar from "../components/Sidebar"
-import RightSidebar from "../components/RightSidebar"
+import MobileHeader from "../components/base/MobileHeader"
+import MobileMenu from "../components/base/MobileMenu"
+import Sidebar from "../components/base/Sidebar"
+import RightSidebar from "../components/base/RightSidebar"
+
 export default function SearchResults() {
     const location = useLocation()
     const { search } = location.state
@@ -14,7 +15,6 @@ export default function SearchResults() {
     const [error, setError] = useState<boolean>(false)
 
     const book = search.book.replace(/ /g, '').toLowerCase()
-
 
     useEffect(() => {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${book}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)

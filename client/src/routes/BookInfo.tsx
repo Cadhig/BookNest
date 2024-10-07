@@ -1,20 +1,15 @@
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { ImAmazon } from "react-icons/im"
-import MobileHeader from "../components/MobileHeader"
-import CreateReview from "../components/CreateReview"
-import MobileMenu from "../components/MobileMenu"
 import { GoogleBooks } from "../types"
-import RightSidebar from "../components/RightSidebar"
-import Sidebar from "../components/Sidebar"
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { FaGooglePlay, FaAngleDown, FaAngleUp } from "react-icons/fa";
+import MobileHeader from "../components/base/MobileHeader"
+import CreateReview from "../components/bookInfo/CreateReview"
+import MobileMenu from "../components/base/MobileMenu"
 import Reviews from "../components/Reviews"
-import moment from "moment"
-import { Rating } from "semantic-ui-react"
-import { ReviewProps, bookInfoChildren } from "../types"
-
-
+import RightSidebar from "../components/base/RightSidebar"
+import Sidebar from "../components/base/Sidebar"
+import BookImageColumn from "../components/bookInfo/BookImageColumn"
+import BookInformation from "../components/bookInfo/BookInformation"
 
 export default function BookInfo() {
     const location = useLocation()
@@ -25,12 +20,10 @@ export default function BookInfo() {
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
     const [showGooglePlay, setShowGooglePlay] = useState<boolean>(true)
     const [refreshFeed, setRefreshFeed] = useState<boolean>(false)
-    const [review, setReview] = useState<ReviewProps | undefined>()
 
     useEffect(() => {
         console.log(data)
         fetchBook()
-        getReviewAverage()
     }, [data])
 
     async function fetchBook() {
@@ -66,6 +59,7 @@ export default function BookInfo() {
             })
             .catch((err) => console.error(err))
     }
+
     function switchBookmarkStatus() {
         if (bookmarkStatus) {
             setBookmark(<IoBookmark />)
@@ -121,28 +115,7 @@ export default function BookInfo() {
             })
     }
 
-    async function getReviewAverage() {
-        const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/books/reviews/${isFromSearchResults ? data.industryIdentifiers[0].identifier : data}`)
-        const reviews = await response.json()
-        if (reviews.length < 1) {
-            setReview({
-                reviewAverage: 0,
-                reviewLength: reviews.length,
-                reviewAlert: true
-            })
-            return
-        }
-        let currentNum = 0
-        for (let i = 0; i < reviews.length; i++) {
-            currentNum += reviews[i].reviewRating
-        }
-        const reviewAverage = currentNum / reviews.length
-        setReview({
-            reviewAverage: reviewAverage,
-            reviewLength: reviews.length,
-            reviewAlert: false
-        })
-    }
+
 
     return (
         <div className="h-svh">
@@ -153,7 +126,7 @@ export default function BookInfo() {
                 <div className="default-font lg:w-1/2 m-2 flex flex-col items-center max-h-svh hideScrollbar overflow-auto">
                     <div className="flex flex-col gap-4 w-full items-center mt-4 ">
                         <div className="flex flex-col gap-4 w-full lg:flex-row">
-                            <BookImageColumn review={review} bookData={bookData} bookmark={bookmark} switchBookmarkStatus={switchBookmarkStatus} showGooglePlay={showGooglePlay} />
+                            <BookImageColumn bookData={bookData} bookmark={bookmark} switchBookmarkStatus={switchBookmarkStatus} showGooglePlay={showGooglePlay} />
                             <BookInformation bookData={bookData} />
                         </div>
                         <CreateReview bookData={bookData} setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
@@ -164,73 +137,6 @@ export default function BookInfo() {
                 </div>
                 <RightSidebar />
             </div >
-        </div>
-    )
-}
-
-
-function BookImageColumn(props: bookInfoChildren) {
-
-    const amazonLink = `https://www.amazon.com/s?k=${props.bookData && props.bookData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
-    console.log(props.review?.reviewAverage)
-    return (
-        <div className="flex w-full lg:w-1/2 flex-col items-center gap-4">
-            <img src={props.bookData && props.bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={props.bookData && props.bookData.items[0].volumeInfo.title} className="size-1/2 md:size-1/4 lg:h-96 lg:w-60 object-contain" />
-            <p className="lg:hidden  text-center text-4xl font-bold ">{props.bookData && props.bookData.items[0].volumeInfo.title}</p>
-            <div className="flex items-center flex-col">
-                <div className="text-2xl gap-2 flex items-center">
-                    <Rating size="massive" icon={'star'} defaultRating={props.review?.reviewAverage} maxRating={5} disabled key={props.review?.reviewAverage} />
-                    <p>{props.review?.reviewAverage}/5</p>
-                </div>
-                <p className="text-book-dark/60">{props.review?.reviewAlert ? "No reviews yet!" : `${props.review?.reviewLength} reviews`}</p>
-            </div>
-            <div className="text-2xl gap-2 flex">
-                <p>Bookmark</p>
-                <p className="text-3xl" onClick={() => props.switchBookmarkStatus?.()}>{props.bookmark}</p>
-            </div>
-            <div className="flex gap-6">
-                <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
-                <a target="_blank" className={props.showGooglePlay ? "block text-2xl" : "hidden"} href={props.bookData && props.bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
-            </div>
-        </div>
-    )
-}
-
-function BookInformation(props: bookInfoChildren) {
-    const [showMore, setShowMore] = useState<boolean>(false)
-
-
-    return (
-        <div className="w-full flex flex-col text-lg gap-4">
-            <div className=" hidden lg:flex flex-col items-center gap-2">
-                <p className="text-center text-4xl font-bold">{props.bookData && props.bookData.items[0].volumeInfo.title}</p>
-                <p className="text-xl text-book-dark/60">{props.bookData && props.bookData.items[0].volumeInfo.authors[0]}</p>
-            </div>
-            <div className={showMore ? "h-full" : "h-28 overflow-hidden text-ellipsis"}>
-                <p>{props.bookData && props.bookData.items[0].volumeInfo.description}</p>
-            </div>
-            <button className="flex items-center gap-2" onClick={() => setShowMore(!showMore)}>
-                <p className="font-bold">{showMore ? "Show less" : "Show more"}</p>
-                {showMore ? <FaAngleUp className="text-xl" /> : <FaAngleDown className="text-xl" />}
-            </button>
-            <div className="flex flex-col gap-2">
-                <div className="flex gap-2 items-center">
-                    <p className="text-book-dark/60">Genres:</p>
-                    <p>{props.bookData && props.bookData.items[0].volumeInfo.categories}</p>
-                </div>
-                <div className="flex gap-2 items-center">
-                    <p className="text-book-dark/60">Publisher:</p>
-                    <p>{props.bookData && props.bookData.items[0].volumeInfo.publisher}</p>
-                </div>
-                <div className="flex gap-2 items-center">
-                    <p className="text-book-dark/60">Published:</p>
-                    <p>{moment(props.bookData && props.bookData.items[0].volumeInfo.publishedDate).format("MMMM Do YYYY")}</p>
-                </div>
-                <div className="flex gap-2 items-center">
-                    <p className="text-book-dark/60">ISBN:</p>
-                    <p>{props.bookData && props.bookData.items[0].volumeInfo.industryIdentifiers[0].identifier}</p>
-                </div>
-            </div>
         </div>
     )
 }

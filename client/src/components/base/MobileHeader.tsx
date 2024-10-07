@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom"
 import { BsThreeDotsVertical } from "react-icons/bs";
+
 interface HeaderProps {
     setMobileMenu: (value: boolean) => void
 }
+
 export default function MobileHeader(props: HeaderProps) {
 
     return (
