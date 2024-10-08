@@ -3,6 +3,7 @@ const router = express.Router();
 const Books = require('../models/Books.js')
 const User = require('../models/User.js');
 const Reviews = require('../models/Reviews.js');
+const BestSellers = require('../models/BestSellerList.js');
 
 router.post('/saved', async (req, res) => {
     const { bookName, bookIsbn, bookImage } = req.body
@@ -95,6 +96,22 @@ router.get('/reviews/:bookIsbn', async (req, res) => {
         console.error(err)
         return res.status(400).json({ message: 'Could not retrieve reviews' })
     }
-
 })
+
+router.get('/bestSellerList', async (req, res) => {
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    };
+    try {
+        const bestSellerList = await BestSellers.find()
+        if (!bestSellerList) {
+            return res.status(500).json({ message: "failure fetching best seller list" })
+        }
+        return res.status(200).json(bestSellerList)
+    } catch (err) {
+        console.error(err)
+        return res.status(400).json({ message: 'Could not retrieve reviews' })
+    }
+})
+
 module.exports = router
