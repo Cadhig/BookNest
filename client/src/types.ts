@@ -1,6 +1,9 @@
 
 export interface NytBooks {
-    apiData: ApiData
+    books: Book[],
+    updated: string,
+    __v: number,
+    _id: string
 }
 
 interface ApiData {
@@ -26,40 +29,41 @@ interface Results {
 }
 
 interface Book {
-    rank: number;
-    rank_last_week: number;
-    weeks_on_list: number;
+    age_group: string;
+    amazon_product_url: string;
+    article_chapter_link: string;
     asterisk: number;
+    author: string;
+    book_image: string;
+    book_image_height: number;
+    book_image_width: number;
+    book_review_link: string;
+    book_uri: string;
+    buy_links: BuyLink[];
+    contributor: string;
+    contributor_note: string;
     dagger: number;
+    description: string;
+    first_chapter_link: string;
+    isbns: ISBN[];
+    price: string;
     primary_isbn10: string;
     primary_isbn13: string;
     publisher: string;
-    description: string;
-    price: string;
-    title: string;
-    author: string;
-    contributor: string;
-    contributor_note: string;
-    book_image: string;
-    book_image_width: number;
-    book_image_height: number;
-    amazon_product_url: string;
-    age_group: string;
-    book_review_link: string;
-    first_chapter_link: string;
+    rank: number;
+    rank_last_week: number;
     sunday_review_link: string;
-    article_chapter_link: string;
-    isbns: Isbn[];
-    buy_links: BuyLink[];
-    book_uri: string;
+    title: string;
+    weeks_on_list: number;
 }
 
-interface Isbn {
+interface ISBN {
     isbn10: string;
     isbn13: string;
 }
 
 interface BuyLink {
+    name: string;
     url: string
 }
 

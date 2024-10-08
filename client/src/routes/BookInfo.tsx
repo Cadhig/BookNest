@@ -121,7 +121,7 @@ export default function BookInfo() {
         <div className="h-svh">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div className="flex flex-col-reverse lg:flex-row justify-center gap-4" onClick={() => setShowMobileMenu(false)}>
+            <div className="flex flex-col-reverse lg:flex-row justify-center gap-4 h-full lg:h-screen overflow-hidden" onClick={() => setShowMobileMenu(false)}>
                 <Sidebar />
                 <div className="default-font lg:w-1/2 m-2 flex flex-col items-center max-h-svh hideScrollbar overflow-auto">
                     <div className="flex flex-col gap-4 w-full items-center mt-4 ">

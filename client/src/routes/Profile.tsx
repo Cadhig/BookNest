@@ -81,7 +81,7 @@ export default function Profile() {
         <div className="h-svh w-full">
             <MobileMenu mobileMenu={showMobileMenu ? "absolute z-30 mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div className='flex w-full lg:flex-row flex-col-reverse gap-4 lg:gap-0 default-font' onClick={() => setShowMobileMenu(false)}>
+            <div className='flex w-full lg:flex-row flex-col-reverse lg:gap-0 default-font h-full lg:h-screen gap-4 overflow-hidden' onClick={() => setShowMobileMenu(false)}>
                 <Sidebar />
                 <div className='flex flex-col gap-4 lg:w-1/2 max-h-svh hideScrollbar overflow-auto'>
                     <CoverAndProfilePicture followButton={followButton} setFollowButton={setFollowButton} from={from} showLocation={showLocation} showBirthday={showBirthday} userData={userData} />

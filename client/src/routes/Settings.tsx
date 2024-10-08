@@ -209,7 +209,7 @@ export default function Settings() {
         <div className="h-svh">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div className="flex flex-col-reverse lg:flex-row">
+            <div className="flex flex-col-reverse lg:flex-row lg:h-full gap-4 overflow-hidden">
                 <Sidebar />
                 <div className="lg:w-1/2 flex flex-col gap-4 mt-4" onClick={() => setShowMobileMenu(false)}>
                     <p className="text-center text-2xl">Account Settings</p>

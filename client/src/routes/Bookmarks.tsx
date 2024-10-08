@@ -76,7 +76,7 @@ export default function BookList() {
         <div className="h-svh default-font text-book-dark">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div className="flex flex-col-reverse gap-2 lg:flex-row">
+            <div className="flex flex-col-reverse lg:flex-row lg:h-full gap-4 overflow-hidden">
                 <Sidebar />
                 <div className="w-full lg:w-1/2 mt-4">
                     <p className="text-center text-3xl font-bold">{user}</p>

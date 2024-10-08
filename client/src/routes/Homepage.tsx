@@ -74,10 +74,10 @@ export default function Homepage() {
     }
 
     return (
-        <div className="h-svh default-font text-book-dark">
+        <div className="max-h-svh default-font text-book-dark">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div onClick={() => setShowMobileMenu(false)} className="flex flex-col lg:flex-row-reverse justify-center gap-4">
+            <div onClick={() => setShowMobileMenu(false)} className="flex flex-col lg:flex-row-reverse justify-center h-full lg:h-screen gap-4 overflow-hidden">
                 <RightSidebar />
                 <div className="max-h-svh lg:w-1/2 overflow-auto hideScrollbar">
                     <div className="flex flex-col w-full ">

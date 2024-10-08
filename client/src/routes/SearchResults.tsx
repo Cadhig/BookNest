@@ -34,9 +34,9 @@ export default function SearchResults() {
         <div className="h-svh">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div className="flex flex-col-reverse lg:flex-row">
+            <div className="flex flex-col-reverse lg:flex-row h-full lg:h-screen gap-4 overflow-hidden">
                 <Sidebar />
-                <div className="default-font w-full lg:w-1/2 flex flex-col items-center mt-4 h-1/4" onClick={() => setShowMobileMenu(false)}>
+                <div className="default-font overflow-auto h-full w-full lg:w-1/2 flex flex-col items-center mt-4 hideScrollbar" onClick={() => setShowMobileMenu(false)}>
                     <div className="text-center text-3xl">
                         <p>Results for '{search.book}'</p>
                     </div>
