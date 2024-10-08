@@ -68,7 +68,7 @@ export default function RightSidebar() {
                 {bestSellerList && bestSellerList[0].books.map((content, index: number) => {
                     return <div key={index} className="flex items-center gap-2" onClick={() => viewBookInfo(content.primary_isbn13)}>
                         <div className="text-2xl bg-book-green text-book-light size-10 flex items-center justify-center rounded-full">{content.rank}</div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 hover:underline cursor-pointer">
                             <img src={content.book_image} alt="" className="h-36" />
                             <p className="text-lg">{content.title}</p>
                         </div>
