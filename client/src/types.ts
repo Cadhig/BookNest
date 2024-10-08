@@ -6,7 +6,7 @@ export interface NytBooks {
     _id: string
 }
 
-interface ApiData {
+export interface ApiData {
     status: string;
     copyright: string;
     num_results: number;
