@@ -61,7 +61,7 @@ function Login() {
             <p className="text-lg">Password</p>
             <input type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded p-2 w-full" />
           </div>
-          <button className="bg-book-green w-full py-2 rounded text-xl active:bg-book-green/80 hover:bg-book-green-hover text-book-light" onClick={login}>Login</button>
+          <button className=" w-full py-2 rounded text-xl button-colors" onClick={login}>Login</button>
           <div className={showAlert ? 'inline text-red-500' : 'hidden'}>Incorrect login credentials</div>
           <div className="flex text-lg gap-1">
             <p>Don't have an account?</p>

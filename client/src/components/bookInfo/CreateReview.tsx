@@ -54,7 +54,7 @@ export default function Reviews(props: any) {
                     setReviewText(e.target.value)
                 }} />
                 <p className={error ? 'text-right text-red-600' : 'hidden'}>You have already posted a review!</p>
-                <button className='bg-book-green text-book-light px-4 py-2 rounded-full hover:bg-book-green-hover' onClick={sendReview}>Post Review</button>
+                <button className='px-4 py-2 rounded-full button-colors' onClick={sendReview}>Post Review</button>
             </div>
         </div>
     )

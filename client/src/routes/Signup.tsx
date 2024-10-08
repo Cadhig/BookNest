@@ -78,7 +78,7 @@ export default function Signup() {
                         <input type="password" placeholder="******" onChange={handleVerifyPasswordChange} className="border-book-green border rounded p-2 w-full" />
                     </div>
                     <p className={showAlert ? 'inline text-red-500' : 'hidden'}>{alertMessage}</p>
-                    <button className="bg-book-green w-full py-2 rounded text-xl hover:bg-book-green/90 active:bg-book-green/80 text-book-light" onClick={signup}>Signup</button>
+                    <button className="w-full py-2 rounded text-xl button-colors" onClick={signup}>Signup</button>
                     <div className="flex text-lg gap-1">
                         <p>Already have an acccount?</p>
                         <Link to={'/'}><p className="text-blue-500 hover:underline">Login </p></Link>

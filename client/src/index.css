@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --book-green: #6b8f71;
+  --book-light: #f6f1d1;
+  --hover-book-green: #729A78;
+  --active-book-green: #80AE87
+}
+
 .default-font {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -39,4 +46,19 @@ a {
 
 p {
   margin: 0px !important;
+}
+
+.button-colors {
+  background: var(--book-green);
+  color: var(--book-light);
+}
+
+.button-colors:hover {
+  background: var(--hover-book-green);
+  cursor: pointer;
+}
+
+.button-colors:active {
+  background: var(--active-book-green);
+  cursor: pointer;
 }

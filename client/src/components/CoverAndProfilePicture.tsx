@@ -87,11 +87,11 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
                 </div>
                 <div className="w-full flex justify-end p-4 gap-4">
                     <Link to={'/bookmarks'} state={{ from: props.userData[0].user && props.userData[0].user[0].username }}>
-                        <div className="bg-book-green flex cursor-pointer hover:bg-book-green-hover items-center rounded-full p-2">
+                        <div className="flex cursor-pointer items-center rounded-full p-2 button-colors">
                             <IoBookmarks className="text-2xl text-book-light" />
                         </div>
                     </Link>
-                    <button className='bg-book-green text-book-light py-2 px-5 rounded-full hover:bg-book-green-hover' onClick={() => followOrUnfollowUser()}>{followButton}</button>
+                    <button className='py-2 px-4 rounded-full button-colors' onClick={() => followOrUnfollowUser()}>{followButton}</button>
                 </div>
             </div>
             <div className='ml-6 flex flex-col gap-2'>
