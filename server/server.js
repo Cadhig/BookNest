@@ -65,7 +65,7 @@ async function retrieveBestSellerList() {
     }
 }
 
-cron.schedule('0 0 * * 0', retrieveBestSellerList);
+cron.schedule('* * * * *', retrieveBestSellerList);
 
 
 app.listen(3000, () => {
