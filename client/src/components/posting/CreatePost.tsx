@@ -43,7 +43,7 @@ export default function CreatePost(props: postType) {
 
     return (
         <div className="p-2 flex flex-col gap-2 mt-4 lg:mt-0">
-            <div className='flex gap-2 justify-center items-center'>
+            <div className='gap-2 centered'>
                 <img src={props.userData[0].profilePicture && props.userData[0].profilePicture} alt="" className='size-14 rounded-full object-cover' />
                 <input onKeyDown={handleKeyDown} type="text" placeholder='What are you reading...' className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => {
                     setPostText(e.target.value)
@@ -53,7 +53,7 @@ export default function CreatePost(props: postType) {
             <p className={showError ? 'text-right text-red-600' : 'hidden'}>Error: Maximum characters (300) exceeded</p>
             <div className='flex justify-between items-center'>
                 <BiImage className='text-3xl text-book-dark ml-4' />
-                <button className='bg-book-green text-book-light px-4 py-2 rounded-full hover:bg-book-green-hover' onClick={sendPost}>Post</button>
+                <button className='button-colors px-4 py-2 rounded-full' onClick={sendPost}>Post</button>
             </div>
         </div>
     )

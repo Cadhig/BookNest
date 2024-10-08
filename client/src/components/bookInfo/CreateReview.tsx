@@ -45,7 +45,7 @@ export default function Reviews(props: any) {
 
     return (
         <div className="p-2 flex flex-col gap-2 mt-4 lg:mt-0 w-1/2">
-            <div className='flex gap-2 flex-col justify-center items-center'>
+            <div className='gap-2 flex-col centered'>
                 <div className="flex gap-2 text-xl items-center">
                     <div>Rate</div>
                     <Rating rating={rating} icon='star' defaultRating={0} maxRating={5} onRate={handleRatingChange} size='huge' />
