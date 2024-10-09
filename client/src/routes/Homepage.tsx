@@ -74,7 +74,7 @@ export default function Homepage() {
     }
 
     return (
-        <div className="max-h-svh default-font text-book-dark">
+        <div className="max-h-svh default-font">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
             <div onClick={() => setShowMobileMenu(false)} className="flex flex-col lg:flex-row-reverse justify-center h-full lg:h-screen gap-4 overflow-hidden">
@@ -82,11 +82,11 @@ export default function Homepage() {
                 <div className="max-h-svh lg:w-1/2 overflow-auto hideScrollbar">
                     <div className="flex flex-col w-full ">
                         <div className="flex my-4">
-                            <div className={feedType === "global" ? "w-1/2 flex flex-col items-center text-xl font-bold" : 'w-1/2 flex flex-col items-center text-xl text-book-dark/60'} onClick={() => switchFeedType('global')}>
+                            <div className={feedType === "global" ? "w-1/2 flex flex-col items-center text-xl font-bold" : 'w-1/2 flex flex-col items-center text-xl text-black/60'} onClick={() => switchFeedType('global')}>
                                 <button>Global</button>
                                 <div className={feedType === "global" ? "bg-book-green rounded-full w-1/4 h-[2px]" : "hidden"}></div>
                             </div>
-                            <div className={feedType === "following" ? "w-1/2 flex flex-col items-center text-xl font-bold" : 'w-1/2 flex flex-col items-center text-xl text-book-dark/60'} onClick={() => switchFeedType('following')}>
+                            <div className={feedType === "following" ? "w-1/2 flex flex-col items-center text-xl font-bold" : 'w-1/2 flex flex-col items-center text-xl text-black/60'} onClick={() => switchFeedType('following')}>
                                 <button>Following</button>
                                 <div className={feedType === "following" ? 'bg-book-green rounded-full w-1/4 h-[2px]' : 'hidden'}></div>
                             </div>

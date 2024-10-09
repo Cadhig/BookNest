@@ -26,46 +26,46 @@ export default function Sidebar() {
             <div className="flex flex-col gap-8">
                 <div className="flex items-center p-2">
                     <Link to={'/homepage'}>
-                        <div className="header-font text-4xl text-book-dark hidden lg:flex">BookNest</div>
+                        <div className="header-font text-4xl  hidden lg:flex">BookNest</div>
                     </Link>
                 </div>
                 <Link to={'/homepage'}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
                         <BsFillHouseFill className="text-4xl" />
                         <p className="text-xl">Home</p>
                     </div>
                 </Link>
-                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
                     <BsFillBellFill className="text-4xl" />
                     <p className="text-xl">Notifications (coming soon)</p>
                 </div> */}
-                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
                     <BsEnvelopeFill className="text-4xl" />
                     <p className="text-xl">Messages (coming soon)</p>
                 </div> */}
                 <Link to={'/bookmarks'} state={{ from: 'user' }}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
                         <IoBookmarks className="text-4xl" />
                         <p className="text-xl">Bookmarks</p>
                     </div>
                 </Link>
-                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                {/* <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
                     <GiBookCover className="text-4xl" />
                     <p className="text-xl">Clubs (coming soon)</p>
                 </div> */}
                 <button onClick={() => api()}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
                         <BsPersonCircle className="text-4xl" />
                         <p className="text-xl">Profile</p>
                     </div>
                 </button>
                 <Link to={'/settings'}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
                         <IoSettingsSharp className="text-4xl" />
                         <p className="text-xl">Settings</p>
                     </div>
                 </Link>
-                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-book-dark/90">
+                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
                     <IoCodeWorking className="text-xl" />
                     <a href="https://cadencehiggins.notion.site/Book-Nest-Release-Notes-104e758b497780c2b45bd03cf7ec486b" target="_blank">Release Notes</a>
                 </div>

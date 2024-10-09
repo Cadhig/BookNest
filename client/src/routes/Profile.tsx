@@ -43,24 +43,23 @@ export default function Profile() {
         })
             .then(async (res) => {
                 if (res.ok) {
-                    const jsonData = await res.json()
-                    console.log(jsonData)
-                    setUserData(jsonData)
-                    if (!jsonData[0].user[0].location) {
+                    const user = await res.json()
+                    setUserData(user)
+                    if (!user[0].user[0].location) {
                         setShowLocation(false)
                     }
-                    if (!jsonData[0].user[0].birthday) {
+                    if (!user[0].user[0].birthday) {
                         setShowBirthday(false)
                     }
-                    if (jsonData[0].user[0].posts.length < 1) {
+                    if (user[0].user[0].posts.length < 1) {
                         setshowPostAlert(true)
                     }
                     if (feedType === 'posts') {
-                        setPostData(jsonData[0].user[0].posts)
+                        setPostData(user[0].user[0].posts)
                         setIsFeedPosts(true)
                     }
                     if (feedType === 'likes') {
-                        setPostData(jsonData[0].user[0].likes)
+                        setPostData(user[0].user[0].likes)
                         setIsFeedPosts(true)
                     }
                     if (feedType === "reviews") {
@@ -86,21 +85,21 @@ export default function Profile() {
                 <div className='flex flex-col gap-4 lg:w-1/2 max-h-svh hideScrollbar overflow-auto'>
                     <CoverAndProfilePicture followButton={followButton} setFollowButton={setFollowButton} from={from} showLocation={showLocation} showBirthday={showBirthday} userData={userData} />
                     <div className="flex my-4">
-                        <div className={feedType === 'posts' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-book-dark/60"} onClick={() => setFeedType('posts')}>
+                        <div className={feedType === 'posts' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60"} onClick={() => setFeedType('posts')}>
                             <button>Posts</button>
                             <div className={feedType === 'posts' ? "bg-book-green rounded-full w-1/4 h-[2px]" : 'hidden'}></div>
                         </div>
-                        <div className={feedType === 'likes' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-book-dark/60"} onClick={() => setFeedType('likes')}>
+                        <div className={feedType === 'likes' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60"} onClick={() => setFeedType('likes')}>
                             <button>Likes</button>
                             <div className={feedType === 'likes' ? "bg-book-green rounded-full w-1/4 h-[2px]" : 'hidden'}></div>
                         </div>
-                        <div className={feedType === 'reviews' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-book-dark/60"} onClick={() => setFeedType('reviews')}>
+                        <div className={feedType === 'reviews' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60"} onClick={() => setFeedType('reviews')}>
                             <button>Reviews</button>
                             <div className={feedType === 'reviews' ? "bg-book-green rounded-full w-1/4 h-[2px]" : 'hidden'}></div>
                         </div>
                     </div>
                     <div>
-                        {isFeedPosts ? <Posts showPostAlert={showPostAlert} userData={userData[0].user} refreshFeed={refreshFeed} postData={postData} setRefreshFeed={setRefreshFeed} /> : <Reviews isFromBookInfoPage={false} userReviews={userData && userData[0].user[0].reviews} />}
+                        {isFeedPosts ? <Posts showPostAlert={showPostAlert} userData={userData && userData[0].user} refreshFeed={refreshFeed} postData={postData} setRefreshFeed={setRefreshFeed} /> : <Reviews isFromBookInfoPage={false} userReviews={userData && userData[0].user[0].reviews} />}
                     </div>
                 </div>
                 <RightSidebar />

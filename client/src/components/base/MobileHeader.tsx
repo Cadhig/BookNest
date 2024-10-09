@@ -11,7 +11,7 @@ export default function MobileHeader(props: HeaderProps) {
         <div className=" w-full lg:hidden centered">
             <BsThreeDotsVertical className="text-4xl absolute left-4" onClick={() => props.setMobileMenu(true)} />
             <Link to={'/homepage'}>
-                <div className=" header-font w-full text-center text-4xl p-4 text-book-dark lg:hidden cursor-pointer">BookNest</div>
+                <div className=" header-font w-full text-center text-4xl p-4 lg:hidden cursor-pointer">BookNest</div>
             </Link>
         </div>
     )

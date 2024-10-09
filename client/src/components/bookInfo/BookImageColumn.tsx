@@ -46,7 +46,7 @@ export default function BookImageColumn(props: bookInfoChildren) {
                     <Rating size="massive" icon={'star'} defaultRating={review && review.reviewAverage} maxRating={5} disabled key={review && review.reviewAverage} />
                     <p>{review && review.reviewAverage}/5</p>
                 </div>
-                <p className="text-book-dark/60">{review && review.reviewAlert ? "No reviews yet!" : `${review && review.reviewLength} reviews`}</p>
+                <p className="text-black/60">{review && review.reviewAlert ? "No reviews yet!" : `${review && review.reviewLength} reviews`}</p>
             </div>
             <div className="text-2xl gap-2 flex">
                 <p>Bookmark</p>

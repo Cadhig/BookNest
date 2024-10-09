@@ -52,7 +52,7 @@ export default function CreatePost(props: postType) {
             </div>
             <p className={showError ? 'text-right text-red-600' : 'hidden'}>Error: Maximum characters (300) exceeded</p>
             <div className='flex justify-between items-center'>
-                <BiImage className='text-3xl text-book-dark ml-4' />
+                <BiImage className='text-3xl ml-4' />
                 <button className='button-colors px-4 py-2 rounded-full' onClick={sendPost}>Post</button>
             </div>
         </div>

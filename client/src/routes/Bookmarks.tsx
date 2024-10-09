@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { Bookmarked } from "../types"
+import { Bookmarked, User } from "../types"
 import MobileHeader from "../components/base/MobileHeader"
 import Sidebar from "../components/base/Sidebar"
 import MobileMenu from "../components/base/MobileMenu"
@@ -10,7 +10,7 @@ export default function BookList() {
     const navigate = useNavigate()
     const location = useLocation()
     const { from } = location.state
-    const [apiData, setApiData] = useState<any>()
+    const [apiData, setApiData] = useState<User[] | undefined>()
     const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [noBookmarks, setNoBookmarks] = useState<boolean>(false)
     const [user, setUser] = useState<string>()
@@ -73,7 +73,7 @@ export default function BookList() {
     }, [from])
 
     return (
-        <div className="h-svh default-font text-book-dark">
+        <div className="h-svh default-font">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
             <MobileHeader setMobileMenu={setShowMobileMenu} />
             <div className="flex flex-col-reverse lg:flex-row lg:h-full gap-4 overflow-hidden">

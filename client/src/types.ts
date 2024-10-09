@@ -6,28 +6,6 @@ export interface NytBooks {
     _id: string
 }
 
-export interface ApiData {
-    status: string;
-    copyright: string;
-    num_results: number;
-    last_modified: string;
-    results: Results;
-}
-
-interface Results {
-    list_name: string;
-    list_name_encoded: string;
-    bestsellers_date: string;
-    published_date: string;
-    published_date_description: string;
-    next_published_date: string;
-    previous_published_date: string;
-    display_name: string;
-    normal_list_ends_at: number;
-    updated: string;
-    books: Book[];
-}
-
 interface Book {
     age_group: string;
     amazon_product_url: string;
@@ -181,6 +159,8 @@ export interface User {
     bio: string;
     birthday: string;
     createdAt: string;
+    location: string;
+    reviews: Reviews[];
     following: User[];
     followers: User[];
     posts: Post[];
@@ -208,10 +188,33 @@ export interface ReviewProps {
     reviewAlert: boolean
 }
 
+export interface postProps {
+    postData: Post[] | undefined;
+    setRefreshFeed: (props: boolean) => void;
+    userData: User[] | undefined;
+    refreshFeed?: boolean;
+    showPostAlert?: boolean;
+}
+
 export interface bookInfoChildren {
     bookData: GoogleBooks | undefined,
     switchBookmarkStatus?: () => void,
     bookmark?: React.ReactNode,
     showGooglePlay?: boolean
     review?: ReviewProps
+}
+
+export interface Reviews {
+    isFromBookInfoPage: boolean
+    bookImage?: string,
+    bookIsbn?: string,
+    bookName?: string,
+    createdAt?: string,
+    reviewRating?: number,
+    reviewText?: string,
+    username?: string,
+    __v?: number,
+    _id?: string,
+    refreshFeed?: boolean
+    userReviews: Reviews[] | undefined
 }

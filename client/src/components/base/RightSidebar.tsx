@@ -52,8 +52,6 @@ export default function RightSidebar() {
             .catch((err) => console.error(err))
     }
 
-    console.log(bestSellerList)
-
     return (
         <div className="w-full lg:w-1/4 mt-4 lg:h-full flex flex-col gap-4">
             <div className="flex gap-2 w-full justify-center">
@@ -63,7 +61,7 @@ export default function RightSidebar() {
             <div className="hidden lg:flex flex-col gap-4 max-h-full overflow-auto hideScrollbar">
                 <div className="flex flex-col items-center">
                     <p className="text-2xl font-bold">Best Sellers</p>
-                    <p className="text-book-dark/60">{moment().format("MMMM Do YYYY")}</p>
+                    <p className="text-black/60">{moment().format("MMMM Do YYYY")}</p>
                 </div>
                 {bestSellerList && bestSellerList[0].books.map((content, index: number) => {
                     return <div key={index} className="flex items-center gap-2" onClick={() => viewBookInfo(content.primary_isbn13)}>

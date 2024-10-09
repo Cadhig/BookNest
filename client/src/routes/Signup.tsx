@@ -62,7 +62,7 @@ export default function Signup() {
 
     return (
         <div className="h-svh flex">
-            <div className="centered h-full w-full flex-col text-book-dark default-font flex-shrink-0 lg:w-1/2">
+            <div className="centered h-full w-full flex-col default-font flex-shrink-0 lg:w-1/2">
                 <div className="centered w-3/4 lg:w-1/2 flex-col gap-4 ">
                     <h1 className="text-3xl">Welcome to BookNest!</h1>
                     <div className="w-full">

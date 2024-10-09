@@ -2,17 +2,9 @@
 import { Link } from "react-router-dom"
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
-import { User } from "../../types";
-import { Post } from "../../types";
+import { postProps } from "../../types";
 import moment from 'moment';
 
-interface postProps {
-    postData: Post[] | undefined
-    setRefreshFeed: (props: boolean) => void,
-    userData: User[],
-    refreshFeed?: boolean
-    showPostAlert?: boolean
-}
 export default function Posts(props: postProps) {
 
     function likeOrUnlikePost(id: string, hasUserLiked: boolean) {
@@ -54,8 +46,8 @@ export default function Posts(props: postProps) {
 
     return (
         <div className="flex flex-col m-2 gap-4 max-h-full">
-            <p className={props.showPostAlert ? 'inline text-lg text-book-dark/50 text-center' : 'hidden'}>No posts yet!</p>
-            {props.postData && props.postData.map((content: Post, index: number) => {
+            <p className={props.showPostAlert ? 'inline text-lg text-black/50 text-center' : 'hidden'}>No posts yet!</p>
+            {props.postData && props.postData.map((content, index: number) => {
                 const userId = props.userData && props.userData[0]._id
                 const hasUserLiked = content.likes.some((like: any) => like === userId);
                 return <div className="flex flex-col justify-center gap-4 text-lg" key={index}>

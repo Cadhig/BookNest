@@ -3,25 +3,11 @@ import { Rating } from "semantic-ui-react"
 import { Link } from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css';
 import moment from "moment"
-
-interface Reviews {
-    isFromBookInfoPage: boolean
-    bookImage?: string,
-    bookIsbn?: string,
-    bookName?: string,
-    createdAt?: string,
-    reviewRating?: number,
-    reviewText?: string,
-    username?: string,
-    __v?: number,
-    _id?: string,
-    refreshFeed?: boolean
-    userReviews?: Reviews[]
-}
+import { Reviews } from "../types";
 
 export default function Review(props: Reviews) {
-    const [reviews, setReviews] = useState<any>()
-    const [showReviewAlert, setShowReviewAlert] = useState(false)
+    const [reviews, setReviews] = useState<Reviews[] | undefined>()
+    const [showReviewAlert, setShowReviewAlert] = useState<boolean>(false)
 
     useEffect(() => {
         if (props.isFromBookInfoPage) {
@@ -38,6 +24,7 @@ export default function Review(props: Reviews) {
     async function getReviews() {
         const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/books/reviews/${props.bookIsbn}`)
         const userReviews = await response.json()
+        console.log(userReviews)
         if (userReviews.length < 1) {
             setShowReviewAlert(true)
         }
@@ -57,7 +44,7 @@ export default function Review(props: Reviews) {
                                         <p className="hover:underline cursor-pointer font-bold">@{content.username}</p>
                                     </Link>
                                     <Link to={'/bookInfo'} state={{ data: content.bookIsbn }}>
-                                        <p className={props.isFromBookInfoPage ? "hidden" : "text-book-dark/60"}>Reviewed: {content.bookName}</p>
+                                        <p className={props.isFromBookInfoPage ? "hidden" : "text-black/60"}>Reviewed: {content.bookName}</p>
                                     </Link>
                                 </div>
                             </div>

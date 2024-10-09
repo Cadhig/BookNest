@@ -115,8 +115,6 @@ export default function BookInfo() {
             })
     }
 
-
-
     return (
         <div className="h-svh">
             <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />

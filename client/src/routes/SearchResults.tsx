@@ -47,7 +47,7 @@ export default function SearchResults() {
                                     <Link to={'/bookInfo'} state={{ isFromSearchResults: true, data: content.volumeInfo }}> <img src={content.volumeInfo.imageLinks?.thumbnail} alt={content.volumeInfo.title} className="h-28 lg:h-full" /></Link>
                                     <div>
                                         <Link to={'/bookInfo'} state={{ isFromSearchResults: true, data: content.volumeInfo }}><p className="font-bold text-xl">{content.volumeInfo.title}</p></Link>
-                                        <p className="text-book-dark/60">{content.volumeInfo.authors}</p>
+                                        <p className="black/60">{content.volumeInfo.authors}</p>
                                     </div>
                                 </div>
                                 <div className="w-full h-1 bg-book-sage"></div>
