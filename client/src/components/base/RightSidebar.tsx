@@ -55,16 +55,16 @@ export default function RightSidebar() {
     return (
         <div className="w-full lg:w-1/4 mt-4 lg:h-full flex flex-col gap-4">
             <div className="flex gap-2 w-full justify-center">
-                <input onKeyDown={handleKeyDown} type="text" placeholder='Search by Author or Title' className="border border-book-sage w-3/4 lg:w-1/2 flex-shrink-0 rounded-full p-2" onChange={(e) => setBook(e.target.value)} />
-                <Link to={'/results'} state={{ search: { book } }}><button className="py-2 px-4 rounded-full button-colors">Search</button></Link>
+                <input onKeyDown={handleKeyDown} type="text" placeholder='Search by Author or Title' className="border border-book-sage w-3/4 flex-shrink-0 rounded-full p-3" onChange={(e) => setBook(e.target.value)} />
+                <Link to={'/results'} state={{ search: { book } }}><button className="py-3 px-4 rounded-full button-colors">Search</button></Link>
             </div>
             <div className="hidden lg:flex flex-col gap-4 max-h-full overflow-auto hideScrollbar">
                 <div className="flex flex-col items-center">
-                    <p className="text-2xl font-bold">Best Sellers</p>
-                    <p className="text-black/60">{moment().format("MMMM Do YYYY")}</p>
+                    <p className="text-3xl font-bold">Best Sellers</p>
+                    <p className="text-black/60 text-lg">{moment().format("MMMM Do YYYY")}</p>
                 </div>
                 {bestSellerList && bestSellerList[0].books.map((content, index: number) => {
-                    return <div key={index} className="flex items-center gap-2" onClick={() => viewBookInfo(content.primary_isbn13)}>
+                    return <div key={index} className="flex items-center gap-2 hover:bg-book-green-hover/30 rounded p-3 cursor-pointer" onClick={() => viewBookInfo(content.primary_isbn13)}>
                         <div className="text-2xl bg-book-green text-book-light size-10 centered rounded-full">{content.rank}</div>
                         <div className="flex items-center gap-2 hover:underline cursor-pointer">
                             <img src={content.book_image} alt="" className="h-36" />
