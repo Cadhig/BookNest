@@ -216,5 +216,5 @@ export interface Reviews {
     __v?: number,
     _id?: string,
     refreshFeed?: boolean
-    userReviews: Reviews[] | undefined
+    userReviews?: Reviews[] | undefined
 }
