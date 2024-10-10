@@ -48,20 +48,39 @@ function Login() {
       .catch((err) => console.error(err))
   }
 
+  function attemptLoginOnKeyDown(event: any) {
+    if (event.key === 'Enter') {
+      login()
+    }
+  };
+
+  function switchInputField(event: any) {
+    if (event.key === "Enter") {
+      const form = event.target.form;
+      const index = Array.prototype.indexOf.call(form, event.target);
+      form.elements[index + 1].focus();
+      event.preventDefault();
+
+    }
+  }
+
+
   return (
     <div className="h-svh flex">
       <div className="centered h-full w-full flex-col default-font flex-shrink-0 lg:w-1/2">
         <div className="centered w-3/4 lg:w-1/2 flex-col gap-4 ">
           <h1 className="text-3xl">Welcome Back to Book Nest!</h1>
-          <div className="w-full">
-            <p className="text-lg">Username</p>
-            <input type="text" placeholder="username" onChange={handleUsernameChange} className="border-book-green border rounded p-2 w-full" />
-          </div>
-          <div className="w-full">
-            <p className="text-lg">Password</p>
-            <input type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded p-2 w-full" />
-          </div>
-          <button className=" w-full py-2 rounded text-xl button-colors" onClick={login}>Login</button>
+          <form className="w-full text-lg flex flex-col gap-4">
+            <div>
+              <p className="pl-2">Username</p>
+              <input onKeyDown={switchInputField} autoFocus={true} type="text" placeholder="username" onChange={handleUsernameChange} className="border-book-green border rounded-full p-2 w-full" />
+            </div>
+            <div>
+              <p className="pl-2">Password</p>
+              <input onKeyDown={attemptLoginOnKeyDown} type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded-full p-2 w-full" />
+            </div>
+          </form>
+          <button className=" w-full py-2 rounded-full text-xl button-colors" onClick={login}>Login</button>
           <div className={showAlert ? 'inline text-red-500' : 'hidden'}>Incorrect login credentials</div>
           <div className="flex text-lg gap-1">
             <p>Don't have an account?</p>
