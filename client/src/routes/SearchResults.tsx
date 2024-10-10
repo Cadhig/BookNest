@@ -42,7 +42,7 @@ export default function SearchResults() {
                     </div>
                     {error ? "No results match search" : <div className="flex flex-col w-full lg:w-full">
                         {apiData && apiData.items.map((content, index) => {
-                            return <div key={index} className="flex flex-col justify-center">
+                            return <div key={index} className="flex flex-col justify-center hoverFloat hover:underline">
                                 <div className="flex items-center gap-2 py-4 pl-2">
                                     <Link to={'/bookInfo'} state={{ isFromSearchResults: true, data: content.volumeInfo }}> <img src={content.volumeInfo.imageLinks?.thumbnail} alt={content.volumeInfo.title} className="h-28 lg:h-full" /></Link>
                                     <div>

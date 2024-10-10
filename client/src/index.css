@@ -68,3 +68,12 @@ p {
   justify-content: center;
   align-items: center;
 }
+
+.hoverFloat {
+  transition: all 150ms ease-in-out;
+  cursor: pointer;
+}
+
+.hoverFloat:hover {
+  transform: translateY(-0.25rem);
+}

@@ -44,14 +44,14 @@ export default function Review(props: Reviews) {
                                         <p className="hover:underline cursor-pointer font-bold">@{content.username}</p>
                                     </Link>
                                     <Link to={'/bookInfo'} state={{ data: content.bookIsbn }}>
-                                        <p className={props.isFromBookInfoPage ? "hidden" : "text-black/60"}>Reviewed: {content.bookName}</p>
+                                        <p className={props.isFromBookInfoPage ? "hidden" : "text-black/60 hoverFloat hover:underline"}>Reviewed: {content.bookName}</p>
                                     </Link>
                                 </div>
                             </div>
                             <div className="flex gap-2 items-center">
                                 <Link to={'/bookInfo'} state={{ data: content.bookIsbn }}>
                                     <div className={props.isFromBookInfoPage ? "hidden" : "h-40 w-32 items-center justify-center"}>
-                                        <img src={content.bookImage} alt={content.bookName} className="size-full object-contain" />
+                                        <img src={content.bookImage} alt={content.bookName} className="size-full object-contain hoverFloat" />
                                     </div>
                                 </Link>
                                 <div className="flex flex-col gap-4">

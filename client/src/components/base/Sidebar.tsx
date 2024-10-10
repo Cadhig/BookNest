@@ -30,7 +30,7 @@ export default function Sidebar() {
                     </Link>
                 </div>
                 <Link to={'/homepage'}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-3 rounded-full hover:text-black/90">
+                    <div className="flex items-center gap-2 hoverFloat p-3 rounded-full hover:text-black/90">
                         <BsFillHouseFill className="text-5xl" />
                         <p className="text-3xl">Home</p>
                     </div>
@@ -44,7 +44,7 @@ export default function Sidebar() {
                     <p className="text-xl">Messages (coming soon)</p>
                 </div> */}
                 <Link to={'/bookmarks'} state={{ from: 'user' }}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-3 rounded-full hover:text-black/90">
+                    <div className="flex items-center gap-2 hoverFloat p-3 rounded-full hover:text-black/90">
                         <IoBookmarks className="text-5xl" />
                         <p className="text-3xl">Bookmarks</p>
                     </div>
@@ -54,18 +54,18 @@ export default function Sidebar() {
                     <p className="text-xl">Clubs (coming soon)</p>
                 </div> */}
                 <button onClick={() => api()}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-3 rounded-full hover:text-black/90">
+                    <div className="flex items-center gap-2 hoverFloat p-3 rounded-full hover:text-black/90">
                         <BsPersonCircle className="text-5xl" />
                         <p className="text-3xl">Profile</p>
                     </div>
                 </button>
                 <Link to={'/settings'}>
-                    <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-3 rounded-full hover:text-black/90">
+                    <div className="flex items-center gap-2 hoverFloat p-3 rounded-full hover:text-black/90">
                         <IoSettingsSharp className="text-5xl" />
                         <p className="text-3xl">Settings</p>
                     </div>
                 </Link>
-                <div className="flex items-center gap-2 hover:bg-book-green-hover/30 p-2 rounded-full hover:text-black/90">
+                <div className="flex items-center gap-2 hoverFloat p-2 rounded-full hover:text-black/90">
                     <IoCodeWorking className="text-2xl" />
                     <a href="https://cadencehiggins.notion.site/Book-Nest-Release-Notes-104e758b497780c2b45bd03cf7ec486b" target="_blank">Release Notes</a>
                 </div>

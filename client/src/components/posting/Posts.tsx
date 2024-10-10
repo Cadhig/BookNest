@@ -67,7 +67,7 @@ export default function Posts(props: postProps) {
                         </div>
                         <div className="flex gap-1 justify-between items-center">
                             <div className='flex items-center gap-1'>
-                                <div onClick={() => likeOrUnlikePost(content._id, hasUserLiked)}>{hasUserLiked ? <IoHeart size={20} /> : <IoMdHeartEmpty size={20} />}</div>
+                                <div onClick={() => likeOrUnlikePost(content._id, hasUserLiked)}>{hasUserLiked ? <IoHeart size={20} className="hoverFloat" /> : <IoMdHeartEmpty size={20} className="hoverFloat" />}</div>
                                 <div>{content.likes.length}</div>
                             </div>
                             <p className="text-right text-xs">{moment(content.createdAt).startOf('second').fromNow()}</p>

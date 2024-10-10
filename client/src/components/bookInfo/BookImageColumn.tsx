@@ -48,13 +48,13 @@ export default function BookImageColumn(props: bookInfoChildren) {
                 </div>
                 <p className="text-black/60">{review && review.reviewAlert ? "No reviews yet!" : `${review && review.reviewLength} reviews`}</p>
             </div>
-            <div className="text-2xl gap-2 flex">
+            <div onClick={() => props.switchBookmarkStatus?.()} className="text-2xl gap-2 hoverFloat flex">
                 <p>Bookmark</p>
-                <p className="text-3xl" onClick={() => props.switchBookmarkStatus?.()}>{props.bookmark}</p>
+                <p className="text-3xl">{props.bookmark}</p>
             </div>
             <div className="flex gap-6">
-                <a href={amazonLink} target="_blank" className="text-3xl"><ImAmazon /></a>
-                <a target="_blank" className={props.showGooglePlay ? "block text-2xl" : "hidden"} href={props.bookData && props.bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
+                <a href={amazonLink} target="_blank" className="text-3xl hoverFloat"><ImAmazon /></a>
+                <a target="_blank" className={props.showGooglePlay ? "block text-2xl hoverFloat" : "hidden"} href={props.bookData && props.bookData?.items[0].saleInfo.buyLink}><FaGooglePlay /></a>
             </div>
         </div>
     )

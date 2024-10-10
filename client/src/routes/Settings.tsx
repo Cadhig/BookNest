@@ -294,7 +294,6 @@ export default function Settings() {
                                 }}>close</button>
                             </div>
                         </div>
-                        <button className="text-xl">Display</button>
                         <button className="bg-red-600 text-book-light rounded-full py-2 px-4" onClick={() => Logout()}>Logout</button>
                     </div>
                 </div>

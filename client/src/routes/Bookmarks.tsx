@@ -85,7 +85,7 @@ export default function BookList() {
                     </div>
                     <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-2 m-2" onClick={() => setShowMobileMenu(false)}>
                         {apiData && apiData[0].books.map((content: Bookmarked, index: number) => {
-                            return <div key={index} onClick={() => viewBookInfo(content.bookIsbn)} className="flex flex-col items-center gap-2 cursor-pointer">
+                            return <div key={index} onClick={() => viewBookInfo(content.bookIsbn)} className="flex flex-col items-center gap-2 hoverFloat hover:underline">
                                 <img src={content.bookImage} alt="" />
                                 <p className="text-xl text-center overflow-hidden text-ellipsis whitespace-nowrap w-full">{content.bookName}</p>
                             </div>

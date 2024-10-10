@@ -85,15 +85,15 @@ export default function Profile() {
                 <div className='flex flex-col gap-4 lg:w-1/2 max-h-svh hideScrollbar overflow-auto'>
                     <CoverAndProfilePicture followButton={followButton} setFollowButton={setFollowButton} from={from} showLocation={showLocation} showBirthday={showBirthday} userData={userData} />
                     <div className="flex my-4">
-                        <div className={feedType === 'posts' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60"} onClick={() => setFeedType('posts')}>
+                        <div className={feedType === 'posts' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60 hoverFloat hover:text-black"} onClick={() => setFeedType('posts')}>
                             <button>Posts</button>
                             <div className={feedType === 'posts' ? "bg-book-green rounded-full w-1/4 h-[2px]" : 'hidden'}></div>
                         </div>
-                        <div className={feedType === 'likes' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60"} onClick={() => setFeedType('likes')}>
+                        <div className={feedType === 'likes' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60 hoverFloat hover:text-black"} onClick={() => setFeedType('likes')}>
                             <button>Likes</button>
                             <div className={feedType === 'likes' ? "bg-book-green rounded-full w-1/4 h-[2px]" : 'hidden'}></div>
                         </div>
-                        <div className={feedType === 'reviews' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60"} onClick={() => setFeedType('reviews')}>
+                        <div className={feedType === 'reviews' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60 hoverFloat hover:text-black"} onClick={() => setFeedType('reviews')}>
                             <button>Reviews</button>
                             <div className={feedType === 'reviews' ? "bg-book-green rounded-full w-1/4 h-[2px]" : 'hidden'}></div>
                         </div>

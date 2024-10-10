@@ -64,9 +64,9 @@ export default function RightSidebar() {
                     <p className="text-black/60 text-lg">{moment().format("MMMM Do YYYY")}</p>
                 </div>
                 {bestSellerList && bestSellerList[0].books.map((content, index: number) => {
-                    return <div key={index} className="flex items-center gap-2 hover:bg-book-green-hover/30 rounded p-3 cursor-pointer" onClick={() => viewBookInfo(content.primary_isbn13)}>
+                    return <div key={index} className="flex items-center gap-2 hoverFloat rounded p-3" onClick={() => viewBookInfo(content.primary_isbn13)}>
                         <div className="text-2xl bg-book-green text-book-light size-10 centered rounded-full">{content.rank}</div>
-                        <div className="flex items-center gap-2 hover:underline cursor-pointer">
+                        <div className="flex items-center gap-2 hover:underline">
                             <img src={content.book_image} alt="" className="h-36" />
                             <p className="text-lg">{content.title}</p>
                         </div>
