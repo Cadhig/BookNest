@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { Button } from 'semantic-ui-react'
 import Shelf from "../assets/Shelf.jpg"
 
 function Login() {
@@ -7,6 +8,7 @@ function Login() {
   const [username, setUsername] = useState<string>()
   const [password, setPassword] = useState<string>()
   const [showAlert, setShowAlert] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   function displayAlert() {
     setShowAlert(true)
@@ -26,6 +28,7 @@ function Login() {
       username: username,
       password: password
     }
+    setIsLoading(true)
     await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/login`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -38,10 +41,12 @@ function Login() {
         if (res.ok) {
           console.log(res)
           console.log('Success!')
+          setIsLoading(false)
           return navigate('/homepage')
         } else {
           console.log(res)
           displayAlert()
+          setIsLoading(false)
           return console.log('Something went wrong!')
         }
       })
@@ -80,7 +85,7 @@ function Login() {
               <input onKeyDown={attemptLoginOnKeyDown} type="password" placeholder="******" onChange={handlePasswordChange} className="border-book-green border rounded-full p-2 w-full" />
             </div>
           </form>
-          <button className=" w-full py-2 rounded-full text-xl button-colors" onClick={login}>Login</button>
+          {isLoading ? <Button className=" w-full py-2 rounded-full text-xl button-colors" loading>Login</Button> : <button className=" w-full py-2 rounded-full text-xl button-colors" onClick={login}>Login</button>}
           <div className={showAlert ? 'inline text-red-500' : 'hidden'}>Incorrect login credentials</div>
           <div className="flex text-lg gap-1">
             <p>Don't have an account?</p>

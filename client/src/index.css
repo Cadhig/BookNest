@@ -51,11 +51,13 @@ p {
 .button-colors {
   background: var(--book-green);
   color: var(--book-light);
+  border-radius: 9999px !important;
 }
 
 .button-colors:hover {
   background: var(--hover-book-green);
   cursor: pointer;
+  border-radius: 9999px !important;
 }
 
 .button-colors:active {

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import Shelf from "../assets/Shelf.jpg"
 import { useState } from "react"
+import { Button } from "semantic-ui-react"
 
 export default function Signup() {
     const navigate = useNavigate()
@@ -9,6 +10,7 @@ export default function Signup() {
     const [verifyPassword, setVerifyPassword] = useState<string>()
     const [showAlert, setShowAlert] = useState<boolean>(false)
     const [alertMessage, setAlertMessage] = useState<string>()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
         setUsername(event.target.value)
@@ -30,6 +32,7 @@ export default function Signup() {
 
 
     async function signup() {
+        setIsLoading(true)
         if (password !== verifyPassword) {
             return Alerts("Passwords do not match!")
         }
@@ -49,9 +52,11 @@ export default function Signup() {
             if (response.ok) {
                 window.alert('Account creation successful')
                 console.log('Success!')
+                setIsLoading(false)
                 return navigate('/homepage')
             } else {
                 Alerts('Username taken!')
+                setIsLoading(false)
                 console.log('Something went wrong!')
             }
         } catch (err) {
@@ -96,7 +101,7 @@ export default function Signup() {
                         </div>
                     </form>
                     <p className={showAlert ? 'inline text-red-500' : 'hidden'}>{alertMessage}</p>
-                    <button className="w-full py-2 rounded-full text-xl button-colors" onClick={signup}>Signup</button>
+                    {isLoading ? <Button className=" w-full py-2 rounded-full text-xl button-colors" loading>Signup</Button> : <button className="w-full py-2 rounded-full text-xl button-colors" onClick={signup}>Signup</button>}
                     <div className="flex text-lg gap-1">
                         <p>Already have an acccount?</p>
                         <Link to={'/'}><p className="text-blue-500 hover:underline">Login </p></Link>
