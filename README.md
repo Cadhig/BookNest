@@ -25,6 +25,9 @@ BookNest is a platform where book lovers can connect! Users will be able to sear
 
 ## ⚙️ Installation & Setup
 
+To view this application on the web, click <a href="https://booknest-frontend-production.up.railway.app/">here</a>
+
+
 To run this project locally, follow these steps:
 
 1. Clone this repository:
