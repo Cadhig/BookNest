@@ -62,6 +62,14 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.post('/comment', async (req, res) => {
+    const { postId } = req.body
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    // write endpoint
+})
+
 router.post('/likePost', async (req, res) => {
     const { postId } = req.body
     if (!req.sessionID) {
@@ -97,6 +105,23 @@ router.put('/unlikePost', async (req, res) => {
     } catch (err) {
         console.error(err);
         return res.status(400).json({ message: 'Could not unlike post!' });
+    }
+})
+
+router.delete('/delete', async (req, res) => {
+    const { postId } = req.body
+    if (!req.sessionID) {
+        return res.status(401).json({ error: "Unauthorized" })
+    }
+    try {
+        await Posts.findOneAndDelete({ _id: postId })
+
+        await User.findOneAndUpdate({ username: req.session.user.username }, {
+            $pull: { posts: postId }
+        })
+    } catch (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Could not delete post!' });
     }
 })
 

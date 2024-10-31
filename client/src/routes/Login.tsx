@@ -28,7 +28,9 @@ function Login() {
       username: username,
       password: password
     }
+
     setIsLoading(true)
+
     await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/login`, {
       method: "POST",
       body: JSON.stringify(data),
