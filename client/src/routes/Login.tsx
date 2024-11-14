@@ -73,8 +73,9 @@ function Login() {
 
 
   return (
-    <div className="h-svh flex">
-      <div className="centered h-full w-full flex-col default-font flex-shrink-0 lg:w-1/2">
+    <div className="h-svh flex flex-col lg:flex-row">
+      <img src={Shelf} alt="bookshelf" className="absolute lg:relative z-10 w-full lg:w-1/2 h-1/2 lg:h-full object-cover " />
+      <div className="z-20 h-1/2 bg-white rounded-3xl mt-96 lg:mt-0 w-full flex flex-col items-center justify-center flex-shrink-0 lg:w-1/2 lg:h-full default-font">
         <div className="centered w-3/4 lg:w-1/2 flex-col gap-4 ">
           <h1 className="text-3xl">Welcome Back to Book Nest!</h1>
           <form className="w-full text-lg flex flex-col gap-4">
@@ -95,7 +96,6 @@ function Login() {
           </div>
         </div>
       </div>
-      <img src={Shelf} alt="bookshelf" className="w-1/2 object-cover hidden lg:block" />
     </div>
   )
 
