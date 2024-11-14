@@ -4,6 +4,7 @@ const Posts = require('../models/Posts.js')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 
+
 router.get('/test', (req, res) => {
     console.log('user test worked')
     return res.status(200).send('user test success')
@@ -94,8 +95,16 @@ router.post('/bookmarks', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-    const { username, password } = req.body
+    const { username, password, password2 } = req.body
     try {
+        const filter = await import('curse-filter');
+        const bannedWord = filter.detect(username)
+        if (bannedWord) {
+            return res.status(400).json({ error: 'Banned word detected' })
+        }
+        if (password !== password2) {
+            return res.status(400).json({ error: 'Passwords do not match' })
+        }
         const hash = await bcrypt.hash(password, 13)
         const newUser = await User.create({
             username: username,

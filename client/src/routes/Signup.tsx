@@ -33,12 +33,10 @@ export default function Signup() {
 
     async function signup() {
         setIsLoading(true)
-        if (password !== verifyPassword) {
-            return Alerts("Passwords do not match!")
-        }
         const data = {
             username: username,
-            password: password
+            password: password,
+            password2: verifyPassword
         }
         try {
             const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/signup`, {
@@ -55,9 +53,11 @@ export default function Signup() {
                 setIsLoading(false)
                 return navigate('/homepage')
             } else {
-                Alerts('Username taken!')
+                const errorText = await response.json()
+                console.log(errorText)
+                Alerts(errorText.error)
                 setIsLoading(false)
-                console.log('Something went wrong!')
+                console.log(errorText)
             }
         } catch (err) {
             return console.error(err)
