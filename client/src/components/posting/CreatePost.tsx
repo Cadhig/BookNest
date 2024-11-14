@@ -35,6 +35,7 @@ export default function CreatePost(props: postType) {
                 credentials: "include"
             })
                 .then((response) => {
+                    setPostText('')
                     props.setRefreshFeed(!props.refreshFeed)
                     console.log(response)
                     if (!response.ok) {
@@ -52,7 +53,7 @@ export default function CreatePost(props: postType) {
         <div className="p-2 flex flex-col gap-2 mt-4 lg:mt-0">
             <div className='gap-2 centered'>
                 <img src={props.userData[0].profilePicture && props.userData[0].profilePicture} alt="" className='size-14 rounded-full object-cover' />
-                <input onKeyDown={handleKeyDown} type="text" placeholder='What are you reading...' className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => {
+                <input onKeyDown={handleKeyDown} value={postText} type="text" placeholder='What are you reading...' className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => {
                     setPostText(e.target.value)
                     setShowError(false)
                 }} />
