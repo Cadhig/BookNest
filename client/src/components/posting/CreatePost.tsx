@@ -1,5 +1,6 @@
 import { BiImage } from 'react-icons/bi'
 import { useState } from 'react'
+import { Button } from "semantic-ui-react"
 
 interface postType {
     userData: any
@@ -9,6 +10,7 @@ interface postType {
 export default function CreatePost(props: postType) {
     const [postText, setPostText] = useState<string>()
     const [showError, setShowError] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     function handleKeyDown(event: any) {
         if (event.key === 'Enter') {
@@ -16,28 +18,33 @@ export default function CreatePost(props: postType) {
         }
     };
 
+
     async function sendPost() {
-        const data = {
-            postText: postText
-        }
-        await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include"
-        })
-            .then((response) => {
-                props.setRefreshFeed(!props.refreshFeed)
-                console.log(response)
-                if (!response.ok) {
-                    setShowError(true)
-                }
+        setIsLoading(true)
+        setTimeout(async () => {
+            setIsLoading(false)
+            const data = {
+                postText: postText
+            }
+            await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include"
             })
-            .catch((err) => {
-                console.error(err)
-            })
+                .then((response) => {
+                    props.setRefreshFeed(!props.refreshFeed)
+                    console.log(response)
+                    if (!response.ok) {
+                        setShowError(true)
+                    }
+                })
+                .catch((err) => {
+                    console.error(err)
+                })
+        }, 2000)
     }
 
 
@@ -53,7 +60,8 @@ export default function CreatePost(props: postType) {
             <p className={showError ? 'text-right text-red-600' : 'hidden'}>Error: Maximum characters (300) exceeded</p>
             <div className='flex justify-between items-center'>
                 <BiImage className='text-3xl ml-4' />
-                <button className='button-colors px-4 py-2 rounded-full' onClick={sendPost}>Post</button>
+                {isLoading ? <Button className="button-colors rounded-full" loading>Signup</Button> : <button className=' button-colors px-9 py-3 rounded-full' onClick={sendPost}>Post</button>}
+
             </div>
         </div>
     )
