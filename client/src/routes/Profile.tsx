@@ -14,7 +14,6 @@ export default function Profile() {
     const location = useLocation()
     const { from } = location.state
     const [userData, setUserData] = useState<any>()
-    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [showLocation, setShowLocation] = useState<boolean>(true)
     const [showBirthday, setShowBirthday] = useState<boolean>(true)
     const [showPostAlert, setshowPostAlert] = useState<boolean>(false)
@@ -78,9 +77,8 @@ export default function Profile() {
 
     return (
         <div className="h-svh w-full">
-            <MobileMenu mobileMenu={showMobileMenu ? "absolute z-30 mobileMenuStyles w3-animate-left" : "hidden"} />
-            <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div className='flex w-full lg:flex-row flex-col-reverse lg:gap-0 default-font h-full lg:h-screen gap-4 overflow-hidden' onClick={() => setShowMobileMenu(false)}>
+            <MobileMenu />
+            <div className='flex w-full lg:flex-row flex-col-reverse lg:gap-0 default-font h-full lg:h-screen gap-4 overflow-hidden'>
                 <Sidebar />
                 <div className='flex flex-col gap-4 lg:w-1/2 max-h-svh hideScrollbar overflow-auto'>
                     <CoverAndProfilePicture followButton={followButton} setFollowButton={setFollowButton} from={from} showLocation={showLocation} showBirthday={showBirthday} userData={userData} />
@@ -103,6 +101,7 @@ export default function Profile() {
                     </div>
                 </div>
                 <RightSidebar />
+                <MobileHeader />
             </div>
         </div>
     );

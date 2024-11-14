@@ -11,7 +11,6 @@ export default function SearchResults() {
     const location = useLocation()
     const { search } = location.state
     const [apiData, setApiData] = useState<GoogleBooks>()
-    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
 
     const book = search.book.replace(/ /g, '').toLowerCase()
@@ -32,11 +31,10 @@ export default function SearchResults() {
 
     return (
         <div className="h-svh">
-            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
-            <MobileHeader setMobileMenu={setShowMobileMenu} />
+            <MobileMenu />
             <div className="flex flex-col-reverse lg:flex-row h-full lg:h-screen gap-4 overflow-hidden">
                 <Sidebar />
-                <div className="default-font overflow-auto h-full w-full lg:w-1/2 flex flex-col items-center mt-4 hideScrollbar" onClick={() => setShowMobileMenu(false)}>
+                <div className="default-font overflow-auto h-full w-full lg:w-1/2 flex flex-col items-center mt-4 hideScrollbar">
                     <div className="text-center text-3xl">
                         <p>Results for '{search.book}'</p>
                     </div>
@@ -56,6 +54,7 @@ export default function SearchResults() {
                     </div>}
                 </div>
                 <RightSidebar />
+                <MobileHeader />
             </div>
         </div>
     )

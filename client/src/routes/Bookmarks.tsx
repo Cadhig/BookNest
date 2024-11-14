@@ -11,7 +11,6 @@ export default function BookList() {
     const location = useLocation()
     const { from } = location.state
     const [apiData, setApiData] = useState<User[] | undefined>()
-    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [noBookmarks, setNoBookmarks] = useState<boolean>(false)
     const [user, setUser] = useState<string>()
 
@@ -74,8 +73,7 @@ export default function BookList() {
 
     return (
         <div className="h-svh default-font">
-            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
-            <MobileHeader setMobileMenu={setShowMobileMenu} />
+            <MobileMenu />
             <div className="flex flex-col-reverse lg:flex-row lg:h-full gap-4 overflow-hidden">
                 <Sidebar />
                 <div className="w-full lg:w-1/2 mt-4">
@@ -83,7 +81,7 @@ export default function BookList() {
                     <div className={noBookmarks ? 'inline w-full text-center' : 'hidden'}>
                         <p className="text-black/50 text-center text-xl mt-4 lg:mt-4">No saved books yet!</p>
                     </div>
-                    <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-2 m-2" onClick={() => setShowMobileMenu(false)}>
+                    <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-4 xl:grid-cols-5 gap-2 m-2">
                         {apiData && apiData[0].books.map((content: Bookmarked, index: number) => {
                             return <div key={index} onClick={() => viewBookInfo(content.bookIsbn)} className="flex flex-col items-center gap-2 hoverFloat hover:underline">
                                 <img src={content.bookImage} alt="" />
@@ -93,6 +91,7 @@ export default function BookList() {
                     </div>
                 </div>
                 <RightSidebar />
+                <MobileHeader />
             </div>
         </div>
     )

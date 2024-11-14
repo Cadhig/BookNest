@@ -14,7 +14,6 @@ import BookInformation from "../components/bookInfo/BookInformation"
 export default function BookInfo() {
     const location = useLocation()
     const { data, isFromSearchResults } = location.state
-    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [bookData, setBookData] = useState<GoogleBooks | undefined>()
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
@@ -117,9 +116,8 @@ export default function BookInfo() {
 
     return (
         <div className="h-svh">
-            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
-            <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div className="flex flex-col-reverse lg:flex-row justify-center gap-4 h-full lg:h-screen overflow-hidden" onClick={() => setShowMobileMenu(false)}>
+            <MobileMenu />
+            <div className="flex flex-col-reverse lg:flex-row justify-center gap-4 h-full lg:h-screen overflow-hidden">
                 <Sidebar />
                 <div className="default-font lg:w-1/2 m-2 flex flex-col items-center max-h-svh hideScrollbar overflow-auto">
                     <div className="flex flex-col gap-4 w-full items-center mt-4 ">
@@ -134,6 +132,7 @@ export default function BookInfo() {
                     </div>
                 </div>
                 <RightSidebar />
+                <MobileHeader />
             </div >
         </div>
     )

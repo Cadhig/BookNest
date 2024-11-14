@@ -10,7 +10,6 @@ import { PostsType } from "../types"
 
 
 export default function Homepage() {
-    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [refreshFeed, setRefreshFeed] = useState<boolean>(false)
     const [feedType, setFeedType] = useState<'global' | 'following'>('global')
     const [postData, setPostData] = useState<PostsType | any>()
@@ -75,9 +74,9 @@ export default function Homepage() {
 
     return (
         <div className="max-h-svh default-font">
-            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
-            <MobileHeader setMobileMenu={setShowMobileMenu} />
-            <div onClick={() => setShowMobileMenu(false)} className="flex flex-col lg:flex-row-reverse justify-center h-full lg:h-screen gap-4 overflow-hidden">
+            <MobileMenu />
+            <div className="flex flex-col lg:flex-row-reverse justify-center h-screen gap-4 overflow-hidden">
+                <MobileHeader />
                 <RightSidebar />
                 <div className="max-h-svh lg:w-1/2 overflow-auto hideScrollbar">
                     <div className="flex flex-col w-full ">

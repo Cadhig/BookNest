@@ -7,7 +7,6 @@ import RightSidebar from "../components/base/RightSidebar";
 
 export default function Settings() {
     const navigate = useNavigate()
-    const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false)
     const [showPassword, setShowPassword] = useState<string>('hidden')
     const [oldPassword, setOldPassword] = useState<string>()
     const [newPassword, setNewPassword] = useState<string>()
@@ -207,11 +206,10 @@ export default function Settings() {
 
     return (
         <div className="h-svh">
-            <MobileMenu mobileMenu={showMobileMenu ? "mobileMenuStyles w3-animate-left" : "hidden"} />
-            <MobileHeader setMobileMenu={setShowMobileMenu} />
+            <MobileMenu />
             <div className="flex flex-col-reverse lg:flex-row lg:h-full gap-4 overflow-hidden">
                 <Sidebar />
-                <div className="lg:w-1/2 flex flex-col gap-4 mt-4" onClick={() => setShowMobileMenu(false)}>
+                <div className="lg:w-1/2 flex flex-col gap-4 mt-4">
                     <p className="text-center text-2xl">Account Settings</p>
                     {/* profile picture */}
                     <div className="flex flex-col gap-4 items-center text-xl">
@@ -298,6 +296,7 @@ export default function Settings() {
                     </div>
                 </div>
                 <RightSidebar />
+                <MobileHeader />
             </div>
         </div>
     )
