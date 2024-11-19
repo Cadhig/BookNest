@@ -25,7 +25,7 @@ BookNest is a platform where book lovers can connect! Users will be able to sear
 
 ## ⚙️ Installation & Setup
 
-To view this application on the web, click <a href="https://booknest-frontend-production.up.railway.app/">here</a>
+To view this application on the web, click <a target="_blank" href="https://booknest-frontend-production.up.railway.app/">here</a>
 
 
 To run this project locally, follow these steps:
@@ -48,17 +48,17 @@ To run this project locally, follow these steps:
    cd server; npm install
    ```
 
-4. Set up your <a href="https://developers.google.com/books">Google for Developers</a> account to obtain an API key for Google Books. Then, create a `.env` file within the `client` directory:
+4. Set up your <a target="_blank" href="https://developers.google.com/books">Google for Developers</a> account to obtain an API key for Google Books. Then, create a `.env` file within the `client` directory:
 
    ```
    VITE_GOOGLE_API_KEY="YourAPIKey"
     VITE_API_ROUTE="http://localhost:3000"
    ```
-5. Create an <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html">AWS S3 bucket</a>, with an <a href="https://aws.amazon.com/iam/">IAM</a> user / policy, grab your `access key`, `secret acccess key` as well as the name of your s3 bucket and region.
+5. Create an <a target="_blank" href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html">AWS S3 bucket</a>, with an <a target="_blank" href="https://aws.amazon.com/iam/">IAM</a> user / policy, grab your `access key`, `secret acccess key` as well as the name of your s3 bucket and region.
 
    Need help? 
-   - <a href="https://youtu.be/yGYeYJpRWPM?si=DjMfOZrNZ5Uysyfl&t=286">Creating an s3 bucket</a>
-   - <a href="https://youtu.be/yGYeYJpRWPM?si=wPWqvA8IISg5dH82&t=520">Creating IAM user / policy</a>
+   - <a target="_blank" href="https://youtu.be/yGYeYJpRWPM?si=DjMfOZrNZ5Uysyfl&t=286">Creating an s3 bucket</a>
+   - <a target="_blank" href="https://youtu.be/yGYeYJpRWPM?si=wPWqvA8IISg5dH82&t=520">Creating IAM user / policy</a>
 
 6. Create another `.env` file within the `server` directory:
    ```
