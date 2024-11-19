@@ -10,6 +10,7 @@ interface postType {
 export default function CreatePost(props: postType) {
     const [postText, setPostText] = useState<string>()
     const [showError, setShowError] = useState<boolean>(false)
+    const [errorMessage, setErrorMessage] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [characterCounter, setCharacterCounter] = useState<number>(0)
     const [characterColor, setCharacterColor] = useState<string>('text-book-green')
@@ -28,27 +29,29 @@ export default function CreatePost(props: postType) {
             const data = {
                 postText: postText
             }
-            await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include"
-            })
-                .then((response) => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/posts`, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include"
+                })
+                if (response.ok) {
                     props.setRefreshFeed(!props.refreshFeed)
-                    console.log(response)
-                    if (response.ok) {
-                        setPostText('')
-                    }
-                    if (!response.ok) {
-                        setShowError(true)
-                    }
-                })
-                .catch((err) => {
-                    console.error(err)
-                })
+                    setPostText('')
+                } else {
+                    const errorText = await response.json()
+                    console.log(errorText)
+                    setErrorMessage(errorText.message)
+                    console.log()
+                    setShowError(true)
+                    setIsLoading(false)
+                }
+            } catch (err) {
+                return console.error(err)
+            }
         }, 2000)
     }
 
@@ -74,7 +77,7 @@ export default function CreatePost(props: postType) {
                 <img src={props.userData[0].profilePicture && props.userData[0].profilePicture} alt="" className='size-14 rounded-full object-cover' />
                 <input onKeyDown={handleKeyDown} value={postText} type="text" placeholder='What are you reading...' className='border border-book-green w-full rounded-full h-10 p-2' onChange={(e) => onInputChange(e)} />
             </div>
-            <p className={showError ? 'text-right text-red-600' : 'hidden'}>Error: Maximum characters (300) exceeded</p>
+            <p className={showError ? 'text-right text-red-600' : 'hidden'}>{errorMessage}</p>
             <div className='flex justify-between items-center'>
                 <BiImage className='text-3xl ml-4' />
                 <div className='flex centered gap-4'>

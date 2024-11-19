@@ -41,6 +41,13 @@ router.post('/', async (req, res) => {
     if (!req.sessionID) {
         return res.status(401).json({ error: "Unauthorized" })
     }
+    if (postText === undefined) {
+        return res.status(400).json({ message: 'Error: No text entry.' });
+    }
+    console.log(postText.length)
+    if (postText.length >= 301) {
+        return res.status(400).json({ message: 'Error: Maximum characters (300) exceeded.' });
+    }
     try {
         const profilePicture = await User.find({ username: req.session.user.username }).populate({ path: 'profilePicture', strictPopulate: false }).exec()
         const newPost = await Posts.create({
@@ -58,7 +65,7 @@ router.post('/', async (req, res) => {
         return res.status(200).json(newPost);
     } catch (err) {
         console.error(err);
-        return res.status(400).json({ message: 'Could not create post!' });
+        return res.status(500).json({ message: 'Internal server error' });
     }
 })
 
