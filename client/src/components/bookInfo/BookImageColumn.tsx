@@ -37,10 +37,12 @@ export default function BookImageColumn(props: bookInfoChildren) {
     }
     const amazonLink = `https://www.amazon.com/s?k=${props.bookData && props.bookData.items[0].volumeInfo.industryIdentifiers[0].identifier}&i=stripbooks&linkCode=qs`
     console.log(props.review?.reviewAverage)
+
     return (
-        <div className="flex w-full lg:w-1/2 flex-col items-center gap-4">
-            <img src={props.bookData && props.bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={props.bookData && props.bookData.items[0].volumeInfo.title} className="size-1/2 md:size-1/4 lg:h-96 lg:w-60 object-contain" />
+        <div className=" flex w-full lg:w-1/2 flex-col items-center gap-4">
+            <img src={props.bookData && props.bookData.items[0].volumeInfo.imageLinks?.thumbnail} alt={props.bookData && props.bookData.items[0].volumeInfo.title} className="lg:h-96 lg:w-60 object-contain" />
             <p className="lg:hidden  text-center text-4xl font-bold ">{props.bookData && props.bookData.items[0].volumeInfo.title}</p>
+            <p className="lg:hidden  text-xl text-black/60">{props.bookData && props.bookData.items[0].volumeInfo.authors}</p>
             <div className="flex items-center flex-col">
                 <div className="text-2xl gap-2 flex items-center">
                     <Rating size="massive" icon={'star'} defaultRating={review && review.reviewAverage} maxRating={5} disabled key={review && review.reviewAverage} />

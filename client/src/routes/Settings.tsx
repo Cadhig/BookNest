@@ -234,7 +234,7 @@ export default function Settings() {
                                 <button className="button-colors p-2 rounded-full" onClick={() => changePicture('coverPicture', 'cover')}>Submit</button>
                                 <button className="text-sm text-red-500" onClick={() => {
                                     setAlertClass('hidden')
-                                    setShowProfilePicture('hidden')
+                                    setShowCoverPicture('hidden')
                                 }}>close</button>
                             </div>
                         </div>
