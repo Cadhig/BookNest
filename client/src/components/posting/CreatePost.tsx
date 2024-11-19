@@ -41,6 +41,8 @@ export default function CreatePost(props: postType) {
                 if (response.ok) {
                     props.setRefreshFeed(!props.refreshFeed)
                     setPostText('')
+                    setCharacterCounter(0)
+                    setCharacterColor("text-book-green")
                 } else {
                     const errorText = await response.json()
                     console.log(errorText)
