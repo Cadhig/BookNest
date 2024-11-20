@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     element: <Homepage />,
   },
   {
-    path: "/bookInfo",
+    path: "/book/:isbn",
     element: <BookInfo />,
   },
   {
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     element: <Settings />
   },
   {
-    path: "/profile",
+    path: "/user/:username",
     element: <Profile />
   },
   {

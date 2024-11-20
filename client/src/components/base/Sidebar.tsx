@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Sidebar() {
     const navigate = useNavigate()
 
-    async function api() {
+    async function sendToProfile() {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
                 method: 'GET',
@@ -15,7 +15,7 @@ export default function Sidebar() {
                 credentials: "include"
             })
             const parsedResponse = await response.json()
-            navigate('/profile', { state: { from: parsedResponse[0].username } })
+            navigate(`/user/${parsedResponse[0].username}`, { state: { from: parsedResponse[0].username } })
         } catch (err) {
             console.error(err)
         }
@@ -53,7 +53,7 @@ export default function Sidebar() {
                     <GiBookCover className="text-4xl" />
                     <p className="text-xl">Clubs (coming soon)</p>
                 </div> */}
-                <button onClick={() => api()}>
+                <button onClick={() => sendToProfile()}>
                     <div className="flex items-center gap-2 hoverFloat p-3 rounded-full hover:text-black/90">
                         <BsPersonCircle className="text-5xl" />
                         <p className="text-3xl">Profile</p>

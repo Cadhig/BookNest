@@ -26,7 +26,7 @@ export default function MobileMenu() {
             <Link to={'/bookmarks'} state={{ from: 'user' }}>
                 <IoBookmarks className="text-4xl" />
             </Link>
-            <Link to={'/profile'} state={{ from: username }}>
+            <Link to={`/user/${username}`} state={{ from: username }}>
                 <BsPersonCircle className="text-4xl" />
             </Link>
             <Link to={'/settings'}>

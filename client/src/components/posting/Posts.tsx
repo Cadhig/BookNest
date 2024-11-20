@@ -54,11 +54,11 @@ export default function Posts(props: postProps) {
                     <div className="flex flex-col gap-2">
                         <div className="flex flex-col gap-2 ">
                             <div className="flex gap-2 items-center">
-                                <Link to={'/profile'} state={{ from: content.username }}>
+                                <Link to={`/user/${content.username}`} state={{ from: content.username }}>
                                     <img src={content.profilePicture} alt="" className="size-12 object-cover rounded-full" />
                                 </Link>
                                 <div className="flex flex-col">
-                                    <Link to={'/profile'} state={{ from: content.username }}>
+                                    <Link to={`/user/${content.username}`} state={{ from: content.username }}>
                                         <p className="hover:underline cursor-pointer font-bold text-xl">@{content.username}</p>
                                     </Link>
                                 </div>

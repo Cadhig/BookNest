@@ -64,6 +64,8 @@ async function retrieveBestSellerList() {
         console.error('Error retrieving or saving data:', error);
     }
 }
+// if getting an error for retrieving 'books' uncomment the line below, refresh the page, then re-comment out the line below
+// retrieveBestSellerList()
 
 cron.schedule('0 0 * * 0', retrieveBestSellerList);
 
