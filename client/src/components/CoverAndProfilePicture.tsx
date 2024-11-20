@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 interface ProfileUser {
-    from: string
     userData: any,
+    username: string | undefined,
     showLocation: boolean,
     showBirthday: boolean,
     followButton: boolean,
@@ -24,7 +24,7 @@ export default function CoverAndProfilePicture(props: ProfileUser) {
             setFollowButton('Follow')
         }
 
-    }, [props.from, followButton, followOrUnfollowUser])
+    }, [props.username, followButton, followOrUnfollowUser])
 
     async function followUser() {
         const data = {

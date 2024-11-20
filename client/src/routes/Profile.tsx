@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { Post } from "../types"
 import { User } from "../types"
 import Posts from "../components/posting/Posts"
@@ -11,8 +11,7 @@ import CoverAndProfilePicture from "../components/CoverAndProfilePicture"
 import Reviews from "../components/Reviews"
 
 export default function Profile() {
-    const location = useLocation()
-    const { from } = location.state
+    const {username} = useParams()
     const [userData, setUserData] = useState<any>()
     const [showLocation, setShowLocation] = useState<boolean>(true)
     const [showBirthday, setShowBirthday] = useState<boolean>(true)
@@ -25,12 +24,12 @@ export default function Profile() {
 
     useEffect(() => {
         fetchData()
-    }, [from, refreshFeed, feedType, followButton])
+    }, [username, refreshFeed, feedType, followButton])
 
 
     async function fetchData() {
         const data = {
-            username: from
+            username: username
         }
         await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/profile`, {
             method: "POST",
@@ -81,7 +80,7 @@ export default function Profile() {
             <div className='flex w-full lg:flex-row flex-col-reverse lg:gap-0 default-font h-full lg:h-screen gap-4 overflow-hidden'>
                 <Sidebar />
                 <div className='flex flex-col gap-4 lg:w-1/2 max-h-svh hideScrollbar overflow-auto'>
-                    <CoverAndProfilePicture followButton={followButton} setFollowButton={setFollowButton} from={from} showLocation={showLocation} showBirthday={showBirthday} userData={userData} />
+                    <CoverAndProfilePicture followButton={followButton} username={username} setFollowButton={setFollowButton} showLocation={showLocation} showBirthday={showBirthday} userData={userData} />
                     <div className="flex my-4">
                         <div className={feedType === 'posts' ? "w-1/2 flex flex-col items-center text-xl font-bold" : "w-1/2 flex flex-col items-center text-xl text-black/60 hoverFloat hover:text-black"} onClick={() => setFeedType('posts')}>
                             <button>Posts</button>

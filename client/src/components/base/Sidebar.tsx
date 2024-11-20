@@ -1,10 +1,9 @@
 import { BsPersonCircle, BsFillHouseFill } from "react-icons/bs";
 import { IoBookmarks, IoSettingsSharp, IoCodeWorking } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 
 export default function Sidebar() {
     const navigate = useNavigate()
-
     async function sendToProfile() {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/user/loggedInUser`, {
@@ -15,7 +14,7 @@ export default function Sidebar() {
                 credentials: "include"
             })
             const parsedResponse = await response.json()
-            navigate(`/user/${parsedResponse[0].username}`, { state: { from: parsedResponse[0].username } })
+            navigate(`/user/${parsedResponse[0].username}`)
         } catch (err) {
             console.error(err)
         }
