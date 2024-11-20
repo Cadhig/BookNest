@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import {  useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { GoogleBooks } from "../types"
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
@@ -12,8 +12,7 @@ import BookImageColumn from "../components/bookInfo/BookImageColumn"
 import BookInformation from "../components/bookInfo/BookInformation"
 
 export default function BookInfo() {
-    const location = useLocation()
-    const { data, isFromSearchResults } = location.state
+    const {isbn} = useParams()
     const [bookData, setBookData] = useState<GoogleBooks | undefined>()
     const [bookmarkStatus, setBookmarkStatus] = useState<boolean>(true)
     const [bookmark, setBookmark] = useState(<IoBookmarkOutline />)
@@ -21,12 +20,11 @@ export default function BookInfo() {
     const [refreshFeed, setRefreshFeed] = useState<boolean>(false)
 
     useEffect(() => {
-        console.log(data)
         fetchBook()
-    }, [data])
+    }, [isbn])
 
     async function fetchBook() {
-        await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isFromSearchResults ? data.industryIdentifiers[0].identifier : data}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
+        await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`)
             .then(res => res.json())
             .then(bookResponse => {
                 setBookData(bookResponse)
@@ -127,7 +125,7 @@ export default function BookInfo() {
                         </div>
                         <CreateReview bookData={bookData} setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed} />
                         <div className="w-full">
-                            <Reviews bookIsbn={isFromSearchResults ? data.industryIdentifiers[0].identifier : data} refreshFeed={refreshFeed} isFromBookInfoPage={true} />
+                            <Reviews bookIsbn={isbn} refreshFeed={refreshFeed} isFromBookInfoPage={true} />
                         </div>
                     </div>
                 </div>

@@ -4,17 +4,16 @@ import { FaGooglePlay } from "react-icons/fa"
 import { Rating } from "semantic-ui-react"
 import { ReviewProps } from "../../types"
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 export default function BookImageColumn(props: bookInfoChildren) {
-    const location = useLocation()
-    const { data, isFromSearchResults } = location.state
+    const {isbn} = useParams()
     const [review, setReview] = useState<ReviewProps | undefined>()
     useEffect(() => {
         getReviewAverage()
     }, [])
     async function getReviewAverage() {
-        const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/books/reviews/${isFromSearchResults ? data.industryIdentifiers[0].identifier : data}`)
+        const response = await fetch(`${import.meta.env.VITE_API_ROUTE}/api/books/reviews/${isbn}`)
         const reviews = await response.json()
         if (reviews.length < 1) {
             setReview({
